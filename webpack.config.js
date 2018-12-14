@@ -48,7 +48,7 @@ module.exports = (options = {}) => {
             libraryTarget: 'umd'
         };
 		entryJSList = {
-			FundCharts : './src/FundCharts.js'
+			FundCharts : './FundCharts/FundCharts.js'
 		};
 	}
 
@@ -67,7 +67,7 @@ module.exports = (options = {}) => {
         resolve: {
             extensions: ['.js', '.css', 'less'],
             alias: {
-                '@': path.resolve(__dirname, 'src'),
+                '@': path.resolve(__dirname, 'FundCharts'),
                 'lib': path.resolve(__dirname, 'test/js/lib'),
                 'css': path.resolve(__dirname, 'test/css')
             }
@@ -91,7 +91,7 @@ module.exports = (options = {}) => {
                     use: {
                         loader: 'html-loader',
                         options: {
-                            root: path.resolve(__dirname, 'src'),
+                            root: path.resolve(__dirname, 'FundCharts'),
                             attrs: ['img:src']
                         }
                     }
@@ -136,7 +136,7 @@ module.exports = (options = {}) => {
         devServer: {
             port: 3000,
             hot: true,
-            contentBase: path.join(__dirname, 'src'),
+            contentBase: path.join(__dirname, 'FundCharts'),
             overlay: true,
             historyApiFallback: {
                 index: '/assets/',
