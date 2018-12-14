@@ -25,8 +25,8 @@
 
 ## 1.LineChart 折线图
 
-[line demo picture 1](http://blog.michealwayne.cn/images/github/FundCharts/line1.jpg)
-[line demo picture 2](http://blog.michealwayne.cn/images/github/FundCharts/line2.jpg)
+![line demo picture 1](http://blog.michealwayne.cn/images/github/FundCharts/line1.jpg)
+![line demo picture 2](http://blog.michealwayne.cn/images/github/FundCharts/line2.jpg)
 
 
 ### 1.1 准备工作
@@ -101,8 +101,8 @@ update()方法
 ```
 
 ## 2.PieChart 饼图
-[pie demo picture 1](http://blog.michealwayne.cn/images/github/FundCharts/pie1.jpg)
-[pie demo picture 1](http://blog.michealwayne.cn/images/github/FundCharts/pie2.jpg)
+![pie demo picture 1](http://blog.michealwayne.cn/images/github/FundCharts/pie1.jpg)
+![pie demo picture 1](http://blog.michealwayne.cn/images/github/FundCharts/pie2.jpg)
 
 ### 2.1 准备工作
 - 容器，需含id属性及配置宽高，如
