@@ -1,6 +1,6 @@
 import Config from '../config'
 import { Animation } from '../utils/animate'
-const pieColors = Config.pieColors;
+const pieColors = Config.pie.colors;
 
 // special的饼图
 export default class Pie {
@@ -25,6 +25,7 @@ export default class Pie {
     }
 
     drawPie(data_arr, color_arr, process = 1) {
+        color_arr = color_arr.concat(pieColors);
         this.clearCtn();
         
         let ctx = this.chartjs.ctx;

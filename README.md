@@ -25,7 +25,9 @@
 
 ## 1.LineChart 折线图
 
-[line demo picture](http://blog.michealwayne.cn/images/github/FundCharts/line1.jpg)
+[line demo picture 1](http://blog.michealwayne.cn/images/github/FundCharts/line1.jpg)
+[line demo picture 2](http://blog.michealwayne.cn/images/github/FundCharts/line2.jpg)
+
 
 ### 1.1 准备工作
 - 容器，需含id属性及配置宽高，如
@@ -99,3 +101,32 @@ update()方法
 ```
 
 ## 2.PieChart 饼图
+[pie demo picture 1](http://blog.michealwayne.cn/images/github/FundCharts/pie1.jpg)
+[pie demo picture 1](http://blog.michealwayne.cn/images/github/FundCharts/pie2.jpg)
+
+### 2.1 准备工作
+- 容器，需含id属性及配置宽高，如
+``` html
+    <div id="chart" style="height: 2rem;"></div>
+```
+- 比例数组
+
+### 1.2 初始化
+
+字段 | 默认值 | 说明
+---- | ----- | ----
+id | -- | 容器id
+datas | -- | 比例数组，请确认数组和为1
+colors | ['#fe5d4e', '#43c2f7', '#707ad9', '#3ba8ff', '#ffa92f'] | （可选）折线颜色(六位十六进制，不可简写)（可选）交互返回函数（第一个参数为索引，Number；第二个参数为对应数值集合，Array；第三个参数为x轴标签值）
+
+单条，如
+``` js
+    const chart = new PieChart({
+        id: 'chart',
+        datas: [0.1, 0.2, 0.3, 0.4],
+        colors: ['#0000ff'],
+    });
+
+    chart.init();
+```
+

@@ -4,10 +4,22 @@
 module.exports = {
     background: '#fff',
 
+    // line chart
     line: {
         colors: [
             '#fe5d4e',  // 红
             '#43c2f7'   // 蓝
+        ]
+    },
+
+    // pie chart
+    pie: {
+        colors: [
+            '#fe5d4e',  // 红
+            '#43c2f7',   // 蓝
+            '#707ad9', 
+            '#3ba8ff', 
+            '#ffa92f'
         ]
     },
 
