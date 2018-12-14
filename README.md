@@ -2,7 +2,22 @@
 
 移动端轻量级数据可视化组件库。
 
+## 使用
+
+### 全量引用
+``` js
+	<script src="./FundCharts.min.js"></script>
+```
+
+### 按需引用
+``` js
+	import 'LineChart' from 'FundCharts/LineChart'
+```
+
 ## 1.LineChart 折线图
+
+[line demo picture](http://blog.michealwayne.cn/images/github/FundCharts/line1.jpg)
+
 ### 1.1 准备工作
 - 容器，需含id属性及配置宽高，如
 ``` html
