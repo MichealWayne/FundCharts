@@ -1,5 +1,5 @@
 /*
- * FundChart 个基折线图
+ * LineChart 折线图
  * @author: Micheal Wayne
  * @build time: 2018.08.16
  */
@@ -14,32 +14,32 @@ export default class LineChart {
             id
         } = options
         if (!id) throw new Error('Error!no container id in options.(FundChart)');
-        this.$el = document.getElementById(id);
-        this.$el.style.webkitUserSelect = 'none';
-        this.$el.style.userSelect = 'none';
+        let $el = this.$el = document.getElementById(id);
+        $el.style.webkitUserSelect = 'none';
+        $el.style.userSelect = 'none';
     
         this.opts = options;
     }
 
-    /*
-     * 设置布局
+    /**
+     * 设置画布
      */
     _setContext () {
-        let _canvas = document.createElement('canvas');
-        _canvas.id = this.opts.id + 'Canvas';
-        _canvas.width = getStyle(this.$el, 'width');
-        _canvas.height = getStyle(this.$el, 'height');
+        let $canvas = document.createElement('canvas');
+        $canvas.id = this.opts.id + 'Canvas';
+        $canvas.width = getStyle(this.$el, 'width');
+        $canvas.height = getStyle(this.$el, 'height');
 
-        this.$el.appendChild(_canvas);
-        this.canvas = _canvas;
-        this.ctx = _canvas.getContext('2d');
+        this.$el.appendChild($canvas);
+        this.canvas = $canvas;
+        this.ctx = $canvas.getContext('2d');
         this._chart = {
-            width: _canvas.width,
-            height: _canvas.height
+            width: $canvas.width,
+            height: $canvas.height
         };
     }
 
-    /*
+    /**
      * 适配手机
      */
     _retinaScale () {
@@ -60,7 +60,7 @@ export default class LineChart {
         canvas.style.width = width + 'px';
     }
 
-    /*
+    /**
      * 更新内容
      */
     update (options) {
@@ -70,6 +70,9 @@ export default class LineChart {
         this.drawer.draw(true);
     }
 
+    /**
+     * init
+     */
     init () {
         this._setContext();
         this._retinaScale();

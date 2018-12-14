@@ -9,16 +9,24 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 let Ex = require('extract-text-webpack-plugin');
 
 let myBanner = `
-  @author: Micheal Wayne
+  FundCharts
+  @description: 移动端轻量级canvas数据可视化组件。折线图、饼图。
+  @version: beta
+  @author: Micheal Wayne(michealwayne@163.com)
   @build time: 2018-11-22
 `;
 
 module.exports = (options = {}) => {
     const entries = glob.sync('./test/**/enter.js');
-    const entryJSList = {};
+    let entryJSList = {};
+    let outputConfig;
     const entryHtmlList = [];
 
-	if (options.dev) {
+	if (options.dev) {     // test 
+        outputConfig = {path: path.resolve(__dirname, 'dist'),
+            filename: '[name].js',
+            chunkFilename: '[id].js?[chunkhash]'
+        };
 		for (const path of entries) {
 			const chunkName = path.slice('./test/js/'.length, -'/enter.js'.length);
 			entryJSList[chunkName] = path;
@@ -32,7 +40,13 @@ module.exports = (options = {}) => {
 				}
 			}));
 		}
-	} else {
+	} else {   // build
+        outputConfig = {
+            path: path.resolve(__dirname, 'dist'),
+            filename: '[name].min.js',
+            library: 'FundCharts',
+            libraryTarget: 'umd'
+        };
 		entryJSList = {
 			FundCharts : './src/FundCharts.js'
 		};
@@ -42,12 +56,8 @@ module.exports = (options = {}) => {
         ...entryHtmlList,
         new webpack.BannerPlugin(myBanner),
         new Ex(`css/[name]${options.dev ? '' : 
-            //'.[chunkhash]'
-            ''
-        }.css`),
-        new webpack.optimize.CommonsChunkPlugin({
-          names: "commons"
-        })
+            '.[chunkhash]'
+        }.css`)
     ];
     if (!options.dev) plugins.push(new webpack.IgnorePlugin(/mock\/*/));    // ignore mock
 
@@ -63,14 +73,7 @@ module.exports = (options = {}) => {
             }
         },
 
-        output: {
-            //publicPath: '/assets/',
-            path: path.resolve(__dirname, 'dist'),
-            filename: options.dev ? '[name].js' :
-                'js/[name].js',
-                //'js/[name].[chunkhash].js',
-            chunkFilename: '[id].js?[chunkhash]'
-        },
+        output: outputConfig,
 
         module: {
             rules: [
@@ -139,9 +142,7 @@ module.exports = (options = {}) => {
                 index: '/assets/',
                 disableDotRule: true
             },
-            inline: true,
-            //host: "192.168.27.183", // 本机的局域网ip
-            //open: true
+            inline: true
         },
 
         performance: {

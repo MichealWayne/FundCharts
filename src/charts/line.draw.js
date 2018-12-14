@@ -12,8 +12,9 @@ export default class Draw {
         if (!FundChart) throw new Error('Error!no canvas element.(FundChart-draw)');
         this.chartjs = FundChart;
 
-        if (this.chartjs.opts.colors) {
-            Config.line.colors = this.chartjs.opts.colors.concat(Config.line.colors);
+        let _color = this.chartjs.opts.colors;
+        if (_color) {
+            Config.line.colors = _color.concat(Config.line.colors);
         }
     }
 
@@ -43,14 +44,20 @@ export default class Draw {
 
     /**
      * 清理区域
-     * @param {Boolean} lineCtnBool 是否只清理图形区域
+     * @param {Boolean} lineCtnBool 是否只清理折线图形区域
      */
     clearCtn (lineCtnBool) {
-        let ctx = this.chartjs.ctx;
+        const _chartjs = this.chartjs;
+        const ctx = _chartjs.ctx;
+        const _chartWidth = _chartjs._chart.width,
+            _chartHeight = _chartjs._chart.height;
 
         ctx.beginPath();
-        if (lineCtnBool) ctx.rect(46, 0, this.chartjs._chart.width, this.chartjs._chart.height - 22);
-        else ctx.rect(0, 0, this.chartjs._chart.width, this.chartjs._chart.height);
+        if (lineCtnBool) {  // 只清除折线图形区域
+            ctx.rect(46, 0, _chartWidth, _chartHeight - 22);
+        } else {    // 清空整张画布
+            ctx.rect(0, 0, _chartWidth, _chartHeight);
+        }
         ctx.fillStyle = Config.background;
         ctx.fill();
         ctx.closePath();
@@ -60,9 +67,9 @@ export default class Draw {
      * 折线图——画虚线
      */
     drawDashs () {
-        let width = this.chartjs._chart.width - 13;
-        let height = this.chartjs._chart.height;
-        let ctx = this.chartjs.ctx;
+        const ctx = this.chartjs.ctx;
+        const width = this.chartjs._chart.width - 13,
+              height = this.chartjs._chart.height;
 
         let _unit = (height - 30) / 4;
         ctx.lineWidth = 0;
@@ -80,22 +87,25 @@ export default class Draw {
      * 计算参数数据
      */
     setDataset () {
-        let _data = this.chartjs.opts.data;
-        let _datas = this.chartjs.opts.datas;
+        const _chartjs = this.chartjs,
+              opts = _chartjs.opts,
+              _data = opts.data,
+              _datas = opts.datas;
 
         let minData,
             maxData;
         let _min,
             _range,
-            _setRange = this.chartjs.opts.range;
-        if (_setRange) {
-            console.log(_setRange)
-            if (_setRange.min === undefined || _setRange.max === undefined) throw new Error('Error! param range need min and max');
+            _setRange = opts.range;
+        if (_setRange) {    // 自定义范围
+            if (_setRange.min === undefined || _setRange.max === undefined) {
+                throw new Error('Error! param range need min and max');
+            }
             _min = _setRange.min;
             _range = _setRange.max - _setRange.min;
         } else {
             if (_datas) {
-                this.chartjs.multline = true;   // 多条
+                _chartjs.multline = true;   // 多条
 
                 each(_datas, item => {
                     let _min = Math.min.apply(null, item);
@@ -125,7 +135,7 @@ export default class Draw {
         };
 
         // y = yRate * value + yBasic
-        this.yRate = (30 - this.chartjs._chart.height) / this.yaxis.range;
+        this.yRate = (30 - _chartjs._chart.height) / this.yaxis.range;
         this.yBasic = 5 - this.yaxis.max * this.yRate;
 
         let _xlength = _data ? _data.length : _datas[0].length;
@@ -137,15 +147,15 @@ export default class Draw {
         };
 
         // x = xRate * index + 50;
-        this.xRate = (this.chartjs._chart.width - 65) / (_xlength - 1);
+        this.xRate = (_chartjs._chart.width - 65) / (_xlength - 1);
         this.xBasic = 50;
 
-        if (this.chartjs.multline) {
+        if (_chartjs.multline) {    // 多条线
             let _datasets = [];
 
             each(_datas, item => {
                 let _dataset = [];
-                for (let i = 0; i < item.length; i++) {
+                for (let i = 0, len = item.length; i < len; i++) {
                     _dataset.push({
                         x: i * this.xRate + this.xBasic,
                         y: item[i] * this.yRate + this.yBasic,
@@ -170,7 +180,6 @@ export default class Draw {
 
             this.chartjs.dataset = _dataset;
         }
-        
     }
 
     /**
@@ -218,6 +227,9 @@ export default class Draw {
         ctx.lineWidth = 1;
         let ymax = this.chartjs._chart.height - 24;
 
+        /**
+         * 绘制渐变背景
+         */
         const drawLinearGradient = color => {
             if (this.chartjs.opts.noGradient) return false;
             let grad = ctx.createLinearGradient(0, 0, 0, 170);
@@ -268,7 +280,7 @@ export default class Draw {
             ctx.lineWidth = 0;
             ctx.strokeStyle = Config.background;
             ctx.moveTo(50, this.chartjs._chart.height - 24);
-            for (let i = 0; i < _dataset.length; i++) {
+            for (let i = 0, len = _dataset.length; i < len; i++) {
                 ctx.lineTo(_dataset[i].x, ymax * (1 - process) + _dataset[i].y * process);
             }
             ctx.lineTo(_dataset[_dataset.length - 1].x, ymax);
@@ -367,13 +379,15 @@ export default class Draw {
      * 折线图——事件——event
      */
     setEvents () {
-        this.chartjs.canvas.addEventListener('touchstart', e => {
+        let $canvas = this.chartjs.canvas;
+        
+        $canvas.addEventListener('touchstart', e => {
             let x = e.touches[0].clientX;
 
             this.drawHover(x);
         }, false);
 
-        this.chartjs.canvas.addEventListener('touchmove', e => {
+        $canvas.addEventListener('touchmove', e => {
             let x = e.touches[0].clientX;
 
             this.drawHover(x);
