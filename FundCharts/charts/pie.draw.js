@@ -24,14 +24,14 @@ export default class Pie {
         ctx.closePath();
     }
 
-    drawPie(data_arr, color_arr, process = 1) {
+    drawPie(data_arr, color_arr, annularRate = 0.6, process = 1) {
         color_arr = color_arr.concat(pieColors);
         this.clearCtn();
         
         let ctx = this.chartjs.ctx;
-
+        annularRate = annularRate > 0.9 && 0.9 || annularRate;
         let radius = this.chartjs._chart.height / 2 - 20, //半径
-            radiusWhite = radius * 0.6, // 白色覆盖半径
+            radiusWhite = radius * annularRate, // 白色覆盖半径
             ox = radius + 20,
             oy = radius + 20; //圆心
 
@@ -54,17 +54,18 @@ export default class Pie {
         ctx.fillStyle = '#fff';
         ctx.beginPath();
         ctx.moveTo(ox, oy);
-        ctx.arc(ox, oy, radiusWhite, 0, Math.PI * 2, false);
+        if (radiusWhite) ctx.arc(ox, oy, radiusWhite, 0, Math.PI * 2, false);
         ctx.closePath();
         ctx.fill();
     }
 
     init () {
+        let _opts = this.chartjs.opts
         Animation({
             timing: 'easeInOut',
             duration: 600,
             onProcess: process => {
-                this.drawPie(this.chartjs.opts.datas, this.chartjs.opts.colors, process);
+                this.drawPie(_opts.datas, _opts.colors, _opts.annularRate, process);
             },
             onAnimationFinish: () => {
                 console.log('pie chart finish');
