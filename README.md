@@ -1,4 +1,4 @@
-t# FundCharts（Beta） 数据可视化
+# FundCharts（Beta） 数据可视化
 
 移动端轻量级canvas数据可视化组件库。
 
