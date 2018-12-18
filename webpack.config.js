@@ -10,7 +10,7 @@ let Ex = require('extract-text-webpack-plugin');
 
 let myBanner = `
   FundCharts
-  @description: 移动端轻量级canvas数据可视化组件。折线图、饼图。
+  @description: 移动端轻量级canvas数据可视化组件。折线图、饼图(环形图)、柱状图。
   @version: beta
   @author: Micheal Wayne(michealwayne@163.com)
   @build time: 2018-11-22

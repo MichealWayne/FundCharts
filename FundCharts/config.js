@@ -23,6 +23,18 @@ module.exports = {
         ]
     },
 
+    // bar chart
+    bar: {
+        margin: 60,
+        colors: [
+            '#fe5d4e',  // 红
+            '#43c2f7',   // 蓝
+            '#707ad9', 
+            '#3ba8ff', 
+            '#ffa92f'
+        ]
+    },
+
     dash: {
         color: '#e2e2e2',    // 灰
         length: 3   // 长度6px

@@ -1,33 +1,29 @@
-/*
- * LineChart 折线图
- * @author: Micheal Wayne
- * @build time: 2018.08.16
- */
-
-import { cloneObjDeep } from './utils/base'
+import Bar from './charts/bar.draw'
 import { retinaScale, setContext } from './utils/drawer'
-import Draw from './charts/line.draw'
+import { cloneObjDeep } from './utils/base'
 
-export default class LineChart {
-    constructor (options = {}) {
+export default class BarChart {
+    constructor(options = {}) {
         let {
             id
-        } = options
+        } = options;
+
         if (!id) throw new Error('Error!no container id in options.(FundChart)');
+
         this.$el = document.getElementById(id);
-    
+
+        options.colors = options.colors || [];
         this.opts = options;
     }
 
-
-    /**
+    /*
      * 适配手机
      */
     _retinaScale () {
         let canvas = this.canvas,
             ctx = this.ctx;
 
-        retinaScale(canvas, ctx);
+        this.pixelRatio = retinaScale(canvas, ctx);
     }
 
     /**
@@ -40,14 +36,11 @@ export default class LineChart {
         this.drawer.draw(true);
     }
 
-    /**
-     * init
-     */
     init () {
         setContext(this);
         this._retinaScale();
 
-        this.drawer = new Draw(this);
+        this.drawer = new Bar(this);
         this.drawer.init();
     }
 }

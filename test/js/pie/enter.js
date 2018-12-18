@@ -17,3 +17,16 @@ const chart2 = new PieChart({
 });
 
 chart2.init();
+
+// chart 3
+const chart3 = new PieChart({
+    id: 'pie3',
+    annularRate: 0.8,
+    origin: {
+        x: 100,
+        y: 100
+    },
+    datas: [0.4, 0.6]
+});
+
+chart3.init();
