@@ -2,19 +2,30 @@
  * webpack config
  */
 
-let glob = require('glob');
-let path = require('path');
-let webpack = require('webpack');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let Ex = require('extract-text-webpack-plugin');
+const glob = require('glob');
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const LessFunc = require('less-plugin-functions');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-let myBanner = `
+
+const myBanner = `
   FundCharts
   @description: 移动端轻量级canvas数据可视化组件。折线图、饼图(环形图)、柱状图。
   @version: beta
   @author: Micheal Wayne(michealwayne@163.com)
   @build time: 2018-11-22
 `;
+const browsersVersionSet = {	// for autoprefixer
+	browsers: [
+		'last 2 versions',
+		'android 4', 
+		'ios 8'
+	]
+	// pc: ['ie 6-8', 'Firefox > 20', 'cover 99.5%']
+};
+const imageLimit = 5000;	// base64 limit
 
 module.exports = (options = {}) => {
     const entries = glob.sync('./test/**/enter.js');
@@ -55,11 +66,11 @@ module.exports = (options = {}) => {
     let plugins = [
         ...entryHtmlList,
         new webpack.BannerPlugin(myBanner),
-        new Ex(`css/[name]${options.dev ? '' : 
-            '.[chunkhash]'
-        }.css`)
+        new MiniCssExtractPlugin({
+			filename: `[name]${options.dev ? '' : '.[chunkhash]'}.css`,
+			chunkFilename: `[id].css`
+		}),
     ];
-    if (!options.dev) plugins.push(new webpack.IgnorePlugin(/mock\/*/));    // ignore mock
 
     return {
         entry: entryJSList,
@@ -74,7 +85,7 @@ module.exports = (options = {}) => {
         },
 
         output: outputConfig,
-
+	devtool: 'inline-source-map',
         module: {
             rules: [
                 // js
@@ -97,24 +108,45 @@ module.exports = (options = {}) => {
                     }
                 },
 
-                // css
+                                // css
                 {
                     test: /\.css$/,
-                    use: Ex.extract({
-                        use: ['css-loader', 'postcss-loader'],
-                        publicPath:'../'
-                    })
-                    //'style-loader', 'css-loader', 'postcss-loader')
+                    use: [
+						MiniCssExtractPlugin.loader,
+						'css-loader',
+						{
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: [
+                                    require('autoprefixer')(browsersVersionSet)
+                                ]
+                            }
+                        }
+					]
                 },
 
                 // less
                 {
                     test: /\.less$/,
-                    use: Ex.extract({
-                        fallback:"style-loader",
-                        use: ['css-loader', 'less-loader', 'postcss-loader'],
-                        publicPath:'../'
-                    })
+                    use: [
+						MiniCssExtractPlugin.loader,
+						'css-loader',
+						{
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: [
+                                    require('autoprefixer')(browsersVersionSet)
+                                ]
+                            }
+                        },
+						{
+							loader: 'less-loader',
+							options: {
+								strictMath: true,
+								plugins: [ new LessFunc() ]
+							}
+						}
+					]
                 },
 
                 // image or font
@@ -123,7 +155,7 @@ module.exports = (options = {}) => {
                     use: [{
                         loader: 'url-loader',
                         options: {
-                            limit: 5000,
+                            limit: imageLimit,
                             name: 'images/[hash].[ext]'
                         }
                     }]
