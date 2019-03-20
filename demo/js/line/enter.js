@@ -1,5 +1,7 @@
-import LineChart from '@/LineChart'
+import FundCharts from '~/FundCharts.min'
 import 'css/index.less'
+
+const LineChart = FundCharts.line;
 
 // chart 1
 const chart1 = new LineChart({

@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "webpack-dev-server -d --hot --env.dev",
-    "build": "rimraf dist && webpack -p --env.config production",
-    "build:node": "rimraf dist && webpack --env.NODEJS -p --env.config production"
+    "test": "webpack-dev-server -d --hot --env.dev"
   },
   "author": "Micheal Wang",
   "license": "ISC",

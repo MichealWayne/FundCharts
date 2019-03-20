@@ -1,5 +1,7 @@
-import PieChart from '@/PieChart'
+import FundCharts from '~/FundCharts.min'
 import 'css/index.less'
+
+const PieChart = FundCharts.pie;
 
 // chart 1
 const chart1 = new PieChart({

@@ -1,10 +1,10 @@
 # FundCharts（Beta） 数据可视化
 
-轻量级canvas数据可视化组件库，可在web端/小程序端/服务端nodjes运行。核心原则：**轻量**，**只注重图形**
+轻量级canvas数据可视化组件库，可在web端/小程序端/服务端nodjes运行。核心原则：**轻量**，**只注重图形**。目前包含折线图、饼图、柱状图，预计下一期添加雷达图，散点图，K线图。
 
 特性：
 - 无三方库依赖
-- 体积小，全量引用仅19k，按需引用或开启gzip更小
+- 体积小，全量引用仅19k，开启gzip更小
 - 兼容好
 
 兼容：
@@ -21,8 +21,7 @@
 ## 使用
 > 按需引用方式已统一，全量引用需区分js文件。
 
-### browser
-#### 全量引用
+### browser(FundCharts.min.js)
 ``` html
 	<script src="./FundCharts.min.js"></script>
 ```
@@ -30,14 +29,10 @@
 	var LineChart = FundCharts.line;
 ```
 
-#### 按需引用
-``` js
-	import 'LineChart' from 'FundCharts/LineChart'
-```
 
-### nodejs
+### nodejs(FundCharts-node.js)
 nodejs服务端需安装[node-canvas]及其环境(https://www.npmjs.com/package/canvas)。
-#### 全量引用
+
 ``` js
 	const Canvas = require('Canvas');
 	const { FundCharts } = require('./FundCharts-node');
@@ -45,18 +40,16 @@ nodejs服务端需安装[node-canvas]及其环境(https://www.npmjs.com/package/
 	let LineChart = FundCharts.line;
 ```
 
-#### 按需引用
-``` js
-	import 'LineChart' from 'FundCharts/LineChart'
+## 启动查看测试demo
+``` sh
+	npm i
+	npm run test
 ```
 
 ## 1.LineChart 折线图
 
 
 ``` js
-	import LineChart from 'FundCharts/LineChart'
-	
-	// 或引FundCharts.min.js
 	const LineChart = FundCharts.line
 ```
 
@@ -138,9 +131,6 @@ update()方法
 ## 2.PieChart 饼图
 
 ``` js
-	import PieChart from 'FundCharts/PieChart'
-	
-	// 或引FundCharts.min.js
 	const PieChart = FundCharts.pie
 ```
 
@@ -176,9 +166,6 @@ colors | ['#fe5d4e', '#43c2f7', '#707ad9', '#3ba8ff', '#ffa92f'] | （可选）�
 
 ## 3.BarChart 柱状图
 ``` js
-	import BarChart from 'FundCharts/BarChart'
-	
-	// 或引FundCharts.min.js
 	const BarChart = FundCharts.bar
 ```
 

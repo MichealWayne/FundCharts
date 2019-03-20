@@ -1,5 +1,7 @@
-import BarChart from '@/BarChart'
+import FundCharts from '~/FundCharts.min'
 import 'css/index.less'
+
+const BarChart = FundCharts.bar;
 
 // chart 1
 const chart1 = new BarChart({
