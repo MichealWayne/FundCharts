@@ -41,10 +41,25 @@ nodejs服务端需安装[node-canvas]及其环境(https://www.npmjs.com/package/
 ```
 
 ## 启动查看测试demo
+### browser
 ``` sh
 	npm i
 	npm run test
 ```
+
+然后可在浏览器（开启手机模式）访问：http://localhost:3000/line.html、http://localhost:3000/bar.html、http://localhost:3000/pie.html。
+
+### nodejs
+安装完node-canvas所需的环境后，
+``` sh
+	npm i -D canvas
+	
+	node /demo/node/line
+	node /demo/node/bar
+	node /demo/node/pie
+```
+
+成功则可在/demo/node/目录下查看到对应图片。
 
 ## 1.LineChart 折线图
 
