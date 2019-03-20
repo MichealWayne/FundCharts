@@ -85,8 +85,8 @@ module.exports = (options = {}) => {
             alias: {
                 '@': path.resolve(__dirname, 'FundCharts'),
                 '~': path.resolve(__dirname, 'dist'),
-                'lib': path.resolve(__dirname, 'test/js/lib'),
-                'css': path.resolve(__dirname, 'test/css')
+                'lib': path.resolve(__dirname, 'demo/js/lib'),
+                'css': path.resolve(__dirname, 'demo/css')
             }
         },
 
