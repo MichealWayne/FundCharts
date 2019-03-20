@@ -1,5 +1,13 @@
+/*
+ * PieChart 饼图
+ * @author: Micheal Wayne
+ * @build time: 2018.08.16
+ */
+
+
 import Pie from './charts/pie.draw'
 import { retinaScale, setContext } from './utils/drawer'
+import { inBrowser } from './config'
 
 export default class PieChart {
     constructor(options = {}) {
@@ -9,7 +17,7 @@ export default class PieChart {
 
         if (!id) throw new Error('Error!no container id in options.(FundChart)');
 
-        this.$el = document.getElementById(id);
+        if (inBrowser) this.$el = document.getElementById(id);
 
         options.colors = options.colors || [];
         this.opts = options;
@@ -26,8 +34,8 @@ export default class PieChart {
     }
 
     init () {
-        setContext(this);
-        this._retinaScale();
+        setContext(this, inBrowser);
+        if (inBrowser) this._retinaScale();
 
         this.drawer = new Pie(this);
         this.drawer.init();

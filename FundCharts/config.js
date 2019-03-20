@@ -2,6 +2,9 @@
  * chart config
  */
 module.exports = {
+    // in browser?
+    inBrowser: typeof window !== 'undefined',
+
     background: '#fff',
 
     // line chart

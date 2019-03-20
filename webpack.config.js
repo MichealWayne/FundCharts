@@ -10,7 +10,7 @@ const LessFunc = require('less-plugin-functions');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
-const myBanner = `
+let myBanner = `
   FundCharts
   @description: 移动端轻量级canvas数据可视化组件。折线图、饼图(环形图)、柱状图。
   @version: beta
@@ -32,7 +32,12 @@ module.exports = (options = {}) => {
     let entryJSList = {};
     let outputConfig;
     const entryHtmlList = [];
-
+	
+	if (options.NODEJS) {	// nodejs
+		myBanner += '  @platform: nodejs服务端（CommonJS）';
+	} else {	// browser
+		myBanner += '  @platform: browser浏览器（UMD）';
+	}
 	if (options.dev) {     // test 
         outputConfig = {path: path.resolve(__dirname, 'dist'),
             filename: '[name].js',
@@ -54,9 +59,9 @@ module.exports = (options = {}) => {
 	} else {   // build
         outputConfig = {
             path: path.resolve(__dirname, 'dist'),
-            filename: '[name].min.js',
+            filename: `[name]${options.NODEJS ? '-node' : '.min'}.js`,
             library: 'FundCharts',
-            libraryTarget: 'umd'
+            libraryTarget: options.NODEJS && 'commonjs'|| 'umd'
         };
 		entryJSList = {
 			FundCharts : './FundCharts/FundCharts.js'
@@ -85,7 +90,7 @@ module.exports = (options = {}) => {
         },
 
         output: outputConfig,
-	devtool: 'inline-source-map',
+	//devtool: 'inline-source-map',
         module: {
             rules: [
                 // js
@@ -162,6 +167,8 @@ module.exports = (options = {}) => {
                 }
             ]
         },
+
+        mode: 'production',
 
         plugins: plugins,
 

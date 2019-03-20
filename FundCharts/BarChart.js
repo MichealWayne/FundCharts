@@ -1,6 +1,13 @@
+/*
+ * BarChart 柱状图
+ * @author: Micheal Wayne
+ * @build time: 2018.08.16
+ */
+
 import Bar from './charts/bar.draw'
 import { retinaScale, setContext } from './utils/drawer'
 import { cloneObjDeep } from './utils/base'
+import { inBrowser } from './config'
 
 export default class BarChart {
     constructor(options = {}) {
@@ -10,7 +17,7 @@ export default class BarChart {
 
         if (!id) throw new Error('Error!no container id in options.(FundChart)');
 
-        this.$el = document.getElementById(id);
+        if (inBrowser) this.$el = document.getElementById(id);
 
         options.colors = options.colors || [];
         this.opts = options;
@@ -37,8 +44,8 @@ export default class BarChart {
     }
 
     init () {
-        setContext(this);
-        this._retinaScale();
+        setContext(this, inBrowser);
+        if (inBrowser) this._retinaScale();
 
         this.drawer = new Bar(this);
         this.drawer.init();
