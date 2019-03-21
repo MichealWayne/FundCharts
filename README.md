@@ -5,6 +5,7 @@
 
 ```
 FundCharts
+├─dist    FundCharts，供demo使用
 ├─demo    使用案例
 ├─FundCharts.min.js   web/weapp端使用库
 └─FundCharts-node.js  nodejs端使用库
