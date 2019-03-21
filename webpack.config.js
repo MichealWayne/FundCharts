@@ -28,7 +28,7 @@ const browsersVersionSet = {	// for autoprefixer
 const imageLimit = 5000;	// base64 limit
 
 module.exports = (options = {}) => {
-    const entries = glob.sync('./demo/**/enter.js');
+    const entries = glob.sync('./demo/web/**/enter.js');
     let entryJSList = {};
     let outputConfig;
     const entryHtmlList = [];
@@ -44,11 +44,11 @@ module.exports = (options = {}) => {
             chunkFilename: '[id].js?[chunkhash]'
         };
 		for (const path of entries) {
-			const chunkName = path.slice('./demo/js/'.length, -'/enter.js'.length);
+			const chunkName = path.slice('./demo/web/js/'.length, -'/enter.js'.length);
 			entryJSList[chunkName] = path;
 
 			entryHtmlList.push(new HtmlWebpackPlugin({
-				template: './demo/' + chunkName + '.html',
+				template: './demo/web/' + chunkName + '.html',
 				filename: chunkName + '.html',
 				chunks: ['manifest', 'vendor', chunkName, 'commons'],
 				minify: {
@@ -85,8 +85,8 @@ module.exports = (options = {}) => {
             alias: {
                 '@': path.resolve(__dirname, 'FundCharts'),
                 '~': path.resolve(__dirname, 'dist'),
-                'lib': path.resolve(__dirname, 'demo/js/lib'),
-                'css': path.resolve(__dirname, 'demo/css')
+                'lib': path.resolve(__dirname, 'demo/web/js/lib'),
+                'css': path.resolve(__dirname, 'demo/web/css')
             }
         },
 

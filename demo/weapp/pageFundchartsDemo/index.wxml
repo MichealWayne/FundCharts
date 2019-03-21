@@ -1,0 +1,20 @@
+<view class="fundCharts-demo">
+  <View>
+    <canvas
+      style="width: 375px; height: 212px;"
+      canvas-id="chartline1"
+      bindtouchstart="chartTouchstart"
+	  bindtouchmove="chartTouchmove"
+    ></canvas>
+
+    <canvas
+      style="width: 200px; height: 200px;"
+      canvas-id="chartpie1"
+    ></canvas>
+
+    <canvas
+      style="width: 375px; height: 212px;"
+      canvas-id="chartbar1"
+    ></canvas>
+  </View>
+</view>
