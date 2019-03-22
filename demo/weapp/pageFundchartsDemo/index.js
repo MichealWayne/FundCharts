@@ -1,5 +1,6 @@
 const FundCharts = require('../../FundCharts.min.js');
 
+
 const LineChart = FundCharts.line,
       BarChart = FundCharts.bar,
       PieChart = FundCharts.pie;
@@ -15,14 +16,13 @@ Page({
   /**
    * 画折线
    */
-  drawLint () {
+  drawLine () {
 	line = new LineChart({
-      id: 'chart',
+      id: 'chartline1',
       xaxis: ['09-11', '09-22', '10-11'],
       yaxisfunc(data) {
         return (data * 100).toFixed(2) + '%'
       },
-      Ctx: ctx,
       width: 375,
       height: 212,
       xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
@@ -42,7 +42,6 @@ Page({
     let pie = new PieChart({
       id: 'chartpie1',
       datas: [0.1, 0.2, 0.3, 0.4],
-      Ctx: ctx,
       width: 200,
       height: 200,
     });
@@ -57,7 +56,6 @@ Page({
     let bar = new BarChart({
       id: 'chartbar1',
       datas: [0.1, 0.2, 0.3, 0.4],
-      Ctx: ctx,
       width: 375,
       height: 212,
       xaxis: ['09-11', '09-22', '10-11', '11-22'],

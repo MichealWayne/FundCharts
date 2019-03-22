@@ -115,6 +115,7 @@ data/datas | -- | 数据项数组（多条时字段传datas）
 colors | ['#fe5d4e', '#43c2f7'] | （可选）折线颜色(六位十六进制，不可简写)
 noGradient | false | 无渐变效果
 hover | -- | （可选）交互返回函数（第一个参数为索引，Number；第二个参数为对应数值集合，Array；第三个参数为x轴标签值）
+animation | 'easeInOut' | 线性动画（'easeIn'/'easeOut'/'easeInOut'/'linear'/false）
 
 单条，如
 ``` js
@@ -193,6 +194,7 @@ radius | -- | 饼图直径，默认取高度height/20 - 20
 origin | -- | 圆心坐标{x: 水平坐标, y: 垂直坐标}
 datas | -- | 比例数组，请确认数组和为1
 colors | ['#fe5d4e', '#43c2f7', '#707ad9', '#3ba8ff', '#ffa92f'] | （可选）折线颜色(六位十六进制，不可简写)（可选）交互返回函数（第一个参数为索引，Number；第二个参数为对应数值集合，Array；第三个参数为x轴标签值）
+animation | 'easeInOut' | 线性动画（'easeIn'/'easeOut'/'easeInOut'/'linear'/false）
 
 单条，如
 ``` js
@@ -229,7 +231,7 @@ xaxis | -- | x轴标签数组
 barMargin | 60 | （可选）柱形图之间间隔
 series | -- | 数据项数组 
 colors | ['#fe5d4e', '#43c2f7'] | （可选）折线颜色(六位十六进制，不可简写)
-
+animation | 'easeInOut' | 线性动画（'easeIn'/'easeOut'/'easeInOut'/'linear'/false）
 
 单条，如
 ``` js
