@@ -23,8 +23,24 @@ const chart2 = new LineChart({
         [1, 2, 3, 4, 3.5, 3, 4],
         [4, 3, 4, 2, 3, 5, 6]
     ],
-    hover(index, values, xaxis) {
+    hover(index, values, xaxis, x) {
         console.log(values[0], xaxis);
+
+        let _x = x;
+
+        // rect
+        let ctx = chart2.ctx;
+        ctx.fillStyle = '#9d9d9d';
+        let _rectX = _x - 32;
+        _rectX = _rectX < 50 ? 50 : _rectX > 300 ? 300 : _rectX;
+        ctx.rect(_rectX, 0, 64, 15);
+        ctx.fill();
+
+        // text
+        ctx.fillStyle = '#fff';
+        ctx.font = '10px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(xaxis + ':' + values, _rectX + 32, 9);
     }
 });
 

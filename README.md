@@ -84,6 +84,34 @@ nodejs服务端需安装[node-canvas]及其环境(https://www.npmjs.com/package/
 
 成功则可在/demo/node/目录下查看到对应图片。
 
+## 实例的再次绘制
+创建实例后，实例的canvas属性及ctx属性分别对应canvas实例的canvas及context，因此可用此属性再次绘制。如
+
+``` js
+	let chart = new LineChart({
+		id: 'chart',
+		data: [1, 2, 3, 4, 3.5, 3, 4],
+		xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11']
+		hover(index, values, xaxis, _x) {
+			// rect
+			let ctx = chart.ctx;
+			ctx.fillStyle = '#9d9d9d';
+			let _rectX = _x - 32;
+			_rectX = _rectX < 50 ? 50 : _rectX > 300 ? 300 : _rectX;
+			ctx.rect(_rectX, 0, 64, 15);
+			ctx.fill();
+
+			// text
+			ctx.fillStyle = '#fff';
+			ctx.font = '10px Arial';
+			ctx.textAlign = 'center';
+			ctx.fillText(xaxis + ':' + values, _rectX + 32, 9);
+		} 
+	});
+	
+	chart.init();
+```
+
 ## 1 Web网页端
 ### 1.1 LineChart 折线图
 
@@ -114,7 +142,7 @@ yaxisfunc | -- | （可选）y轴单位显示处理（函数）
 data/datas | -- | 数据项数组（多条时字段传datas） 
 colors | ['#fe5d4e', '#43c2f7'] | （可选）折线颜色(六位十六进制，不可简写)
 noGradient | false | 无渐变效果
-hover | -- | （可选）交互返回函数（第一个参数为索引，Number；第二个参数为对应数值集合，Array；第三个参数为x轴标签值）
+hover | -- | （可选）交互返回函数（第一个参数为索引，Number；第二个参数为对应数值集合，Array；第三个参数为x轴标签值，第四个参数为触控点的水平x坐标）
 animation | 'easeInOut' | 线性动画（'easeIn'/'easeOut'/'easeInOut'/'linear'/false）
 
 单条，如
@@ -381,5 +409,6 @@ nodejs服务端需要引FundCharts-node.js，其使用跟web端类似，不过�
 ```
 
 ## 其他
+
 
 - 反馈：michealwayne@163.com
