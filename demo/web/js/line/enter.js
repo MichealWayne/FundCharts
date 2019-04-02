@@ -25,7 +25,8 @@ const chart2 = new LineChart({
     ],
     hover(index, values, xaxis, x) {
         console.log(values[0], xaxis);
-
+		
+		/** 自定义添加label */
         let _x = x;
 
         // rect

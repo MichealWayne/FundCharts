@@ -64,7 +64,7 @@ nodejs服务端需安装[node-canvas]及其环境(https://www.npmjs.com/package/
 	npm run test
 ```
 
-然后可在浏览器（开启手机模式）访问：http://localhost:3000/line.html、http://localhost:3000/bar.html、http://localhost:3000/pie.html。
+然后可在浏览器（开启手机模式）访问：[http://localhost:3000/line.html](http://localhost:3000/line.html)、[http://localhost:3000/bar.html](http://localhost:3000/bar.html)、[http://localhost:3000/pie.html](http://localhost:3000/pie.html)。
 
 ### weapp
 可复制`demo/weapp/`代码到小程序环境中启动查看。
