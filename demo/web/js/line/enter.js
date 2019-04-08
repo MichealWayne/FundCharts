@@ -23,6 +23,7 @@ const chart2 = new LineChart({
         [1, 2, 3, 4, 3.5, 3, 4],
         [4, 3, 4, 2, 3, 5, 6]
     ],
+	lineWidths: [3, 1],		// 折线粗细
     hover(index, values, xaxis, x) {
         console.log(values[0], xaxis);
 		
@@ -46,3 +47,22 @@ const chart2 = new LineChart({
 });
 
 chart2.init();
+
+
+// chart 3
+const chart3 = new LineChart({
+	id: 'line3',
+	xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
+    datas: [
+        [1, 2, 3, 4, 3.5, 3, 4],
+        [4, 3, 4, 2, 3, 5, 6],
+		[6, 2, 4, 5, 5, 2, 1]
+    ],
+	pointStyle: '#666',			// 点
+	backgroundColor: '#222',	// 背景色
+	noDash: true,			// 没有虚线
+	animation: false,		// 没有动画
+	lineWidths: [5, 3, 1],		// 折线粗细
+});
+
+chart3.init();

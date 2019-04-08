@@ -24,6 +24,7 @@ chart2.init();
 const chart3 = new PieChart({
     id: 'pie3',
     annularRate: 0.8,
+	backgroundColor: '#000',	// 背景色
     origin: {
         x: 100,
         y: 100
