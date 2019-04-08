@@ -1,15 +1,18 @@
-# FundCharts（Beta） 数据可视化
+# FundCharts（1.0） 轻量数据可视化
 
-轻量级canvas数据可视化组件库，可在web端/小程序端/服务端nodjes运行。核心原则：**轻量**，**只注重图形**。目前包含折线图、饼图、柱状图，预计下一期添加雷达图，散点图，K线图。
+轻量级canvas数据可视化组件库，可在web端/小程序端/服务端nodjes运行。核心原则：**轻量**，**只注重图形**。
+目前包含折线图、饼图、柱状图，预计下一期添加雷达图，散点图，K线图。
 
 
 ```
 FundCharts
-├─dist    FundCharts，供demo使用
+├─dist    FundCharts，供demo测试使用
 ├─demo    使用案例
 ├─FundCharts.min.js   web/weapp端使用库
 └─FundCharts-node.js  nodejs端使用库
 ```
+
+
 
 特性：
 - 无三方库依赖
@@ -86,7 +89,7 @@ nodejs服务端需安装[node-canvas]及其环境(https://www.npmjs.com/package/
 成功则可在/demo/node/目录下查看到对应图片。
 
 ## 实例的再次绘制
-创建实例后，实例的canvas属性及ctx属性分别对应canvas实例的canvas及context，因此可用此属性再次绘制。如
+**创建实例后，实例的canvas属性及ctx属性分别对应canvas实例的canvas及context，因此可用此属性再次绘制，以满足特殊定制化的需求**。如
 
 ``` js
 	let chart = new LineChart({
