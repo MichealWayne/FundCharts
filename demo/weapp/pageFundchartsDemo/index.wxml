@@ -4,7 +4,7 @@
       style="width: 375px; height: 212px;"
       canvas-id="chartline1"
       bindtouchstart="chartTouchstart"
-	  bindtouchmove="chartTouchmove"
+	    bindtouchmove="chartTouchmove"
     ></canvas>
 
     <canvas
@@ -15,6 +15,11 @@
     <canvas
       style="width: 375px; height: 212px;"
       canvas-id="chartbar1"
+    ></canvas>
+
+    <canvas
+      style="width: 375px; height: 212px;"
+      canvas-id="chartradar1"
     ></canvas>
   </View>
 </view>

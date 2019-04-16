@@ -1,8 +1,18 @@
 # FundCharts（1.0） 轻量数据可视化
 
 轻量级canvas数据可视化组件库，可在web端/小程序端/服务端nodjes运行。核心原则：**轻量**，**只注重图形**。
-目前包含折线图、饼图、柱状图，预计下一期添加雷达图，散点图，K线图。
+目前包含折线图、饼图、柱状图、雷达图（蜘蛛图），预计下一期添加雷达图（√），散点图，K线图。
 
+> 注：对于有一定canvas开发经验的人员来说，通过[实例的再次绘制](#实例的再次绘制)可以完全实现特殊的可视化定制化效果。
+
+### 向导
+- [web](#1-web网页端)
+- [小程序](#2-小程序)
+- [nodejs服务端](#3-nodejs服务端)
+- [实例的再次绘制](#实例的再次绘制)
+
+
+### 目录结构
 
 ```
 FundCharts
@@ -14,15 +24,17 @@ FundCharts
 
 
 
-特性：
-- 无三方库依赖
-- 体积小，全量引用仅20k，开启gzip更小
+### 特性
+- 无三方库依赖；
+- 体积小，全量引用仅22.6k，开启gzip更小；
 - 兼容好
 
 兼容：
 ### browser
-- ios7+
-- android4+
+- ios7及以上
+- android 4及以上
+
+> 注：与Vue、React、Angular等框架无冲突。
 
 ### weapp
 - 兼容
@@ -31,7 +43,8 @@ FundCharts
 - nodejs v8.0+
 
 ## 更新信息
-- 2019.04.08: 折线图增加粗细控制、虚线可选；画布背景色可设置；
+- 2019.04.16: 增加雷达图（蜘蛛图）；柱状图修复负值控制；取消线性动画函数选择；
+- 2019.04.08: 折线图增加粗细控制、虚线可选等参数设置；画布背景色可设置；
 - 2019.03.15: 新增小程序端/nodejs服务端支持；
 
 ## 使用
@@ -114,7 +127,24 @@ nodejs服务端需安装[node-canvas]及其环境(https://www.npmjs.com/package/
 	});
 	
 	chart.init();
+	
+	// 图表上添加矩形蒙版
+	_zsChart.ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+	_zsChart.ctx.fillRect(50, 0, _zsChart._chart.width - 65, -_zsChart.drawer.yRate * 30);
 ```
+
+### 可视化实例部分参数说明
+(如上述chart变量就是折线图的一个实例)
+
+- canvas: canvas实例；
+- ctx: canvas的content实例；
+- dataset: 数据点对应位置坐标集合；
+- drawer：数据处理实例，包含一些转换函数；
+- opts：设置参数；
+- _chart：图表尺寸，单位px
+	- width: 宽
+	- height: 高
+
 
 ## 1 Web网页端
 ### 1.1 LineChart 折线图
@@ -124,9 +154,10 @@ nodejs服务端需安装[node-canvas]及其环境(https://www.npmjs.com/package/
 	const LineChart = FundCharts.line
 ```
 
-![line demo picture 1](http://blog.michealwayne.cn/images/github/FundCharts/line1.jpg)
-![line demo picture 2](http://blog.michealwayne.cn/images/github/FundCharts/line2.jpg)
-
+![line demo picture 1](http://blog.michealwayne.cn/images/fundchartspics/line/1.png)
+![line demo picture 2](http://blog.michealwayne.cn/images/fundchartspics/line/2.png)
+![line demo picture 3](http://blog.michealwayne.cn/images/fundchartspics/line/3.png)
+![line demo picture 4](http://blog.michealwayne.cn/images/fundchartspics/line/4.png)
 
 #### 1.1.1 准备工作
 - 容器，需含id属性及配置宽高，如
@@ -136,21 +167,25 @@ nodejs服务端需安装[node-canvas]及其环境(https://www.npmjs.com/package/
 - x轴标签数组
 - 数据项数组
 
-#### 1.1.2 初始化
+#### 1.1.2 实例化
 
-字段 | 默认值 | 说明
----- | ----- | ----
-id | -- | 容器id
-xaxis | -- | x轴标签数组
-yaxisfunc | -- | （可选）y轴单位显示处理（函数）
-data/datas | -- | 数据项数组（多条时字段传datas） 
-colors | ['#fe5d4e', '#43c2f7'] | （可选）折线颜色(六位十六进制，不可简写)
-noGradient | false | 无渐变效果
-noDash | false | 无虚线
-lineWidths | -- | 折线粗细数组，如[3, 1]
-hover | -- | （可选）交互返回函数（第一个参数为索引，Number；第二个参数为对应数值集合，Array；第三个参数为x轴标签值，第四个参数为触控点的水平x坐标）
-animation | 'easeInOut' | 线性动画（'easeIn'/'easeOut'/'easeInOut'/'linear'/false）
-backgroundColor | '#fff' | 画布背景色
+字段 | 默认值 | 类型 | 说明
+---- | ----- | ---- | ----
+id | -- | String | 容器id
+xaxis | -- | Array< String/Number> | x轴标签数组
+yaxisfunc | -- | Function | （可选）y轴单位显示处理（函数）
+data/datas | -- | Array< Number / Array< Number>> | 数据项数组（多条时字段传datas） 
+colors | ['#fe5d4e', '#43c2f7', '#707ad9', '#3ba8ff', '#ffa92f'] | Array<String> | （可选）折线颜色(六位十六进制)
+noGradient | false | Boolean | （可选）无渐变效果
+noDash | false | Boolean | （可选）无虚线
+noHoverLine | false | Boolean | （可选）触控后不展示线条
+noAnimation | false | Boolean | （可选）无动画
+lineWidths | -- | Array< Number> | （可选）折线粗细数组，如[3, 1]
+hover | -- | Function | （可选）交互返回函数（第一个参数为索引，Number；第二个参数为对应数值集合，Array；第三个参数为x轴标签值，第四个参数为触控点的水平x坐标）
+onFinish | -- | Function | （可选）动画结束后回调
+range | -- | Object | （可选）自定义范围，需包含min及max参数，如range: {min: 0, max: 15}
+hoverLineColor | '#999' | String | （可选）触控后线条颜色
+backgroundColor | '#fff' | String | （可选）画布背景色
 
 
 单条，如
@@ -191,7 +226,7 @@ backgroundColor | '#fff' | 画布背景色
     chart.init();
 ```
 
-#### 1.1.3 更新
+#### 1.1.3 更新数据
 update()方法
 
 ``` js
@@ -204,14 +239,32 @@ update()方法
     });
 ```
 
-### 1.2 PieChart 饼图
+#### 1.1.4 触摸事件及模拟
+触摸事件目前只支持移动端。
+
+模拟触摸事件可通过调用实例的drawer.drawHover(x坐标)方法触发，
+如：
+``` js
+	setTimeout(() => {
+		chart.drawer.drawHover(365);
+	}, 1000);
+```
+效果如：
+![line demo picture 3](http://blog.michealwayne.cn/images/github/FundCharts/line3.png)
+
+
+### 1.2 PieChart 饼图、环形图
 
 ``` js
 	const PieChart = FundCharts.pie
 ```
 
-![pie demo picture 1](http://blog.michealwayne.cn/images/github/FundCharts/pie1.jpg)
-![pie demo picture 2](http://blog.michealwayne.cn/images/github/FundCharts/pie2.jpg)
+![pie demo picture](http://blog.michealwayne.cn/images/github/FundCharts/pie1.jpg)
+![pie demo picture 1](http://blog.michealwayne.cn/images/fundchartspics/pie/1.png)
+![pie demo picture 2](http://blog.michealwayne.cn/images/fundchartspics/pie/2.png)
+![pie demo picture 3](http://blog.michealwayne.cn/images/fundchartspics/pie/3.png)
+![pie demo picture 4](http://blog.michealwayne.cn/images/fundchartspics/pie/4.png)
+
 
 #### 1.2.1 准备工作
 - 容器，需含id属性及配置宽高，如
@@ -220,18 +273,21 @@ update()方法
 ```
 - 比例数组
 
-#### 1.2.2 初始化
+#### 1.2.2 实例化
 
-字段 | 默认值 | 说明
----- | ----- | ----
-id | -- | 容器id
-annularRate | 0.6 | 空心比例（0或false时为饼图，其余为环形图）
-radius | -- | 饼图直径，默认取高度height/20 - 20
-origin | -- | 圆心坐标{x: 水平坐标, y: 垂直坐标}
-datas | -- | 比例数组，请确认数组和为1
-colors | ['#fe5d4e', '#43c2f7', '#707ad9', '#3ba8ff', '#ffa92f'] | （可选）折线颜色(六位十六进制，不可简写)（可选）交互返回函数（第一个参数为索引，Number；第二个参数为对应数值集合，Array；第三个参数为x轴标签值）
-animation | 'easeInOut' | 线性动画（'easeIn'/'easeOut'/'easeInOut'/'linear'/false）
-backgroundColor | '#fff' | 画布背景色
+字段 | 默认值 | 类型 | 说明
+---- | ----- | ---- | ----
+id | -- | String | 容器id
+annularRate | 0.6 | Number/Boolean | （可选）空心比例（0或false时为饼图，其余为环形图）
+radius | -- | Number | （可选）饼图直径，默认取高度height/20 - 20
+origin | -- | Object | （可选）圆心坐标{x: 水平坐标, y: 垂直坐标}
+datas | -- | Array< Number> | 比例数组，请确认数组和为1
+colors | ['#fe5d4e', '#43c2f7', '#707ad9', '#3ba8ff', '#ffa92f'] | Array<String> | （可选）折线颜色(六位十六进制)
+lineWidth | 0 | Number | （可选）饼图/环形图之间空隙
+widthRates | null | Array< Number> | （可选）各饼图半径比例，范围0~1
+noAnimation | false | Boolean | （可选）无动画
+onFinish | -- | Function | （可选）动画结束后回调
+backgroundColor | '#fff' | String | （可选）画布背景色
 
 单条，如
 ``` js
@@ -249,7 +305,11 @@ backgroundColor | '#fff' | 画布背景色
 	const BarChart = FundCharts.bar
 ```
 
-![bar demo picture 1](http://blog.michealwayne.cn/images/github/FundCharts/bar1.png)
+![bar demo picture 1](http://blog.michealwayne.cn/images/fundchartspics/bar/1.png)
+![bar demo picture 2](http://blog.michealwayne.cn/images/fundchartspics/bar/2.png)
+![bar demo picture 3](http://blog.michealwayne.cn/images/fundchartspics/bar/3.png)
+![bar demo picture 4](http://blog.michealwayne.cn/images/fundchartspics/bar/4.png)
+
 
 #### 1.3.1 准备工作
 - 容器，需含id属性及配置宽高，如
@@ -259,17 +319,20 @@ backgroundColor | '#fff' | 画布背景色
 - x轴标签数组
 - 数据项数组
 
-#### 1.3.2 初始化
+#### 1.3.2 实例化
 
-字段 | 默认值 | 说明
----- | ----- | ----
-id | -- | 容器id
-xaxis | -- | x轴标签数组
-barMargin | 60 | （可选）柱形图之间间隔
-series | -- | 数据项数组 
-colors | ['#fe5d4e', '#43c2f7'] | （可选）折线颜色(六位十六进制，不可简写)
-animation | 'easeInOut' | 线性动画（'easeIn'/'easeOut'/'easeInOut'/'linear'/false）
-backgroundColor | '#fff' | 画布背景色
+字段 | 默认值 | 类型 | 说明
+---- | ----- | ---- | ---
+id | -- | String | 容器id
+xaxis | -- | Array< String/Number> | x轴标签数组
+barMargin | 60 | Number | （可选）柱形图之间间隔
+series | -- | Array< Number / Array< Number>> | 数据项数组 
+colors | ['#fe5d4e', '#43c2f7', '#707ad9', '#3ba8ff', '#ffa92f'] | Array<String> | （可选）折线颜色(六位十六进制)
+negativeColor | -- | String | （可选）负值指定颜色
+noAnimation | false | Boolean | （可选）无动画
+onFinish | -- | Function | （可选）动画结束后回调
+range | -- | Object | （可选）自定义范围，需包含min及max参数，如range: {min: 0, max: 15}
+backgroundColor | '#fff' | String | （可选）画布背景色
 
 单条，如
 ``` js
@@ -304,12 +367,85 @@ update()方法
 ``` js
     chart.update({
         xaxis: ['10-12', '10-23', '11-12', '11-23', '12-11'],
+        series: [
+            [2, 4, 3, 2, 4],
+            [3, 4, 5, 3, 5]
+        ]
+    });
+```
+
+### 1.4 RadarChart 雷达图（蜘蛛图）
+``` js
+	const RadarChart = FundCharts.radar
+```
+
+![radar demo picture 1](http://blog.michealwayne.cn/images/fundchartspics/radar/1.png)
+![radar demo picture 2](http://blog.michealwayne.cn/images/fundchartspics/radar/2.png)
+![radar demo picture 3](http://blog.michealwayne.cn/images/fundchartspics/radar/3.png)
+![radar demo picture 4](http://blog.michealwayne.cn/images/fundchartspics/radar/4.png)
+
+#### 1.4.1 准备工作
+- 容器，需含id属性及配置宽高，如
+``` html
+    <div id="chart" style="height: 2rem;"></div>
+```
+- 数据项数组
+
+#### 1.4.2 实例化
+
+字段 | 默认值 | 类型 | 说明
+---- | ----- | ---- | ----
+id | -- | String | 容器id
+radius | -- | Number | （可选）雷达图图直径，默认取高度height/20 - 20
+origin | -- | Object | （可选）圆心坐标{x: 水平坐标, y: 垂直坐标}
+data/datas | -- | Array< Number / Array< Number>> | 数据项数组（多条时字段传datas）
+colors | ['#fe5d4e', '#43c2f7', '#707ad9', '#3ba8ff', '#ffa92f'] | Array<String> | （可选）折线颜色(六位十六进制)
+widthRates | null | Array< Number> | （可选）各饼图半径比例，范围0~1
+noAnimation | false | Boolean | （可选）无动画
+noFill | false | Boolean | （可选）无填充色
+gridNumber | 3 | Number | （可选）网格线数量，>=1
+maxRate | 0.9 | Number | （可选）数据点最高比例，0~1，为1时最大数据点贴边
+hidePoints | false | Boolean | （可选）隐藏点
+onFinish | -- | Function | （可选）动画结束后回调
+backgroundColor | '#fff' | String | （可选）画布背景色
+
+单条，如
+``` js
+    const chart = new RadarChart({
+        id: 'chart',
+        data: [1, 2, 3, 4, 3.5, 3]
+    });
+
+    chart.init();
+```
+
+多条，如
+``` js
+    const chart = new RadarChart({
+        id: 'chart',
+        xaxis: ['09-11', '09-22', '10-11', '11-22'],
+        datas: [
+			[1, 2, 3, 4, 3.5, 3, 4],
+			[4, 3, 3, 4, 3.5, 3, 4]
+		]
+    });
+
+    chart.init();
+```
+
+#### 1.4.3 更新
+update()方法
+
+``` js
+    chart.update({
         datas: [
             [2, 4, 3, 2, 4],
             [3, 4, 5, 3, 5]
         ]
     });
 ```
+
+
 
 ## 2 小程序
 小程序的使用跟web端类似，只有如下几点不同的地方。
@@ -372,7 +508,7 @@ update()方法
 		chartTouchstart: function (e) {
 			if (e) {
 			  let event = e.touches[0];
-			  chartInit.drawer.drawHover(event.x);
+			  chartInit.drawer.drawHover(event.x);		// 折线图的hover处理
 			}
 		},
 		// touch move
@@ -419,6 +555,18 @@ nodejs服务端需要引FundCharts-node.js，其使用跟web端类似，不过�
 ```
 
 ## 其他
+
+### 默认颜色组
+```
+	'#fe5d4e',  // 红
+    '#43c2f7',   // 蓝
+    '#707ad9',   // 深蓝
+    '#ffa61b',   // 橙
+    '#64d290',   // 青
+    '#cf27bd'    // 紫  
+```
+
+![color Array](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAUCAIAAADJMG6kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBFMEIwRTIzNUMxQzExRTk5NzQ3QkREN0U1OEYyQUM5IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjBFMEIwRTI0NUMxQzExRTk5NzQ3QkREN0U1OEYyQUM5Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MEUwQjBFMjE1QzFDMTFFOTk3NDdCREQ3RTU4RjJBQzkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MEUwQjBFMjI1QzFDMTFFOTk3NDdCREQ3RTU4RjJBQzkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6pnyKQAAAAX0lEQVR42uzQIRGAQABFQSDPXQlmsDgk8hSaHOSgAXkIwpCBL1D7/DPbP+vcpU3tjN963fF7lDF+W9njd1tq/A6dfgk0aNACDRo0AtCgBRo0aIEGLdCgQQs0aH3tFWAAj+kH234qblIAAAAASUVORK5CYII=)
 
 
 - 反馈：michealwayne@163.com
