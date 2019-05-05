@@ -1,5 +1,6 @@
 <view class="fundCharts-demo">
   <View>
+    <view class="u-h3">1.折线图（带交互）</view>
     <canvas
       style="width: 375px; height: 212px;"
       canvas-id="chartline1"
@@ -7,19 +8,40 @@
 	    bindtouchmove="chartTouchmove"
     ></canvas>
 
+    <view class="u-h3">2.面积图</view>
+    <canvas
+      style="width: 375px; height: 212px;"
+      canvas-id="chartline2"
+    ></canvas>
+
+    <view class="u-h3">3.环形图</view>
     <canvas
       style="width: 200px; height: 200px;"
       canvas-id="chartpie1"
     ></canvas>
 
+    <view class="u-h3">4.饼图</view>
+    <canvas
+      style="width: 200px; height: 200px;"
+      canvas-id="chartpie2"
+    ></canvas>
+
+    <view class="u-h3">5.柱状图</view>
     <canvas
       style="width: 375px; height: 212px;"
       canvas-id="chartbar1"
     ></canvas>
 
+    <view class="u-h3">6.雷达图</view>
     <canvas
       style="width: 375px; height: 212px;"
       canvas-id="chartradar1"
+    ></canvas>
+
+    <view class="u-h3">7.散点图</view>
+    <canvas
+      style="width: 375px; height: 212px;"
+      canvas-id="chartscatter1"
     ></canvas>
   </View>
 </view>

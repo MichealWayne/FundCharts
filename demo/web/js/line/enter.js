@@ -19,8 +19,15 @@ chart1.init();
 const chart2 = new LineChart({
     id: 'line2',
     xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
+    chartLeft: 15,      // 图形区域距左边距离
+    chartRight: 1,      // 图形区域距右边距离
+    chartTop: 25,
+    //noGradient: true,   // 无首条折线区域渐变
+    yaxisfunc (data) {
+        return data.toFixed(0)
+    },
     datas: [
-        [1, 2, 3, 4, 3.5, 3, 4],
+        [6, 2, 3, 4, 3.5, 3, 4],
         [4, 3, 4, 2, 3, 5, 6]
     ],
 	lineWidths: [3, 1],		// 折线粗细
@@ -35,13 +42,13 @@ const chart2 = new LineChart({
         ctx.fillStyle = '#9d9d9d';
         let _rectX = _x - 32;
         _rectX = _rectX < 50 ? 50 : _rectX > 300 ? 300 : _rectX;
-        ctx.fillRect(_rectX, 0, 64, 15);
+        ctx.fillRect(_rectX, 26, 64, 15);
 
         // text
         ctx.fillStyle = '#fff';
         ctx.font = '10px Arial';
         ctx.textAlign = 'center';
-        ctx.fillText(xaxis + ':' + values, _rectX + 32, 9);
+        ctx.fillText(xaxis + ':' + values, _rectX + 32, 35);
 		ctx.closePath();
 		ctx.stroke();
     }
@@ -54,10 +61,11 @@ const chart3 = new LineChart({
 	id: 'line3',
 	xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
     datas: [
-        [1, 2, 3, 4, 3.5, 3, 4],
+        [1, 2, 6, 4, 3.5, 3, 4],
         [4, 3, 4, 2, 3, 5, 6],
 		[6, 2, 4, 5, 5, 2, 1]
     ],
+    allGradient: true,   // 面积图
 	colors: ['#f00', '#00f', '#0f0', '#ff0', '#0ff'],
 	pointStyle: '#666',			// 点
 	backgroundColor: '#222',	// 背景色

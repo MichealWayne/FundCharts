@@ -10,5 +10,6 @@
     node line.js
     node pie.js
     node bar.js
-	node radar.js
+    node radar.js
+    node scatter.js
 ```

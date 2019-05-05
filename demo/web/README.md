@@ -8,7 +8,7 @@
     npm run test
 ```
 
-然后可在浏览器（开启手机模式）访问：[http://localhost:3000/line.html](http://localhost:3000/line.html)、[http://localhost:3000/bar.html](http://localhost:3000/bar.html)、[http://localhost:3000/pie.html](http://localhost:3000/pie.html)、[http://localhost:3000/radar.html](http://localhost:3000/radar.html)。
+然后可在浏览器（开启手机模式）访问：[折线图/面积图http://localhost:3000/line.html](http://localhost:3000/line.html)、[柱状图http://localhost:3000/bar.html](http://localhost:3000/bar.html)、[饼图/环形图http://localhost:3000/pie.html](http://localhost:3000/pie.html)、[雷达图（蜘蛛图）http://localhost:3000/radar.html](http://localhost:3000/radar.html)、[散点图http://localhost:3000/scatter.html](http://localhost:3000/scatter.html)。
 
 ## 本地测试
 建立html文件，`<script>`标签引入，如

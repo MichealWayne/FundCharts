@@ -56,20 +56,21 @@ const chart4 = new RadarChart({
     id: 'radar4',
     colors: ['#009966'],
     radius: 70,     // 半径
+    gridNumber: 4,
+    fillGrid: '#f00',   // 填充背景
     origin: {       // 中心
         x: 120,
         y: 100
     },
     data: [1, 2, 3, 4, 3.5],
-    onFinish: () => {
-        console.log(chart4);
+    onAnimation: () => {
         let tits = ['吃', '喝', '住', '睡', '玩'];
 
         let ctx = chart4.ctx;
         ctx.lineWidth = 1;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.font = '$12px Arial';
+        ctx.font = '12px Arial';
         ctx.fillStyle = '#000';
         chart4.drawer.sideArr.map((item, index) => {
             ctx.fillText(

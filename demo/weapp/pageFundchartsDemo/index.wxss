@@ -1,0 +1,4 @@
+.u-h3 {
+  margin: 20rpx auto 20rpx 20rpx;
+  font-size: 28rpx;
+}
