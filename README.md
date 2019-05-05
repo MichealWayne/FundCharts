@@ -7,11 +7,11 @@
 
 ### 向导
 - [web](#1-web网页端)
-	- [折线图/面积图](#11-linechart-折线图)
-	- [饼图/环形图](#12-piechart-饼图环形图)
-	- [柱状图](#13-barchart-柱状图)
-	- [雷达图/蜘蛛图](#14-radarchart-雷达图蜘蛛图)
-	- [散点图](#15-scatterchart-散点图)
+    - [折线图/面积图](#11-linechart-折线图面积图)
+    - [饼图/环形图](#12-piechart-饼图环形图)
+    - [柱状图](#13-barchart-柱状图)
+    - [雷达图/蜘蛛图](#14-radarchart-雷达图蜘蛛图)
+    - [散点图](#15-scatterchart-散点图)
 - [小程序](#2-小程序)
 - [nodejs服务端](#3-nodejs服务端)
 - [实例的再次绘制](#实例的再次绘制)
@@ -57,37 +57,37 @@ FundCharts
 
 ### browser(FundCharts.min.js)
 ``` html
-	<script src="./FundCharts.min.js"></script>
+<script src="./FundCharts.min.js"></script>
 ```
 ``` js
-	var LineChart = FundCharts.line;
+var LineChart = FundCharts.line;
 ```
 
 ### weapp
 ``` js
-	const FundCharts = require('./FundCharts.min.js');
+const FundCharts = require('./FundCharts.min.js');
 
-	const LineChart = FundCharts.line;
+const LineChart = FundCharts.line;
 ```
 
 ### nodejs(FundCharts-node.js)
 nodejs服务端需安装[node-canvas]及其环境(https://www.npmjs.com/package/canvas)。
 
 ``` js
-	const Canvas = require('Canvas');
-	const { FundCharts } = require('./FundCharts-node');
-	
-	let LineChart = FundCharts.line;
+const Canvas = require('Canvas');
+const { FundCharts } = require('./FundCharts-node');
+    
+let LineChart = FundCharts.line;
 ```
 
 ## 启动查看测试demo
 ### browser
 ``` sh
-	npm i
-	npm run test
+npm i
+npm run test
 ```
 
-然后可在浏览器（开启手机模式）访问：[http://localhost:3000/line.html](http://localhost:3000/line.html)、[http://localhost:3000/bar.html](http://localhost:3000/bar.html)、[http://localhost:3000/pie.html](http://localhost:3000/pie.html)。
+然后可在浏览器（开启手机模式）访问：[http://localhost:3000/line.html](http://localhost:3000/line.html)、[http://localhost:3000/bar.html](http://localhost:3000/bar.html)、[http://localhost:3000/pie.html](http://localhost:3000/pie.html)、[http://localhost:3000/radar.html](http://localhost:3000/radar.html)、[http://localhost:3000/scatter.html](http://localhost:3000/scatter.html)。
 
 ### weapp
 可复制`demo/weapp/`代码到小程序环境中启动查看。
@@ -98,11 +98,13 @@ nodejs服务端需安装[node-canvas]及其环境(https://www.npmjs.com/package/
 ### nodejs
 安装完node-canvas所需的环境后，
 ``` sh
-	npm i -D canvas
-	
-	node /demo/node/line
-	node /demo/node/bar
-	node /demo/node/pie
+npm i -D canvas
+    
+node /demo/node/line
+node /demo/node/bar
+node /demo/node/pie
+node /demo/node/radar
+node /demo/node/scatter
 ```
 
 成功则可在/demo/node/目录下查看到对应图片。
@@ -111,34 +113,34 @@ nodejs服务端需安装[node-canvas]及其环境(https://www.npmjs.com/package/
 **创建实例后，实例的canvas属性及ctx属性分别对应canvas实例的canvas及context，因此可用此属性再次绘制，以满足特殊定制化的需求**。如
 
 ``` js
-	// demo1
-	let chart = new LineChart({
-		id: 'chart',
-		data: [1, 2, 3, 4, 3.5, 3, 4],
-		xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11']
-		hover(index, values, xaxis, _x) {
-			// rect
-			let ctx = chart.ctx;
-			ctx.fillStyle = '#9d9d9d';
-			let _rectX = _x - 32;
-			_rectX = _rectX < 50 ? 50 : _rectX > 300 ? 300 : _rectX;
-			ctx.rect(_rectX, 0, 64, 15);
-			ctx.fill();
+// demo1
+let chart = new LineChart({
+    id: 'chart',
+    data: [1, 2, 3, 4, 3.5, 3, 4],
+    xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11']
+    hover(index, values, xaxis, _x) {
+        // rect
+        let ctx = chart.ctx;
+        ctx.fillStyle = '#9d9d9d';
+        let _rectX = _x - 32;
+        _rectX = _rectX < 50 ? 50 : _rectX > 300 ? 300 : _rectX;
+        ctx.rect(_rectX, 0, 64, 15);
+        ctx.fill();
 
-			// text
-			ctx.fillStyle = '#fff';
-			ctx.font = '10px Arial';
-			ctx.textAlign = 'center';
-			ctx.fillText(xaxis + ':' + values, _rectX + 32, 9);
-		} 
-	});
-	
-	chart.init();
-	
-	// 图表上添加矩形蒙版
-	_zsChart.ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
-	_zsChart.ctx.fillRect(50, 0, _zsChart._chart.width - 65, -_zsChart.drawer.yRate * 30);
-	
+        // text
+        ctx.fillStyle = '#fff';
+        ctx.font = '10px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(xaxis + ':' + values, _rectX + 32, 9);
+    } 
+});
+
+chart.init();
+
+// 图表上添加矩形蒙版
+_zsChart.ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+_zsChart.ctx.fillRect(50, 0, _zsChart._chart.width - 65, -_zsChart.drawer.yRate * 30);
+    
 ```
 
 ``` js
@@ -146,11 +148,11 @@ nodejs服务端需安装[node-canvas]及其环境(https://www.npmjs.com/package/
 const chart = new RadarChart({
     id: 'radar',
     data: [1, 2, 3, 4, 3.5],
-    onAnimation: () => {	// 雷达图添加文字标注
+    onAnimation: () => {    // 雷达图添加文字标注
         let tits = ['吃', '喝', '住', '睡', '玩'];
 
         let ctx = chart.ctx,
-			_drawer = chart.drawer;
+            _drawer = chart.drawer;
         ctx.lineWidth = 1;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -178,8 +180,8 @@ chart.init();
 - drawer：数据处理实例，包含一些转换函数；
 - opts：设置参数；
 - _chart：图表尺寸，单位px
-	- width: 宽
-	- height: 高
+    - width: 宽
+    - height: 高
 
 
 ## 1 Web网页端
@@ -189,7 +191,7 @@ chart.init();
 
 
 ``` js
-	const LineChart = FundCharts.line
+const LineChart = FundCharts.line
 ```
 
 ![line demo picture 1](http://blog.michealwayne.cn/images/fundchartspics/line/1.png)
@@ -200,7 +202,7 @@ chart.init();
 #### 1.1.1 准备工作
 - 容器，需含id属性及配置宽高，如
 ``` html
-    <div id="chart" style="height: 2rem;"></div>
+<div id="chart" style="height: 2rem;"></div>
 ```
 - x轴标签数组
 - 数据项数组
@@ -234,53 +236,53 @@ backgroundColor | '#fff' | String | （可选）画布背景色
 
 单条，如
 ``` js
-    const chart = new LineChart({
-        id: 'chart',
-        xaxis: ['09-11', '09-22', '10-11'],
-        yaxisfunc (data) {
-            return (data * 100).toFixed(2) + '%'
-        },
-        data: [1, 2, 3, 4],
-        colors: ['#0000ff'],
-        hover (index, values, xaxis) {
-            document.getElementById('showvalue').innerHTML = values[0];
-            document.getElementById('showtime').innerHTML = xaxis;
-        }
-    });
+const chart = new LineChart({
+    id: 'chart',
+    xaxis: ['09-11', '09-22', '10-11'],
+    yaxisfunc (data) {
+        return (data * 100).toFixed(2) + '%'
+    },
+    data: [1, 2, 3, 4],
+    colors: ['#0000ff'],
+    hover (index, values, xaxis) {
+        document.getElementById('showvalue').innerHTML = values[0];
+        document.getElementById('showtime').innerHTML = xaxis;
+    }
+});
 
-    chart.init();
+chart.init();
 ```
 
 多条，如
 ``` js
-    const chart = new LineChart({
-        id: 'chart',
-        xaxis: ['09-11', '09-22', '10-11'],
-        datas: [
-            [1, 2, 3, 4],
-            [1, 5, 3, 2]
-        ],
-        hover (index, values, xaxis) {
-            document.getElementById('showvalue').innerHTML = values[0];
-            document.getElementById('showvalue2').innerHTML = values[1];
-            document.getElementById('showtime').innerHTML = xaxis;
-        }
-    });
+const chart = new LineChart({
+    id: 'chart',
+    xaxis: ['09-11', '09-22', '10-11'],
+    datas: [
+        [1, 2, 3, 4],
+        [1, 5, 3, 2]
+    ],
+    hover (index, values, xaxis) {
+        document.getElementById('showvalue').innerHTML = values[0];
+        document.getElementById('showvalue2').innerHTML = values[1];
+        document.getElementById('showtime').innerHTML = xaxis;
+    }
+});
 
-    chart.init();
+chart.init();
 ```
 
 #### 1.1.3 更新数据
 update()方法
 
 ``` js
-    chart.update({
-        xaxis: ['10-12', '10-23', '11-12', '11-23', '12-11'],
-        datas: [
-            [2, 4, 3, 2, 4],
-            [3, 4, 5, 3, 5]
-        ]
-    });
+chart.update({
+    xaxis: ['10-12', '10-23', '11-12', '11-23', '12-11'],
+    datas: [
+        [2, 4, 3, 2, 4],
+        [3, 4, 5, 3, 5]
+    ]
+});
 ```
 
 #### 1.1.4 触摸事件及模拟
@@ -289,9 +291,9 @@ update()方法
 模拟触摸事件可通过调用实例的drawer.drawHover(x坐标)方法触发，
 如：
 ``` js
-	setTimeout(() => {
-		chart.drawer.drawHover(365);
-	}, 1000);
+setTimeout(() => {
+    chart.drawer.drawHover(365);
+}, 1000);
 ```
 效果如：
 ![line demo picture 3](http://blog.michealwayne.cn/images/github/FundCharts/line3.png)
@@ -300,7 +302,7 @@ update()方法
 ### 1.2 PieChart 饼图、环形图
 
 ``` js
-	const PieChart = FundCharts.pie
+const PieChart = FundCharts.pie
 ```
 
 ![pie demo picture](http://blog.michealwayne.cn/images/github/FundCharts/pie1.jpg)
@@ -313,7 +315,7 @@ update()方法
 #### 1.2.1 准备工作
 - 容器，需含id属性及配置宽高，如
 ``` html
-    <div id="chart" style="height: 2rem;"></div>
+<div id="chart" style="height: 2rem;"></div>
 ```
 - 比例数组
 
@@ -336,18 +338,18 @@ backgroundColor | '#fff' | String | （可选）画布背景色
 
 单条，如
 ``` js
-    const chart = new PieChart({
-        id: 'chart',
-        datas: [0.1, 0.2, 0.3, 0.4],
-        colors: ['#0000ff'],
-    });
+const chart = new PieChart({
+    id: 'chart',
+    datas: [0.1, 0.2, 0.3, 0.4],
+    colors: ['#0000ff'],
+});
 
-    chart.init();
+chart.init();
 ```
 
 ### 1.3 BarChart 柱状图
 ``` js
-	const BarChart = FundCharts.bar
+const BarChart = FundCharts.bar
 ```
 
 ![bar demo picture 1](http://blog.michealwayne.cn/images/fundchartspics/bar/1.png)
@@ -359,7 +361,7 @@ backgroundColor | '#fff' | String | （可选）画布背景色
 #### 1.3.1 准备工作
 - 容器，需含id属性及配置宽高，如
 ``` html
-    <div id="chart" style="height: 2rem;"></div>
+<div id="chart" style="height: 2rem;"></div>
 ```
 - x轴标签数组
 - 数据项数组
@@ -386,47 +388,47 @@ backgroundColor | '#fff' | String | （可选）画布背景色
 
 单条，如
 ``` js
-    const chart = new BarChart({
-        id: 'chart',
-        xaxis: ['09-11', '09-22', '10-11'],
-		series: [1, 2, 3]
-    });
+const chart = new BarChart({
+    id: 'chart',
+    xaxis: ['09-11', '09-22', '10-11'],
+    series: [1, 2, 3]
+});
 
-    chart.init();
+chart.init();
 ```
 
 多条，如
 ``` js
-    const chart = new BarChart({
-        id: 'chart',
-        xaxis: ['09-11', '09-22', '10-11', '11-22'],
-        series: [
-            [1, 2, 3, 4],
-            [1, 5, 3, 2],
-			[5, 3, 4, 2]
-        ],
-		barMargin: 20
-    });
+const chart = new BarChart({
+    id: 'chart',
+    xaxis: ['09-11', '09-22', '10-11', '11-22'],
+    series: [
+        [1, 2, 3, 4],
+        [1, 5, 3, 2],
+        [5, 3, 4, 2]
+    ],
+    barMargin: 20
+});
 
-    chart.init();
+chart.init();
 ```
 
 #### 1.3.3 更新
 update()方法
 
 ``` js
-    chart.update({
-        xaxis: ['10-12', '10-23', '11-12', '11-23', '12-11'],
-        series: [
-            [2, 4, 3, 2, 4],
-            [3, 4, 5, 3, 5]
-        ]
-    });
+chart.update({
+    xaxis: ['10-12', '10-23', '11-12', '11-23', '12-11'],
+    series: [
+        [2, 4, 3, 2, 4],
+        [3, 4, 5, 3, 5]
+    ]
+});
 ```
 
 ### 1.4 RadarChart 雷达图（蜘蛛图）
 ``` js
-	const RadarChart = FundCharts.radar
+const RadarChart = FundCharts.radar
 ```
 
 ![radar demo picture 1](http://blog.michealwayne.cn/images/fundchartspics/radar/1.png)
@@ -437,7 +439,7 @@ update()方法
 #### 1.4.1 准备工作
 - 容器，需含id属性及配置宽高，如
 ``` html
-    <div id="chart" style="height: 2rem;"></div>
+<div id="chart" style="height: 2rem;"></div>
 ```
 - 数据项数组
 
@@ -463,43 +465,43 @@ backgroundColor | '#fff' | String | （可选）画布背景色
 
 单条，如
 ``` js
-    const chart = new RadarChart({
-        id: 'chart',
-        data: [1, 2, 3, 4, 3.5, 3]
-    });
+const chart = new RadarChart({
+    id: 'chart',
+    data: [1, 2, 3, 4, 3.5, 3]
+});
 
-    chart.init();
+chart.init();
 ```
 
 多条，如
 ``` js
-    const chart = new RadarChart({
-        id: 'chart',
-        xaxis: ['09-11', '09-22', '10-11', '11-22'],
-        datas: [
-			[1, 2, 3, 4, 3.5, 3, 4],
-			[4, 3, 3, 4, 3.5, 3, 4]
-		]
-    });
+const chart = new RadarChart({
+    id: 'chart',
+    xaxis: ['09-11', '09-22', '10-11', '11-22'],
+    datas: [
+        [1, 2, 3, 4, 3.5, 3, 4],
+        [4, 3, 3, 4, 3.5, 3, 4]
+    ]
+});
 
-    chart.init();
+chart.init();
 ```
 
 #### 1.4.3 更新
 update()方法
 
 ``` js
-    chart.update({
-        datas: [
-            [2, 4, 3, 2, 4],
-            [3, 4, 5, 3, 5]
-        ]
-    });
+chart.update({
+    datas: [
+        [2, 4, 3, 2, 4],
+        [3, 4, 5, 3, 5]
+    ]
+});
 ```
 
 ### 1.5 ScatterChart 散点图
 ``` js
-	const ScatterChart = FundCharts.scatter
+    const ScatterChart = FundCharts.scatter
 ```
 
 ![scatter demo picture 1](http://blog.michealwayne.cn/images/fundchartspics/scatter/1.png)
@@ -510,7 +512,7 @@ update()方法
 #### 1.5.1 准备工作
 - 容器，需含id属性及配置宽高，如
 ``` html
-    <div id="chart" style="height: 2rem;"></div>
+<div id="chart" style="height: 2rem;"></div>
 ```
 
 - 数据项数组
@@ -559,22 +561,22 @@ const chart2 = new ScatterChart({
     id: 'scatter2',
     datas: [
         [
-			[1, 2],
-			[3, 4],
-			[3, 5.5],
-			[3.5, 4.4],
-			[5, 6],
-			[7, 3]
-		],
-		[
-			[8, 7],
-			[7, 6],
-			[3, 5.5],
-			[3.5, 4.4],
-			[5, 6],
-			[7, 3],
-			[1, 3]
-		]
+            [1, 2],
+            [3, 4],
+            [3, 5.5],
+            [3.5, 4.4],
+            [5, 6],
+            [7, 3]
+        ],
+        [
+            [8, 7],
+            [7, 6],
+            [3, 5.5],
+            [3.5, 4.4],
+            [5, 6],
+            [7, 3],
+            [1, 3]
+        ]
     ]
 });
 
@@ -585,13 +587,13 @@ chart2.init();
 update()方法
 
 ``` js
-    chart.update({
-        xaxis: ['10-12', '10-23', '11-12', '11-23', '12-11'],
-        series: [
-            [2, 4, 3, 2, 4],
-            [3, 4, 5, 3, 5]
-        ]
-    });
+chart.update({
+    xaxis: ['10-12', '10-23', '11-12', '11-23', '12-11'],
+    series: [
+        [2, 4, 3, 2, 4],
+        [3, 4, 5, 3, 5]
+    ]
+});
 ```
 
 ## 2 小程序
@@ -600,72 +602,72 @@ update()方法
 ### 2.1 必须设置width、height参数
 小程序环境无法获取原生canvas的宽高，因此为保持形状不变形，需要设置参数width/height为canvas的宽高，如
 ``` js
-    chartInit = new LineChart({
-      id: 'chart',
-      xaxis: ['09-11', '09-22', '10-11'],
-      yaxisfunc(data) {
-        return (data * 100).toFixed(2) + '%'
-      },
-      Ctx: ctx,
-      width: 375,	// 设置宽度
-      height: 212,	// 设置高度
-      xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
-      datas: [
-        [1, 2, 3, 4, 3.5, 3, 4],
-        [4, 3, 4, 2, 3, 5, 6]
-      ]
-    });
+chartInit = new LineChart({
+    id: 'chart',
+    xaxis: ['09-11', '09-22', '10-11'],
+    yaxisfunc(data) {
+    return (data * 100).toFixed(2) + '%'
+    },
+    Ctx: ctx,
+    width: 375,    // 设置宽度
+    height: 212,    // 设置高度
+    xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
+    datas: [
+    [1, 2, 3, 4, 3.5, 3, 4],
+    [4, 3, 4, 2, 3, 5, 6]
+    ]
+});
 
-    chartInit.init();
+chartInit.init();
 ```
 
 ### 2.2 涉及到交互需要主动设定绑定事件
 小程序环境无法通过添加动作事件来完成交互的展示，因此比起web需要多一些绑定的操作，如
 ``` wxml
-	<canvas
-      style="width: 375px; height: 212px;"
-      canvas-id="chart"
-      bindtouchstart="chartTouchstart"
-	  bindtouchmove="chartTouchmove"
-    ></canvas>
+<canvas
+    style="width: 375px; height: 212px;"
+    canvas-id="chart"
+    bindtouchstart="chartTouchstart"
+    bindtouchmove="chartTouchmove"
+></canvas>
 ```
 
 ``` js
-	let chartInit = null;
+let chartInit = null;
 
-	//...
-		onLoad () {
-			chartInit = new LineChart({
-			  id: 'chart',
-			  xaxis: ['09-11', '09-22', '10-11'],
-			  yaxisfunc(data) {
-				return (data * 100).toFixed(2) + '%'
-			  },
-			  Ctx: ctx,
-			  width: 375,
-			  height: 212,
-			  xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
-			  data: [1, 2, 3, 4, 3.5, 3, 4]
-			});
+    //...
+        onLoad () {
+            chartInit = new LineChart({
+              id: 'chart',
+              xaxis: ['09-11', '09-22', '10-11'],
+              yaxisfunc(data) {
+                return (data * 100).toFixed(2) + '%'
+              },
+              Ctx: ctx,
+              width: 375,
+              height: 212,
+              xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
+              data: [1, 2, 3, 4, 3.5, 3, 4]
+            });
 
-			chartInit.init();
-		},
-		
-		// touch start
-		chartTouchstart: function (e) {
-			if (e) {
-			  let event = e.touches[0];
-			  chartInit.drawer.drawHover(event.x);		// 折线图的hover处理
-			}
-		},
-		// touch move
-		chartTouchmove: function (e) {
-			if (e) {
-			  let event = e.touches[0];
-			  chartInit.drawer.drawHover(event.x);
-			}
-		},
-	//...
+            chartInit.init();
+        },
+        
+        // touch start
+        chartTouchstart: function (e) {
+            if (e) {
+              let event = e.touches[0];
+              chartInit.drawer.drawHover(event.x);        // 折线图的hover处理
+            }
+        },
+        // touch move
+        chartTouchmove: function (e) {
+            if (e) {
+              let event = e.touches[0];
+              chartInit.drawer.drawHover(event.x);
+            }
+        },
+    //...
 ```
 
 ## 3 nodejs服务端
@@ -674,46 +676,46 @@ nodejs服务端需要引FundCharts-node.js，其使用跟web端类似，不过�
 
 调用如下例：
 ``` js
-	const fs = require('fs');
-	const path = require('path');
-	const Canvas = require('canvas');
-	const {FundCharts} = require('../../dist/FundCharts-node');
+const fs = require('fs');
+const path = require('path');
+const Canvas = require('canvas');
+const {FundCharts} = require('../../dist/FundCharts-node');
 
 
-	// chart 1
-	const chart1 = new FundCharts.line({
-		id: 'line1',
-		width: 750,
-		height: 375,
-		xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
-		data: [1, 2, 3, 4, 3.5, 3, 4],
-		Canvas: Canvas,
-		handleOut: canvas => {
-			let out = fs.createWriteStream(path.join(__dirname, './line1.jpg')), 
-				stream = canvas.createJPEGStream();
+// chart 1
+const chart1 = new FundCharts.line({
+    id: 'line1',
+    width: 750,
+    height: 375,
+    xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
+    data: [1, 2, 3, 4, 3.5, 3, 4],
+    Canvas: Canvas,
+    handleOut: canvas => {
+        let out = fs.createWriteStream(path.join(__dirname, './line1.jpg')), 
+            stream = canvas.createJPEGStream();
 
-			stream.on('data', function(chunk) {
-				out.write(chunk);
-			});
-		}
-	});
+        stream.on('data', function(chunk) {
+            out.write(chunk);
+        });
+    }
+});
 
-	chart1.init();
+chart1.init();
 ```
 
 ## 其他
 
 ### 默认颜色组
 ```
-	'#fe5d4e',  // 红
-    '#43c2f7',   // 蓝
-    '#707ad9',   // 深蓝
-    '#ffa61b',   // 橙
-    '#64d290',   // 青
-    '#cf27bd'    // 紫  
+'#fe5d4e',  // 红
+'#43c2f7',   // 蓝
+'#707ad9',   // 深蓝
+'#ffa61b',   // 橙
+'#64d290',   // 青
+'#cf27bd'    // 紫  
 ```
 
-![colorArray](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAUCAIAAADJMG6kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBFMEIwRTIzNUMxQzExRTk5NzQ3QkREN0U1OEYyQUM5IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjBFMEIwRTI0NUMxQzExRTk5NzQ3QkREN0U1OEYyQUM5Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MEUwQjBFMjE1QzFDMTFFOTk3NDdCREQ3RTU4RjJBQzkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MEUwQjBFMjI1QzFDMTFFOTk3NDdCREQ3RTU4RjJBQzkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6pnyKQAAAAX0lEQVR42uzQIRGAQABFQSDPXQlmsDgk8hSaHOSgAXkIwpCBL1D7/DPbP+vcpU3tjN963fF7lDF+W9njd1tq/A6dfgk0aNACDRo0AtCgBRo0aIEGLdCgQQs0aH3tFWAAj+kH234qblIAAAAASUVORK5CYII=)
+![colorArray](http://blog.michealwayne.cn/images/fundchartspics/colors.png)
 
 
 - 反馈：michealwayne@163.com
