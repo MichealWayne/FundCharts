@@ -218,7 +218,7 @@ const LineChart = FundCharts.line
 allGradient | false | Boolean | （可选）是否为面积图，默认第一条折线为面积图
 chartLeft | 50 | Number | （可选）图表主要内容（图形区域）距左边距离
 chartRight | 15 | Number | （可选）图表主要内容（图形区域）距右边距离
-chartRight | 0 | Number | （可选）图表主要内容（图形区域）距顶部距离
+chartTop | 0 | Number | （可选）图表主要内容（图形区域）距顶部距离
 id | -- | String | 容器id
 xaxis | -- | Array< String/Number> | x轴标签数组
 yaxisfunc | -- | Function | （可选）y轴单位显示处理（函数）
@@ -379,7 +379,7 @@ xaxis | -- | Array< String/Number> | x轴标签数组
 barMargin | 60 | Number | （可选）柱形图之间间隔
 chartLeft | 50 | Number | （可选）图表主要内容（图形区域）距左边距离
 chartRight | 15 | Number | （可选）图表主要内容（图形区域）距右边距离
-chartRight | 0 | Number | （可选）图表主要内容（图形区域）距顶部距离
+chartTop | 0 | Number | （可选）图表主要内容（图形区域）距顶部距离
 data/datas | -- | Array< Number / Array< Number>> | 数据项数组（多条时字段传datas）**早期版本为series字段，现统一为data/datas**
 colors | ['#fe5d4e', '#43c2f7', '#707ad9', '#3ba8ff', '#ffa92f'] | Array<String> | （可选）折线颜色(六位十六进制)
 negativeColor | -- | String | （可选）负值指定颜色
@@ -528,7 +528,7 @@ chart.update({
 id | -- | String | 容器id
 chartLeft | 50 | Number | （可选）图表主要内容（图形区域）距左边距离
 chartRight | 15 | Number | （可选）图表主要内容（图形区域）距右边距离
-chartRight | 0 | Number | （可选）图表主要内容（图形区域）距顶部距离
+chartTop | 0 | Number | （可选）图表主要内容（图形区域）距顶部距离
 series | -- | Array< Array< Number>> | 数据项数组 
 xaxisfunc | -- | Function | （可选）x轴单位显示处理（函数）
 yaxisfunc | -- | Function | （可选）y轴单位显示处理（函数）
