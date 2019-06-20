@@ -1,0 +1,17 @@
+<view class="fundCharts-demo">
+  <View>
+    <!-- chart 1 -->
+    <view class="u-h3">1.普通k线图</view>
+    <canvas
+      style="width: 375px; height: 200px;"
+      canvas-id="chartkline1"
+    ></canvas>
+
+    <!-- chart 2 -->
+    <view class="u-h3">2.特殊颜色k线图</view>
+    <canvas
+      style="width: 375px; height: 200px;"
+      canvas-id="chartkline2"
+    ></canvas>
+  </View>
+</view>

@@ -1,4 +1,4 @@
-import FundCharts from '~/FundCharts.min'
+import FundCharts from '~'	// '~'为dist目录下index.js
 import 'css/index.less'
 
 const BarChart = FundCharts.bar;
@@ -45,6 +45,13 @@ const chart3 = new BarChart({
     xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11', '12-12', '12-13', '12-14', '12-15', '12-16', '12-17', '12-18', '12-19', '12-20'],
     data: [1, 3, 2, 3, 3.2, 4, 5, -6.1, -3, -5, 3, 2, 3, 3.2, 4, 5],
     colors: ['#6892df', '#f96063'],
+    font: {         
+        color: '#eee',  // x/y轴文字颜色
+        fontSize: {     // x/y轴文字大小
+            x: '8px',
+            y: '8px'
+        }
+    },
     negativeColor: '#88dd4c',   // 负值指定颜色
     noAnimation: true, // 没有动画
 	backgroundColor: '#333'	// 背景色
@@ -58,7 +65,7 @@ let timeArr = ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11', '1
 const chart4 = new BarChart({
     id: 'bar4',
     xaxis: timeArr,
-    range: {
+    range: {        // 范围
         min: -10,
         max: 10
     },
@@ -71,7 +78,7 @@ const chart4 = new BarChart({
         ctx.lineWidth = 1;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.font = '$12px Arial';
+        ctx.font = '#12px Arial';
         ctx.fillStyle = '#000';
         datasets.map((item, index) => {
             ctx.fillText(

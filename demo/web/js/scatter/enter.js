@@ -1,4 +1,4 @@
-import FundCharts from '~/FundCharts.min'
+import FundCharts from '~'	// '~'为dist目录下index.js
 import 'css/index.less'
 
 const ScatterChart = FundCharts.scatter;
@@ -15,7 +15,6 @@ const chart1 = new ScatterChart({
         [7, 3]
     ]
 });
-
 chart1.init();
 
 // chart 2
@@ -65,7 +64,19 @@ const chart3 = new ScatterChart({
     chartRight: 1,
     backgroundColor: '#000',
     colors: ['#00f', '#0f0', '#f00'],
-    pointWidths: [2, 2, 2]
+    pointWidths: [2, 2, 2],
+	noDash: true,
+	handleTextY: (ctx, yaxis) => {
+		console.log(yaxis);
+		ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '10px Arial';
+        ctx.fillStyle = '#fff';
+		
+		ctx.fillText(yaxis.min.toFixed(0), 10, chart3._chart.height - 30);
+		ctx.fillText(yaxis.max.toFixed(0), 10, chart3.opts.chartTop + 10);
+		ctx.fillText(((yaxis.max + yaxis.min) / 2).toFixed(0), 10, (chart3._chart.height - chart3.opts.chartTop) / 2 - 10);
+	}
 });
 
 chart3.init();

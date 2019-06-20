@@ -1,4 +1,4 @@
-import FundCharts from '~/FundCharts.min'
+import FundCharts from '~'	// '~'为dist目录下index.js
 import 'css/index.less'
 
 const LineChart = FundCharts.line;
@@ -22,7 +22,7 @@ const chart2 = new LineChart({
     chartLeft: 15,      // 图形区域距左边距离
     chartRight: 1,      // 图形区域距右边距离
     chartTop: 25,
-    //noGradient: true,   // 无首条折线区域渐变
+    noGradient: true,   // 无首条折线区域渐变
     yaxisfunc (data) {
         return data.toFixed(0)
     },
@@ -66,13 +66,15 @@ const chart3 = new LineChart({
 		[6, 2, 4, 5, 5, 2, 1]
     ],
     allGradient: true,   // 面积图
-	colors: ['#f00', '#00f', '#0f0', '#ff0', '#0ff'],
+	colors: ['#13C2C2', '#FADB14', '#FA541C', '#2F54EB', '#F5222D'],
 	pointStyle: '#666',			// 点
-	backgroundColor: '#222',	// 背景色
+    backgroundColor: '#222',	// 背景色
+    font: {             // x/y轴颜色
+        color: '#eee'
+    },
 	noDash: true,			// 没有虚线
 	noAnimation: true,		// 没有动画
-	noHoverLine: true,		// 触控效果没有线
-	lineWidths: [5, 3, 1]		// 折线粗细
+	noHoverLine: true		// 触控效果没有线
 });
 
 chart3.init();
@@ -96,6 +98,18 @@ const chart4 = new LineChart({
     xaxis: ['03-11', '04-11', '05-11', '06-11', '07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
     data: [4, 3, 4, 2, 1, 2, 3, 4, 3.5, 3, 4],
 	hoverLineColor: 'orange',		// 触控线的颜色
+	handleTextX: (ctx, xArr) => {      // 处理x轴文字
+        // 增加x轴刻度
+        let _chartWidth = chart4._chart.width - chart4.opts.chartLeft - chart4.opts.chartRight;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '10px Arial';
+        ctx.fillStyle = '#333';
+		
+        for (let i in xArr) {
+          ctx.fillText(xArr[i], (_chartWidth / (xArr.length - 1) * i) + chart4.opts.chartLeft, chart4._chart.height - 13);
+        }
+    },
     hover(index, values, xaxis) {
         let _dataset = chart4.dataset;
         let ctx = chart4.ctx;

@@ -1,4 +1,4 @@
-# FundCharts nodejs版
+# FundCharts 服务端nodejs版
 
 ## 安装canvas
 ``` sh
@@ -12,4 +12,5 @@
     node bar.js
     node radar.js
     node scatter.js
+	node kline.js
 ```

@@ -1,4 +1,4 @@
-import FundCharts from '~/FundCharts.min'
+import FundCharts from '~'	// '~'为dist目录下index.js
 import 'css/index.less'
 
 const RadarChart = FundCharts.radar;

@@ -1,0 +1,24 @@
+<view class="fundCharts-demo">
+  <View>
+    <!-- chart 1 -->
+    <view class="u-h3">1.单数据列散点图</view>
+    <canvas
+      style="width: 375px; height: 200px;"
+      canvas-id="chartscatter1"
+    ></canvas>
+
+    <!-- chart 2 -->
+    <view class="u-h3">2.多数据列散点图</view>
+    <canvas
+      style="width: 375px; height: 200px;"
+      canvas-id="chartscatter2"
+    ></canvas>
+
+    <!-- chart 3 -->
+    <view class="u-h3">3.自定义颜色散点图</view>
+    <canvas
+      style="width: 375px; height: 200px;"
+      canvas-id="chartscatter3"
+    ></canvas>
+  </View>
+</view>

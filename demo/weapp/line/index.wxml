@@ -1,0 +1,45 @@
+<view class="fundCharts-demo">
+  <View>
+    <!-- chart 1 -->
+    <view class="u-h3">1.单条折线图（带交互）</view>
+    <view class="u-label">
+        time: <text>{{line1Time}}</text> 
+        sy: <text>{{line1Sy}}</text>
+    </view>
+    <canvas
+      class="u-canvas"
+      canvas-id="chartline1"
+      bindtouchstart="chart1Touchstart"
+	    bindtouchmove="chart1Touchmove"
+    ></canvas>
+
+    <!-- chart 2 -->
+    <view class="u-h3">2.多条折线图（带交互）</view>
+    <view class="u-label">
+        line1 time: <text>{{line2Time1}}</text> 
+        sy: <text>{{line2Sy1}}</text>
+    </view>
+    <view class="u-label">
+        line2 time: <text>{{line2Time2}}</text> 
+        sy: <text>{{line2Sy2}}</text>
+    </view>
+    <view class="u-label">
+        line3 time: <text>{{line2Time3}}</text> 
+        sy: <text>{{line2Sy3}}</text>
+    </view>
+    <canvas
+      class="u-canvas"
+      canvas-id="chartline2"
+      bindtouchstart="chart2Touchstart"
+	    bindtouchmove="chart2Touchmove"
+    ></canvas>
+
+    <!-- chart 3 -->
+    <view class="u-h3">2.面积图</view>
+    <canvas
+      class="u-canvas"
+      canvas-id="chartline3
+    ></canvas>
+
+  </View>
+</view>
