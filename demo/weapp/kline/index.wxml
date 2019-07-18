@@ -1,10 +1,12 @@
 <view class="fundCharts-demo">
   <View>
     <!-- chart 1 -->
-    <view class="u-h3">1.普通k线图</view>
+    <view class="u-h3">1.普通k线图（添加了交互事件）</view>
     <canvas
       style="width: 375px; height: 200px;"
       canvas-id="chartkline1"
+      bindtouchstart="chart1Touchstart"
+      bindtouchmove="chart1Touchmove"
     ></canvas>
 
     <!-- chart 2 -->

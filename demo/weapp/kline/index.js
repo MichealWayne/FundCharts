@@ -1,12 +1,42 @@
 /**
  * FundCharts
- * K线图
+ * K线图KlineChart
  */
 
 const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
 
 const KlineChart = FundCharts.kline;
 
+let kline1 = null;
+
+function drawLabel(chart, index, yValue, _x, y) {
+  let ctx = chart.ctx;
+  let xaxis = chart.opts.xaxis[index];
+
+  let datasets = chart.datasets;
+
+  ctx.draw(true);
+
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+  let _rectX = _x - 32;
+  _rectX = _rectX < chart.opts.chartLeft ? chart.opts.chartLeft : _rectX > 300 ? 300 : _rectX;
+  ctx.fillRect(_rectX, chart._chart.height - 40, 64, 15);
+
+  ctx.fillRect(chart.opts.chartLeft, y - 7, 30, 15);
+
+  // text
+  ctx.fillStyle = '#fff';
+  ctx.font = '12px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText(xaxis, _rectX + 32, chart._chart.height - 32);
+  ctx.fillText(
+    ((y - chart.drawer.yBasic) / chart.drawer.yRate).toFixed(2),
+    chart.opts.chartLeft + 15,
+    y);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.draw(true);
+}
 Page({
 
   onReady() {
@@ -15,7 +45,7 @@ Page({
 
   drawKline() {
     // chart 1
-    let kline1 = new KlineChart({
+    kline1 = new KlineChart({
       id: 'chartkline1',
       xaxis: ['1-1', '1-2', '1-3', '1-4', '1-5', '1-6'],
       datas: [
@@ -125,5 +155,26 @@ Page({
 
     kline2.init();
 
-  }
+  },
+  // kline 1 chart demo touch start
+  chart1Touchstart: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = kline1.drawer.drawHover(event.x, event.y);
+
+      if (index === false) return false;
+
+      drawLabel(kline1, index, kline1.opts.datas[index], event.x, event.y);    // 绘制label
+    }
+  },
+  // kline 1 chart demo touch move
+  chart1Touchmove: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = kline1.drawer.drawHover(event.x, event.y);
+      if (index === false) return false;
+
+      drawLabel(kline1, index, kline1.opts.datas[index], event.x, event.y);    // 绘制label
+    }
+  },
 });

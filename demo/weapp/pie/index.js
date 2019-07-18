@@ -1,6 +1,6 @@
 /**
  * FundCharts
- * 饼图/环形图
+ * 饼图/环形图PieCharts
  */
 
 const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
@@ -8,6 +8,21 @@ const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.m
 const PieChart = FundCharts.pie;
 
 
+let pie1 = null;
+function drawLabel (chart, index, values) {
+  let ctx = chart.ctx,
+    _origin = chart.drawer.origin;
+
+  // draw texts
+  ctx.fillStyle = chart.opts.colors[index];
+  ctx.font = 'bold 22px consolas';
+  ctx.textAlign = 'center';
+  ctx.fillText('第' + (index + 1) + '项', _origin.x, 90);
+
+  ctx.fillStyle = '#666';
+  ctx.fillText((values * 100).toFixed(1) + '%', _origin.x, 120);
+  ctx.draw(true);
+}
 Page({
 
   onReady() {
@@ -19,11 +34,12 @@ Page({
    */
   drawPie() {
     // chart 1
-    let pie1 = new PieChart({
+    pie1 = new PieChart({
       id: 'chartpie1',
       datas: [0.1, 0.2, 0.3, 0.4],
       width: 200,
       height: 200,
+      hoverRate: 1.15,  // 交互高亮半径
     });
 
     pie1.init();
@@ -84,5 +100,27 @@ Page({
     });
 
     pie4.init();
-  }
+  },
+  // pie 1 chart demo touch start
+  chart1Touchstart: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = pie1.drawer.drawHover(event.x, event.y);
+
+      if (index === false) return false;
+
+      drawLabel(pie1, index, pie1.opts.datas[index]);    // 绘制label
+    }
+  },
+  // pie 1 chart demo touch move
+  chart1Touchmove: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = pie1.drawer.drawHover(event.x, event.y);
+
+      if (index === false) return false;
+
+      drawLabel(pie1, index, pie1.opts.datas[index]);    // 绘制label
+    }
+  },
 });

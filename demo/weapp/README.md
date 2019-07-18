@@ -1,7 +1,7 @@
-# FundCharts 小程序测试
+# FundCharts 小程序demo
 
 ## 测试
-*先拷FundCharts.min.js再进行测试。
+*注意，先拷FundCharts.min.js库再进行测试。
 
 目录说明：
 - line：折线图/面积图

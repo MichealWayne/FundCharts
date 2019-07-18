@@ -1,6 +1,6 @@
 /**
  * FundCharts
- * 折线图
+ * 折线图LineCharts
  */
 
 const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
@@ -28,7 +28,7 @@ function drawLabel (chart, eventx, text) {
 
   // text
   ctx.fillStyle = '#fff';
-  ctx.font = '10px';
+  ctx.font = '10px Arial';
   ctx.textAlign = 'center';
   ctx.fillText(text, _rectX + 32, 9);
   ctx.closePath();
@@ -63,15 +63,15 @@ Page({
     line1 = new LineChart({
       id: 'chartline1',
       yaxisfunc(data) {     // 处理y轴刻度数值
-        return (data * 100).toFixed(2) + '%'
+        return (data).toFixed(0) + '%'
       },
       width: 375,
       height: 212,
       noGradient: true,     // 无渐变面积
       xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
-      datas: [
+      data: 
         [1, 2, 3, 4, 3.5, 3, 4]
-      ]
+      
     });
     line1.init();
 
@@ -101,7 +101,7 @@ Page({
 
     // line chart 3
     let xArr = ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'];
-    let _line = new LineChart({
+    let line3 = new LineChart({
       id: 'chartline3',
       width: 375,
       height: 212,
@@ -109,13 +109,13 @@ Page({
       xaxis: xArr,
       handleTextX: (ctx, xaxis) => {      // 处理x轴文字
         // 增加x轴刻度
-        let _chartWidth = _line.canvas.width - _line.opts.chartLeft - _line.opts.chartRight;
+        let _chartWidth = line3.canvas.width - line3.opts.chartLeft - line3.opts.chartRight;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.font = '10px Arial';
         ctx.fillStyle = '#333';
         for (let i in xArr) {
-          ctx.fillText(xArr[i], (_chartWidth / (xArr.length - 1) * i) + _line.opts.chartLeft, _line.canvas.height - 13);
+          ctx.fillText(xArr[i], (_chartWidth / (xArr.length - 1) * i) + line3.opts.chartLeft, line3.canvas.height - 13);
         }
       },
       datas: [
@@ -124,7 +124,7 @@ Page({
       ]
     });
     
-    _line.init();
+    line3.init();
   },
 
   // line 1 chart demo touch start
@@ -132,9 +132,10 @@ Page({
     if (e) {
       let event = e.touches[0];
       let index = line1.drawer.drawHover(event.x);
+      if (index === false) return false;
 
       let _x = line1.opts.xaxis[index],
-          _y = (line1.opts.datas[0][index] * 100).toFixed(2) + '%';
+          _y = (line1.opts.datas[0][index]).toFixed(2) + '%';
 
       this.setData({
         line1Time: _x,
@@ -149,9 +150,9 @@ Page({
     if (e) {
       let event = e.touches[0];
       let index = line1.drawer.drawHover(event.x);
-      if (!index) return false;
+      if (index === false) return false;
       let _x = line1.opts.xaxis[index],
-          _y = (line1.opts.datas[0][index] * 100).toFixed(2) + '%';
+          _y = (line1.opts.datas[0][index]).toFixed(2) + '%';
 
       this.setData({
         line1Time: _x,
@@ -167,6 +168,7 @@ Page({
     if (e) {
       let event = e.touches[0];
       let index = line2.drawer.drawHover(event.x);
+      if (index === false) return false;
 
       let _x = line2.opts.xaxis[index],
           _yArr = line2.opts.datas;
@@ -186,6 +188,7 @@ Page({
     if (e) {
       let event = e.touches[0];
       let index = line2.drawer.drawHover(event.x);
+      if (!index) return false;
 
       let _x = line2.opts.xaxis[index],
         _yArr = line2.opts.datas;

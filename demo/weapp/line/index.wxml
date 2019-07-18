@@ -38,7 +38,7 @@
     <view class="u-h3">2.面积图</view>
     <canvas
       class="u-canvas"
-      canvas-id="chartline3
+      canvas-id="chartline3"
     ></canvas>
 
   </View>

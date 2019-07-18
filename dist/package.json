@@ -1,7 +1,7 @@
 {
   "name": "fundcharts",
-  "version": "0.9.0",
-  "description": "lightweight canvas data visualization library. 1.0: line/bar/pie/radar/scatter/kline chart.",
+  "version": "0.9.1",
+  "description": "lightweight canvas data visualization library. 1.x: line/bar/pie/radar/scatter/kline chart.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Hello FundCharts.\" && exit 1"

@@ -1,11 +1,30 @@
 /**
  * FundCharts
- * 柱状图
+ * 柱状图BarChart
  */
 
 const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
 
 const BarChart = FundCharts.bar;
+let bar1 = null;
+
+function drawLabel (chart, index, yValue) {
+  let ctx = chart.ctx;
+  let datasets = chart.datasets[0];
+
+  ctx.lineWidth = 1;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = '12px Arial';
+  ctx.fillStyle = '#333';
+  
+  ctx.fillText(
+    yValue.toFixed(2),
+    datasets[index].x + 10,
+    datasets[index].y - 10
+  );
+  ctx.draw(true);
+}
 
 Page({
 
@@ -18,7 +37,7 @@ Page({
    */
   drawBar() {
     // chart 1
-    let bar1 = new BarChart({
+    bar1 = new BarChart({
       id: 'chartbar1',
       width: 375,
       height: 212,
@@ -55,7 +74,7 @@ Page({
       font: {
         color: '#fff'
       },
-      colors: ['#e00'],
+      colors: ['#6892df'],
       negativeColor: '#88dd4c',   // 负值指定颜色
       noAnimation: true, // 没有动画
       backgroundColor: '#333'	// 背景色
@@ -78,7 +97,7 @@ Page({
       data: valArr,
       onFinish: () => {     // 添加文案
         let ctx = bar4.ctx;
-        let datasets = bar4.dataset;
+        let datasets = bar4.datasets[0];
         let _zero = bar4.drawer.zeroY;
 
         ctx.lineWidth = 1;
@@ -98,5 +117,27 @@ Page({
     });
 
     setTimeout(() => bar4.init(), 1000);
+  },
+
+  // bar 1 chart demo touch start
+  chart1Touchstart: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = bar1.drawer.drawHover(event.x);
+      
+      if (!index) return false;
+
+      drawLabel(bar1, index, bar1.opts.datas[0][index]);    // 绘制label
+    }
+  },
+  // bar 1 chart demo touch move
+  chart1Touchmove: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = bar1.drawer.drawHover(event.x);
+      if (!index) return false;
+      
+      drawLabel(bar1, index, bar1.opts.datas[0][index]);    // 绘制label
+    }
   },
 });

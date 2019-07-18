@@ -1,6 +1,6 @@
 /**
  * FundCharts
- * 散点图
+ * 散点图ScatterChart
  */
 
 const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js

@@ -9,5 +9,5 @@ demo
 
 ## 部分说明
 - node demo运行需在根目录安装node-canvas（[https://www.npmjs.com/package/canvas](https://www.npmjs.com/package/canvas)）;
-- weapp demo运行需将demo页面目录、FundCharts.min.js放置于小程序项目中，注册页面并访问；
-- web demo需要webpack环境；
+- weapp demo运行需将demo页面目录、`FundCharts.min.js`放置于小程序项目中，注册页面并访问；
+- web demo直接访问即可；

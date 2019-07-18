@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- include header -->
-    
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="apple-touch-fullscreen" content="YES" />
-    <script type="text/javascript" src="//s.thsi.cn/cb?js/m/common/;zepto.js;ijijin/js/;web.init.js"></script>
+	
+	<link rel="stylesheet" href="css/index.css">
     <title>FundCharts-柱状图</title>
 </head>
 <body>
@@ -23,8 +22,159 @@
         <section id="bar3" class="u-part"></section>
 
         <h3 class="f-tc u-tit g-mt20">4.示例4</h3>
-        <section id="bar4" class="u-part"></section>
+        <section class="u-part">
+            <canvas id="bar4Chart" width="375" height="220"></canvas>
+        </section>
     </div>
+	
+	<script src="../../FundCharts.min.js"></script>	<!-- 引用库 -->
+	<script>
+var BarChart = FundCharts.bar;
 
+// chart 1
+var chart1 = new BarChart({
+    id: 'bar1',
+    xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11', '12-12'],
+    datas: [
+		[1, 3, 2, 3, 3.2, 4, 5]
+	],
+    hover: function (index, yValues, xValues, x) {	// 索引, datas值集合，xaxis[index], touch event横坐标
+        console.log(index, yValues, xValues, x);
+        
+        var ctx = chart1.ctx;
+        var datasets = chart1.datasets[0];	// 坐标集
+        var _zero = chart1.drawer.zeroY;	// 0刻度坐标
+
+        ctx.lineWidth = 1;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '12px Arial';
+        ctx.fillStyle = '#000';
+        ctx.fillText(
+            yValues[0].toFixed(1), 
+            datasets[index].x + 6,
+            datasets[index].y + 10 * (datasets[index].y > _zero && 1 || -1)
+        );
+    }
+});
+
+chart1.init();
+
+// chart 2
+var chart2 = new BarChart({
+    id: 'bar2',
+    xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11', '12-12', '12-13', '12-14', '12-15', '12-16', '12-17', '12-18', '12-19', '12-20'],
+    chartLeft: 30,	// 左侧距离
+    chartRight: 1,	// 右侧距离
+    chartTop: 20,	// 顶部距离
+    datas: [
+        [1, 3, 2, 3, 3.2, 4, 5, 6, 3, 5, 3, 2, 3, 3.2, 4, 5],
+        [2, 3, 5, 1, 2, 3, 6, 7, 3, 4, 2, 4, 3, 3.2, 4, 5],
+        [4, 2, 1, 1, 1, 4, 7, 5, 5, 3, 2, 2, 4, 4, 3, 2]
+    ],
+    hover: function (index, yValues, xValues, x) {
+        console.log(index, yValues, xValues, x)
+    }
+});
+
+chart2.init();
+
+
+setTimeout(function () {
+    chart2.update({
+        datas: [
+            [4, 2, 1, 6, 1, 4, 3, 5, 5, 3, 2, 2, 7, 4, 3, 6],
+            [2, 3, 5, 5, 2, 3, 6, 7, 3, 4, 2, 4, 3, 5, 2, 3],
+            [3, 3, 2, 3, 3.2, 4, 5, 6, 3, 5, 3, 2, 3, 3, 4, 2]
+        ]
+    })
+}, 5000);
+
+// chart 3
+var chart3 = new BarChart({
+    id: 'bar3',
+    xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11', '12-12', '12-13', '12-14', '12-15', '12-16', '12-17', '12-18', '12-19', '12-20'],
+    datas: [
+		[1, 3, 2, 3, 3.2, 4, 5, -6.1, -3, -5, 3, 2, 3, 3.2, 4, 5]
+	],
+    colors: ['#6892df', '#f96063'],
+    font: {         
+        color: '#eee',  // x/y轴文字颜色
+		fontFamily: 'serif',		// 字体
+        fontSize: {     // x/y轴文字大小
+            x: '8px',
+            y: '8px'
+        }
+    },
+    hoverHighlight: 0.2,   // 高亮比例(默认0.6)
+    negativeColor: '#88dd4c',   // 负值指定颜色
+    noAnimation: true, 		// 没有动画过渡
+    backgroundColor: '#333',	// 背景色
+    hover: function (index, yValues) {
+        var ctx = chart3.ctx;
+        var datasets = chart3.datasets[0];
+        var _zero = chart3.drawer.zeroY;
+
+        ctx.lineWidth = 1;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '12px Arial';
+        ctx.fillStyle = '#eee';
+        ctx.fillText(
+            yValues[0].toFixed(2), 
+            datasets[index].x + 10,
+            datasets[index].y + 10 * (datasets[index].y > _zero && 1 || -1)
+        );
+    }
+});
+
+chart3.init();
+
+// chart 4
+var timeArr = ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11', '12-12'],		// xaxis
+    valArr = [1, 3, 2, 3, 3.2, 4, 5, -3];		// y datas
+
+/**
+ * @function addChart4Words
+ * @description chart4增加过渡文字
+ * @param {Number} process 动画进度
+ * @param {Number} hoverIndex 当前选中项
+ */
+function addChart4Words (process, hoverIndex) {
+    var ctx = chart4.ctx;
+    var datasets = chart4.datasets[0];
+    var _zero = chart4.drawer.zeroY;
+
+    ctx.lineWidth = 1;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = '12px Arial';
+    ctx.fillStyle = '#000';
+    datasets.map((item, index) => {
+        ctx.fillStyle = typeof hoverIndex === 'number' && index === hoverIndex ? '#f00' : '#000';
+        ctx.fillText(
+            valArr[index].toFixed(2), 
+            item.x + 10,
+            item.y + 10 * (item.y > _zero && 1 || -1) * process
+        );
+    })
+}
+var chart4 = new BarChart({
+    id: 'bar4Chart',
+    xaxis: timeArr,
+    range: {        // 自定义范围
+        min: -10,
+        max: 10
+    },
+    data: valArr,
+    onAnimation: addChart4Words,
+    hover: function (index) {
+        addChart4Words(1, index);
+    }
+});
+
+chart4.init();
+
+	</script>
 </body>
 </html> 

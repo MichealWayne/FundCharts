@@ -7,7 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 const Canvas = require('canvas');
-const {FundCharts} = require('../../dist/FundCharts-node');
+const {FundCharts} = require('../../FundCharts-node');
 
 
 // chart 1

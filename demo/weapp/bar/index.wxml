@@ -1,9 +1,11 @@
 <view class="fundCharts-demo">
   <View>
-    <view class="u-h3">1.单数据柱状图</view>
+    <view class="u-h3">1.单数据柱状图（添加了交互事件）</view>
     <canvas
       style="width: 375px; height: 212px;"
       canvas-id="chartbar1"
+      bindtouchstart="chart1Touchstart"
+      bindtouchmove="chart1Touchmove"
     ></canvas>
 
     <view class="u-h3">2.多数据柱状图</view>

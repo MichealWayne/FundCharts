@@ -1,12 +1,30 @@
 /**
  * FundCharts
- * 雷达图
+ * 雷达图RadarChart
  */
 
 const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
 
 const RadarChart = FundCharts.radar;
 
+
+let radar1 = null;
+
+function drawLabel(chart, index, values) {
+  let ctx = chart.ctx;
+  ctx.lineWidth = 1;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = '12px Arial';
+  ctx.fillStyle = '#000';
+  
+  ctx.fillText(
+    'data: ' + values.toFixed(2),
+    320,
+    90
+  );
+  ctx.draw(true);
+}
 
 Page({
 
@@ -16,14 +34,14 @@ Page({
 
   drawRadar() {
     // chart 1
-    let radar = new RadarChart({
+    radar1 = new RadarChart({
       id: 'chartradar1',
       data: [1, 2, 3, 4, 3.5, 3],
       width: 375,
       height: 200,
     });
 
-    radar.init();
+    radar1.init();
 
     // chart 2
     let radar2 = new RadarChart({
@@ -83,7 +101,7 @@ Page({
         ctx.lineWidth = 1;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.font = '$12px Arial';
+        ctx.font = '12px Arial';
         ctx.fillStyle = '#000';
         radar4.drawer.sideArr.map((item, index) => {
           ctx.fillText(
@@ -99,5 +117,25 @@ Page({
     });
 
     radar4.init();
-  }
+  },
+  // radar 1 chart demo touch start
+  chart1Touchstart: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = radar1.drawer.drawHover(event.x, event.y);
+
+      if (index === false) return false;
+      drawLabel(radar1, index, radar1.opts.datas[0][index]);    // 绘制label
+    }
+  },
+  // radar 1 chart demo touch move
+  chart1Touchmove: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = radar1.drawer.drawHover(event.x, event.y);
+
+      if (index === false) return false;
+      drawLabel(radar1, index, radar1.opts.datas[0][index]);    // 绘制label
+    }
+  },
 });
