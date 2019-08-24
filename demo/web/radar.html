@@ -77,6 +77,15 @@ var chart2 = new RadarChart({
 
 chart2.init();
 
+setTimeout(function () {
+    chart2.update({
+        datas: [
+            [6, 5, 4, 6, 5, 3, 3],    // 注意：要保证length跟初始化时一致
+            [3, 4, 5, 1, 1, 2, 3]
+        ]
+    })
+}, 5000);
+
 
 
 // chart 3

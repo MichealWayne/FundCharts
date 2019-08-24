@@ -60,6 +60,8 @@ Page({
    */
   drawLine() {
     // line chart 1
+    let line1data = [1, 2, 3, 4, 3.5, 3, 4];
+    let line1xaxis = ['1-11', '2-11', '3-11', '4-22', '5-11', '6-11', '7-11']
     line1 = new LineChart({
       id: 'chartline1',
       yaxisfunc(data) {     // 处理y轴刻度数值
@@ -68,12 +70,25 @@ Page({
       width: 375,
       height: 212,
       noGradient: true,     // 无渐变面积
-      xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
-      data: 
-        [1, 2, 3, 4, 3.5, 3, 4]
+      xaxis: line1xaxis,
+      data: line1data
       
     });
     line1.init();
+
+    let line1timer = setInterval(() => {
+      line1xaxis.push(++line1xaxis[line1xaxis.length - 1].split('-')[0] + '-11');
+      line1data.push(Math.round(10 * Math.random()));
+
+      line1.update({
+        xaxis: line1xaxis,
+        data: line1data
+      })
+    }, 2000);
+
+    setTimeout(() => {
+      clearInterval(line1timer);
+    }, 8000)
 
     // line chart 2
     line2 = new LineChart({
@@ -97,6 +112,16 @@ Page({
       ]
     });
     line2.init();
+
+    setTimeout(() => {
+      line2.update({
+        datas: [
+          [5, 5, 6, 2, 1, 2, 3, 2],
+          [4, 4, 6, 5, 7, 7, 3, 4],
+          [2, 8, 7, 5, 7, 3, 5, 7]
+        ]
+      })
+    }, 5000);
 
 
     // line chart 3
@@ -125,6 +150,21 @@ Page({
     });
     
     line3.init();
+
+    // line chart 4
+    let line4 = new LineChart({
+      id: 'chartline4',
+      yaxisfunc(data) {     // 处理y轴刻度数值
+        return (data).toFixed(2)
+      },
+      width: 375,
+      height: 212,
+      curveLine: true,     // 曲线
+      xaxis: ['1-11', '2-11', '3-11', '4-22', '5-11', '6-11', '7-11'],
+      data: [4, 2, 3, 4, 3.5, 3, 4]
+
+    });
+    line4.init();
   },
 
   // line 1 chart demo touch start

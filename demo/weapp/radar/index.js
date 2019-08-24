@@ -43,6 +43,12 @@ Page({
 
     radar1.init();
 
+    setTimeout(() => {
+      radar1.update({
+        data: [6, 5, 4, 3, 2, 1],
+      })
+    }, 2000);
+
     // chart 2
     let radar2 = new RadarChart({
       id: 'chartradar2',
@@ -64,7 +70,7 @@ Page({
           [4, 3, 3, 4, 3.5, 4, 5]
         ]
       })
-    }, 2000);
+    }, 4000);
 
     // chart 3
     const radar3 = new RadarChart({

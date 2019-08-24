@@ -54,6 +54,7 @@ FundCharts
 ### browser
 - ios8及以上
 - android 4及以上
+- PC IE9+/Firefox/Opera/Chrome/Safari12+
 
 > 注：与Vue、React、Angular等框架无冲突。
 
@@ -64,11 +65,12 @@ FundCharts
 - nodejs v8.0+
 
 ## 最新版本
-- [v0.9.1](https://www.npmjs.com/package/fundcharts)
+- [v0.9.2](https://www.npmjs.com/package/fundcharts)
 
 （历史版本访问[FundCharts-versions](https://github.com/MichealWayne/FundCharts/tree/master/versions)）
 
 ## 更新信息
+- 2019.08.23(`v0.9.2`)：优化line/pie/radar/bar的update切换过渡动画；折线图line增加曲线展示(curveLine)；k线图增加空心展示控制(upHollow)。
 - 2019.07.18(`v0.9.1`)：增加柱状图/k线图/饼图/环形图/雷达图交互反馈；web端可直接在canvas元素上绘制；修复雷达图坐标及小程序网格bug，修复小程序hover抖动bug；
 - 2019.06.20(`v0.9.0`)：增加k线图；增加小程序动画；修复柱状图xaxis bug；开放x/y轴文案处理函数（handleTextX/handleTextY）；
 - 2019.06.10(`beta`)：修复部分bug(折线图/柱状图单点数据)；

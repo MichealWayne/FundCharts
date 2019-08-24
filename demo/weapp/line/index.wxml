@@ -35,10 +35,17 @@
     ></canvas>
 
     <!-- chart 3 -->
-    <view class="u-h3">2.面积图</view>
+    <view class="u-h3">3.面积图</view>
     <canvas
       class="u-canvas"
       canvas-id="chartline3"
+    ></canvas>
+
+    <!-- chart 4 -->
+    <view class="u-h3">4.曲线图</view>
+    <canvas
+      class="u-canvas"
+      canvas-id="chartline4"
     ></canvas>
 
   </View>

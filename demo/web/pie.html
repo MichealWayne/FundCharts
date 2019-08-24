@@ -62,6 +62,13 @@ var chart1 = new PieChart({
 
 chart1.init();
 
+
+setTimeout(function () {
+    chart1.update({
+        datas: [0.2, 0.3, 0.4, 0.1]
+    })
+}, 1000);
+
 // chart 2
 var chart2 = new PieChart({
     id: 'pie2',

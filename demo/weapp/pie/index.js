@@ -44,6 +44,13 @@ Page({
 
     pie1.init();
 
+    setTimeout(() => {
+      pie1.update({
+        datas: [0.3, 0.4, 0.2, 0.1]
+      })
+    }, 2000);
+
+
     // chart 2
     let pie2 = new PieChart({
       id: 'chartpie2',
@@ -57,9 +64,9 @@ Page({
 
     setTimeout(() => {
       pie2.update({
-        datas: [0.3, 0.2, 0.1, 0.4]
+        datas: [0.5, 0.2, 0.1, 0.2]
       })
-    }, 2000);
+    }, 4000);
 
     // chart 3
     const pie3 = new PieChart({

@@ -14,10 +14,13 @@
     <div id="app">
         <h3 class="f-tc u-tit">1.示例1</h3>
         <section id="kline1" class="u-part"></section>
+		
+		<h3 class="f-tc u-tit">2.示例2</h3>
+        <section id="kline2" class="u-part"></section>
 
-        <h3 class="f-tc u-tit">2.示例2</h3>
+        <h3 class="f-tc u-tit">3.示例3</h3>
         <section class="u-part">
-            <canvas id="kline2Chart" width="375" height="200"></canvas>
+            <canvas id="kline3Chart" width="375" height="200"></canvas>
         </section>
     </div>
 
@@ -78,10 +81,28 @@ setTimeout(function () {
     })
 }, 2000);
 
+// chart 2
+const chart2 = new KlineChart({
+    id: 'kline2',
 
-// chart 1
-var chart2 = new KlineChart({
-    id: 'kline2Chart',
+    upHollow: true,     // up空心，0.9.2
+
+    xaxis: ['1-1', '1-2', '1-3', '1-4', '1-5', '1-6'],
+    datas: [
+        [1, 2, 0.5, 2.1],
+        [3, 4, 2, 4],
+        [3, 5.5, 3, 6],
+        [4.4, 3.5, 3, 5],
+        [5, 6, 4, 7],
+        [7, 3, 3, 7]
+    ]
+});
+chart2.init();
+
+
+// chart 3
+var chart3 = new KlineChart({
+    id: 'kline3Chart',
     xaxis: [
         '1-1', '1-2', '1-3', '1-4', '1-5', '1-6', '1-7', '1-8',
         '2-1', '2-2', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8',
@@ -168,7 +189,7 @@ var chart2 = new KlineChart({
         [2221.34, 2251.81, 2210.77, 2252.87]
     ]
 });
-chart2.init();
+chart3.init();
     </script>
 </body>
 </html> 

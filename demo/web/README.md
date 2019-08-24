@@ -1,4 +1,4 @@
-# FundCharts web demo(需要webpack)
+# FundCharts web demo
 
 
 ## 启动查看测试demo

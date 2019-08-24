@@ -155,6 +155,24 @@ Page({
 
     kline2.init();
 
+    // chart 3
+    let kline3 = new KlineChart({
+      id: 'chartkline3',
+      xaxis: ['1-1', '1-2', '1-3', '1-4', '1-5', '1-6'],
+      datas: [
+        [1, 2, 0.5, 2.1],
+        [3, 4, 2, 4],
+        [3, 5.5, 3, 6],
+        [4.4, 3.5, 3, 5],
+        [5, 6, 4, 7],
+        [7, 3, 3, 7]
+      ],
+      upHollow: true,   // 上涨空心展示
+      width: 375,
+      height: 200,
+    });
+
+    kline3.init();
   },
   // kline 1 chart demo touch start
   chart1Touchstart: function (e) {

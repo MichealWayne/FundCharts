@@ -15,5 +15,12 @@
       style="width: 375px; height: 200px;"
       canvas-id="chartkline2"
     ></canvas>
+
+    <!-- chart 3 -->
+    <view class="u-h3">3.上涨空心展示</view>
+    <canvas
+      style="width: 375px; height: 200px;"
+      canvas-id="chartkline3"
+    ></canvas>
   </View>
 </view>

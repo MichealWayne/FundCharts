@@ -47,6 +47,12 @@ Page({
 
     bar1.init();
 
+    setTimeout(() => {
+      bar1.update({
+        data: [8, 7, 4, 2, 5, 5, 4]
+      })
+    }, 2000);
+
     // chart 2
     let bar2 = new BarChart({
       id: 'chartbar2',
@@ -61,6 +67,16 @@ Page({
     });
 
     bar2.init();
+
+    setTimeout(() => {
+      bar2.update({
+        datas: [
+          [8, 6, 7, 7, 2, 5, 5, 3, 3, 5, 6, 3, 3, 6, 2, 8],
+          [6, 5, 5, 4, 1, 5, 6, 3, 3, 4, 6, 4, 3, 4, 4, 8],
+          [7, 5, 5, 6, 4, 5, 7, 5, 5, 3, 5, 5, 4, 2, 6, 8]
+        ]
+      })
+    }, 5000);
 
     // chart 3
     let bar3 = new BarChart({

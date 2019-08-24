@@ -60,6 +60,14 @@ var chart1 = new BarChart({
 
 chart1.init();
 
+
+setTimeout(function () {
+    chart1.update({
+        data: [5, 4, 3, 2, 1, 4, 8]
+    })
+}, 3000);
+
+
 // chart 2
 var chart2 = new BarChart({
     id: 'bar2',
@@ -72,6 +80,11 @@ var chart2 = new BarChart({
         [2, 3, 5, 1, 2, 3, 6, 7, 3, 4, 2, 4, 3, 3.2, 4, 5],
         [4, 2, 1, 1, 1, 4, 7, 5, 5, 3, 2, 2, 4, 4, 3, 2]
     ],
+	font: {		// 文字
+        fontSize: {
+            x: '9px'
+        }
+    },
     hover: function (index, yValues, xValues, x) {
         console.log(index, yValues, xValues, x)
     }
