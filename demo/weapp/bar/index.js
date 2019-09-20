@@ -133,6 +133,24 @@ Page({
     });
 
     setTimeout(() => bar4.init(), 1000);
+
+    // chart 5
+    let bar5 = new BarChart({
+      id: 'chartbar5',
+      width: 375,
+      height: 212,
+      xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11', '12-12', '12-13', '12-14', '12-15', '12-16', '12-17', '12-18', '12-19', '12-20'],
+      datas: [
+        [1, 3, 2, 3, 3.2, 4, 5, -6.1, -3, -5, 3, 2, 3, 3.2, 4, 5]
+      ],
+      colors: ['#09f', '#0fc', '#cf0'],
+      singleColorful: true, // 单项多色
+      grid: {
+        showGrid: true,   // 展示轴线
+      }
+    });
+
+    bar5.init();
   },
 
   // bar 1 chart demo touch start
@@ -141,7 +159,7 @@ Page({
       let event = e.touches[0];
       let index = bar1.drawer.drawHover(event.x);
       
-      if (!index) return false;
+      if (index === undefined) return false;
 
       drawLabel(bar1, index, bar1.opts.datas[0][index]);    // 绘制label
     }
@@ -151,7 +169,7 @@ Page({
     if (e) {
       let event = e.touches[0];
       let index = bar1.drawer.drawHover(event.x);
-      if (!index) return false;
+      if (!index === undefined) return false;
       
       drawLabel(bar1, index, bar1.opts.datas[0][index]);    // 绘制label
     }

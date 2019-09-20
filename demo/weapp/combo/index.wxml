@@ -1,0 +1,19 @@
+<view class="fundCharts-demo">
+  <View>
+    <!-- chart 1 -->
+    <view class="u-h3">1.k线图与折线图组合</view>
+    <canvas
+      style="width: 414px; height: 200px;"
+      canvas-id="chartcombo1"
+      bindtouchstart="chart1Touchstart"
+      bindtouchmove="chart1Touchmove"
+    ></canvas>
+
+    <!-- chart 2 -->
+    <view class="u-h3">2.柱状图与折线图组合</view>
+    <canvas
+      style="width: 414px; height: 200px;"
+      canvas-id="chartcombo2"
+    ></canvas>
+  </View>
+</view>

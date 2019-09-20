@@ -12,27 +12,48 @@
 </head>
 <body>
     <div id="app">
-        <h3 class="f-tc u-tit">1.示例1</h3>
+        <!-- demo 1 -->
+        <h3 class="f-tc u-tit">demo 1: simple</h3>
         <section id="line1" class="u-part"></section>
 
-        <h3 class="f-tc u-tit g-mt20">2.示例2</h3>
+        <!-- demo 2 -->
+        <h3 class="f-tc u-tit g-mt20">demo2: grid, tooltip and trigger change</h3>
         <section id="line2" class="u-part"></section>
-		<p id="line2btns">
+        <p id="line2btns">
             <button data-type="0">change type1</button>
             <button data-type="1">change type2</button>
             <button data-type="2">change type3</button>
         </p>
-		
-		<h3 class="f-tc u-tit g-mt20">3.示例3</h3>
+        
+        <!-- demo 3 -->
+		<h3 class="f-tc u-tit g-mt20">demo 3: axis line and set colors</h3>
         <section id="line3" class="u-part"></section>
-		
-		<h3 class="f-tc u-tit g-mt20">4.示例4</h3>
+        
+        <!-- demo 4 -->
+		<h3 class="f-tc u-tit g-mt20">demo 4: trigger hover and self-defined xaxis</h3>
         <section class="u-part">
+            <!-- use the existing canvas container -->
             <canvas id="line4Chart" width="375" height="200"></canvas>
         </section>
-		
-        <h3 class="f-tc u-tit g-mt20">5.示例5</h3>
+
+        <!-- demo 5 -->
+        <h3 class="f-tc u-tit g-mt20">demo 5: curve line</h3>
         <section id="line5" class="u-part"></section>
+
+        <!-- demo 6 -->
+        <h3 class="f-tc u-tit g-mt20">demo 6: drag line</h3>
+        <section id="line6" class="u-part"></section>
+
+        <!-- demo 7 -->
+        <h3 class="f-tc u-tit g-mt20">demo 7: partial chart</h3>
+        <section id="line7" class="u-part"></section>
+        <p>
+            <button id="line7btn">start render demo 7</button>
+        </p>
+
+        <!-- demo 8 -->
+        <h3 class="f-tc u-tit g-mt20">demo 8: line chart with points and value</h3>
+        <section id="line8" class="u-part"></section>
     </div>
     <script src="../../FundCharts.min.js"></script>	<!-- 引用库 -->
     <script>
@@ -53,7 +74,7 @@ var chart1 = new LineChart({
 chart1.init();
 
 
-let timer1 = setInterval(function () {
+var timer1 = setInterval(function () {
     _xaxis1.push(++_xaxis1[_xaxis1.length - 1].split('-')[0] + '-11');
     _data1.push(Math.round(Math.random() * 10));
     chart1.update({
@@ -67,7 +88,7 @@ setTimeout(function () {
 }, 30000);
 
 // chart 2
-let CHART2_DATAS = {
+var CHART2_DATAS = {
     '0': [
         [1, 1.0169491525423728, 1.032015065913371, 1.0480225988700564, 1.0499058380414312, 1.051789077212806, 1.0508474576271187, 1.051789077212806, 1.0499058380414312, 1.0386064030131825, 1.0169491525423728, 1.0065913370998116, 0.9990583804143125, 1.0131826741996233, 1, 1.0291902071563088, 1.015065913370998, 1.0235404896421845, 1.0414312617702448, 1.0499058380414312, 1.0903954802259885, 1.0819209039548021, 1.0847457627118642, 1.086629001883239],
         [1, 1.0021762814410526, 1.0100881089885978, 1.0183489877514758, 1.0203322332931397, 1.019195172515919, 1.02343931797508, 1.0141947494235368, 1.0057619893803813, 0.9909458230204566, 0.9719727740052041, 0.9615647014025513, 0.9576246535931121, 0.9702804044763175, 0.9608242897336635, 0.9781631444225848, 0.9693443125806521, 0.9737471176831463, 0.9768145374542533, 0.9811882549554696, 1.0024883120729413, 1.0015998180702756, 1.0000211546191113, 1.0031282393010514]
@@ -84,12 +105,20 @@ let CHART2_DATAS = {
 var chart2 = new LineChart({
     id: 'line2',
     xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
-    chartLeft: 15,      // 图形区域距左边距离
+    chartLeft: 20,      // 图形区域距左边距离
     chartRight: 1,      // 图形区域距右边距离
     chartTop: 25,       // 图形区域距顶部距离
     noGradient: true,   // 无渐变面积（纯折线图）
+	grid: {
+        xTickLength: 10,	// x轴网格线数量
+        yTickLength: 7      // y轴网格线数量
+    },
+	dash: {
+        color: '#999',	// 虚线颜色
+        isSolid: true   // 实线网格
+    },
     yaxisfunc: function (data) {    // 控制y轴坐标展示格式
-        return data.toFixed(0)
+        return data.toFixed(1)
     },
     datas: CHART2_DATAS['0'],
     hover: function(index, values, xaxis, x) {
@@ -117,9 +146,9 @@ var chart2 = new LineChart({
 
 chart2.init();
 
-document.querySelectorAll('#line2btns button').forEach(function ($btn) {
+[].forEach.call(document.querySelectorAll('#line2btns button'), function ($btn) {
     $btn.onclick = function () {
-        let _type = this.dataset.type;
+        var _type = this.dataset.type;
         chart2.update({
             datas: CHART2_DATAS[_type]
         })
@@ -147,6 +176,10 @@ var chart3 = new LineChart({
             x: '8px',
             y: '8px'
         }
+    },
+	grid: {  
+        showGrid: true,         // 刻度线
+        color: '#fff'     // 刻度线颜色
     },
 	noDash: true,			// 没有网格虚线
 	noAnimation: true,		// 没有动画过渡
@@ -223,6 +256,199 @@ var chart5 = new LineChart({
 });
 
 chart5.init();
+
+
+// chart 6
+var _data6 = [
+    2, 3, 4, 2, 4, 6, 2, 4, 5, 6, 
+    7, 4, 3, 3, 5, 6, 5, 7, 6, 5,
+    2, 3, 4, 2, 4, 6, 2, 4, 5, 6,
+    2, 3, 4, 2, 4, 6, 2, 4, 5, 6, 
+    7, 4, 3, 3, 5, 6, 5, 7, 6, 5,
+    5, 6, 4, 6, 5, 6, 7, 8, 9, 10
+],
+_xaxis6 = [
+    '01-01', '01-02', '01-03', '01-04', '01-05', '01-06', '01-07', '01-08', '01-09', '01-10', 
+    '01-11', '01-12', '01-13', '01-14', '01-15', '01-16', '01-17', '01-18', '01-19', '01-20', 
+    '01-21', '01-22', '01-23', '01-24', '01-25', '01-26', '01-27', '01-28', '01-29', '01-30',
+    '02-01', '02-02', '02-03', '02-04', '02-05', '02-06', '02-07', '02-08', '02-09', '02-10', 
+    '02-11', '02-12', '02-13', '02-14', '02-15', '02-16', '02-17', '02-18', '02-19', '02-20', 
+    '02-21', '02-22', '02-23', '02-24', '02-25', '02-26', '02-27', '02-28', '03-01', '03-02'
+];
+const CHART_6_LIMIT = 20;
+var chart6index = 0;
+const chart6 = new LineChart({
+    id: 'line6',
+    noGradient: true,
+    noAnimation: true,
+    lineWidths: [2],
+    events: false, // 防止图表默认事件
+    curveLine: true,
+    range: {
+        min: Math.min.apply(null, _data6) * 0.5,
+        max: Math.max.apply(null, _data6) * 1.2
+    },
+    xaxis: _xaxis6.slice(chart6index, CHART_6_LIMIT),
+    data: _data6.slice(chart6index, CHART_6_LIMIT)
+});
+
+chart6.init();
+var touch6 = {
+    x: 0,
+    baseindex: chart6index
+};
+chart6.$el.addEventListener('touchstart', function (event) {
+    touch6.x = event.touches[0].clientX;
+    touch6.baseindex = chart6index;
+    
+    console.log(chart6index)
+}, false)
+chart6.$el.addEventListener('touchmove', function (event) {
+    var x = event.touches[0].clientX - touch6.x;
+    
+    if (x < -10) {
+        chart6index = touch6.baseindex + Math.round(Math.abs(x) / 20);
+        if (chart6index + CHART_6_LIMIT > _data6.length) chart6index = _data6.length - CHART_6_LIMIT;
+        
+        chart6.update({
+            xaxis: _xaxis6.slice(chart6index, chart6index + CHART_6_LIMIT),
+            data: _data6.slice(chart6index, chart6index + CHART_6_LIMIT)
+        })
+    } else if (x > 10) {
+        chart6index = touch6.baseindex - Math.round(Math.abs(x) / 20);
+        if (chart6index < 0) chart6index = 0;
+        
+        chart6.update({
+            xaxis: _xaxis6.slice(chart6index, chart6index + CHART_6_LIMIT),
+            data: _data6.slice(chart6index, chart6index + CHART_6_LIMIT)
+        })
+    }
+}, false);
+
+// chart 7
+var _data7 = [],
+    _xaxis7 = ['1-11', '2-11', '3-11', '4-22', '5-11', '6-11', '7-11', '8-11', '9-11', '10-11'];
+_data7.length = _xaxis7.length;
+var chart7index = 0;
+var chart7 = new LineChart({
+    id: 'line7',
+    xaxis: _xaxis7,
+    data: _data7,
+    noGradient: true,
+    range: {
+        min: 0,
+        max: 10
+    },
+    grid: {
+        xTickLength: _data7.length,
+        yTickLength: 11
+    },
+    colors: ['#43c2f7'],
+    onAnimation (process) {
+        if (chart7index < 2) return false;
+        var ctx = chart7.ctx,
+        datasets = chart7.datasets[0];
+        var lastdata = datasets[chart7index - 1],
+            penultdata = datasets[chart7index - 2];
+        var _x = process * (lastdata.x - penultdata.x) + penultdata.x, 
+            _y = process * (lastdata.y - penultdata.y) + penultdata.y;
+        
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.strokeStyle = '#43c2f7';
+        ctx.moveTo(penultdata.x, penultdata.y);
+        ctx.lineTo(_x, _y);
+        ctx.stroke();
+
+        ctx.beginPath();
+
+        ctx.strokeStyle = '#fff';
+        
+        ctx.arc(_x, _y, 5, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fillStyle = '#43c2f7';
+        ctx.fill();
+
+        ctx.stroke();
+    }
+});
+
+chart7.init();
+
+var $line7btn = document.querySelector('#line7btn');
+$line7btn.onclick = function () {
+    var timer7 = setInterval(function () {
+        if (chart7index >= _xaxis7.length) {
+            clearInterval(timer7);
+            return false;
+        }
+        
+        _data7[chart7index++] = Math.round(Math.random() * 10);
+        
+        chart7.update({
+            data: _data7
+        });
+    }, 1000);
+    $line7btn.style.display = 'none';
+};
+
+
+// chart 8
+const chart8 = new LineChart({
+    id: 'line8',
+    xaxis: ['03-11', '04-11', '05-11', '06-11', '07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
+    data: [4, 3, 4, 2, 1, 2, 3, 4, 3.5, 3, 4],
+
+    grid: {
+        showGrid: true,
+        color: '#aaa',
+        xTickLength: 11
+    },
+
+    events: [],
+
+    handleTextX: (ctx, xArr) => {      // 处理x轴文字
+        // 增加x轴刻度
+        var _chartWidth = chart8._chart.width - chart8.opts.chartLeft - chart4.opts.chartRight;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '10px Arial';
+        ctx.fillStyle = '#333';
+		
+        for (var i in xArr) {
+          ctx.fillText(xArr[i], (_chartWidth / (xArr.length - 1) * i) + chart4.opts.chartLeft, chart4._chart.height - 23);
+        }
+    },
+
+    onAnimation (process) {
+        var ctx = chart8.ctx,
+            chartLeft = chart8.opts.chartLeft,
+            datasets = chart8.datasets[0];
+
+        ctx.save()
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#fff';
+        ctx.fillStyle = '#ffa61b';
+
+        datasets.map(data => {
+            ctx.beginPath();
+            ctx.arc(data.x, data.y, 4 * process, 0, Math.PI * 2, true);
+            ctx.closePath();
+            
+            ctx.fill();
+
+            ctx.stroke();
+            ctx.font = 13 * process + 'px Arial';
+            ctx.textAlign = 'center';
+            var x = data.x - 10 < chartLeft ? chartLeft + 10 : data.x;
+            ctx.fillText(data.value.toFixed(2), x, data.y - 10);
+        });
+
+        ctx.restore();
+    }
+});
+
+chart8.init();
 
     </script>
 </body>

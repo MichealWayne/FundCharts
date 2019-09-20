@@ -94,13 +94,14 @@ Page({
     const radar4 = new RadarChart({
       id: 'chartradar4', 
       colors: ['#009966'],
+      fillGrid: '#f00',   // 填充背景
       radius: 70,     // 半径
       origin: {       // 中心
         x: 120,
         y: 100
       },
       data: [1, 2, 3, 4, 3.5],
-      onFinish: () => {
+      onAnimation: () => {
         let tits = ['吃', '喝', '住', '睡', '玩'];
 
         let ctx = radar4.ctx;
@@ -113,10 +114,9 @@ Page({
           ctx.fillText(
             tits[index],
             radar4.drawer.origin.x + item.x * radar4.drawer.radius * 1.2,
-            radar4.drawer.origin.y + item.y * radar4.drawer.radius * 1.2
+            radar4.drawer.origin.y - item.y * radar4.drawer.radius * 1.2
           );
         });
-        ctx.draw(true);
       },
       width: 375,
       height: 200,

@@ -76,6 +76,18 @@ Page({
         x: [0, 120],
         y: [0, 200]
       },
+      grid: {
+        showGrid: true,         // 刻度线
+        color: '#999',     // 刻度线颜色
+        yTickLength: 8,
+        xTickLength: 8
+      },
+      dash: {
+        length: 1
+      },
+      font: {
+        color: '#eee'
+      },
       noPointSide: true,  // 无描边
       chartLeft: 25,
       chartRight: 1,

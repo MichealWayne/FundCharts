@@ -17,4 +17,5 @@ demo
 	- [雷达图](http://blog.michealwayne.cn/FundCharts/demo/web/radar.html)
 	- [散点图](http://blog.michealwayne.cn/FundCharts/demo/web/scatter.html)
 	- [K线图](http://blog.michealwayne.cn/FundCharts/demo/web/kline.html)
+	- [组合图](http://blog.michealwayne.cn/FundCharts/demo/web/combo.html)
 

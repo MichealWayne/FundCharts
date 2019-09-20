@@ -25,5 +25,11 @@
       style="width: 375px; height: 212px;"
       canvas-id="chartbar4"
     ></canvas>
+
+    <view class="u-h3">5.单数据项多色</view>
+    <canvas
+      style="width: 375px; height: 212px;"
+      canvas-id="chartbar5"
+    ></canvas>
   </View>
 </view>

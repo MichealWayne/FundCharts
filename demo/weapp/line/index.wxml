@@ -48,5 +48,12 @@
       canvas-id="chartline4"
     ></canvas>
 
+    <!-- chart 5 -->
+    <view class="u-h3">5.带数据点</view>
+    <canvas
+      class="u-canvas"
+      canvas-id="chartline5"
+    ></canvas>
+
   </View>
 </view>

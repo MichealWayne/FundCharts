@@ -1,6 +1,6 @@
-/*
+/**
+ * FundCharts-node
  * node test
- * if `/dist/FundCharts-node.js` is not existed, run `npm run build:node`
  * @type pie
  */
 
@@ -49,12 +49,13 @@ chart2.init();
 // chart 3
 const chart3 = new PieChart({
     id: 'pie3',
-    annularRate: 0.8,
+    annularRate: 0,
     origin: {
         x: 200,
         y: 200
     },
-    datas: [0.4, 0.6],
+    datas: [0.3, 0.1, 0.2, 0.4],
+    widthRates: [0.8, 0.9, 1.0, 1.1],
     width: 750,
     height: 375,
     Canvas: Canvas,

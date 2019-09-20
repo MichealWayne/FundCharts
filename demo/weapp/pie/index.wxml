@@ -24,10 +24,17 @@
     ></canvas>
 
     <!-- chart 4 -->
-    <view class="u-h3">4.伞形图</view>
+    <view class="u-h3">4.扇形图</view>
     <canvas
       style="width: 375px; height: 200px;"
       canvas-id="chartpie4"
+    ></canvas>
+
+    <!-- chart 5 -->
+    <view class="u-h3">5.进度条</view>
+    <canvas
+      style="width: 375px; height: 200px;"
+      canvas-id="chartpie5"
     ></canvas>
   </View>
 </view>

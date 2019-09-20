@@ -38,7 +38,7 @@ const chart1 = new FundCharts.kline({
 
 chart1.init();
 
-// chart 1
+// chart 2
 const chart2 = new FundCharts.kline({
     id: 'kline2',
     width: 750,
@@ -139,3 +139,36 @@ const chart2 = new FundCharts.kline({
 });
 
 chart2.init();
+
+// chart 3
+const chart3 = new FundCharts.kline({
+    id: 'kline3',
+    width: 750,
+    height: 375,
+    xaxis: ['1-1', '1-2', '1-3', '1-4', '1-5', '1-6', '1-7', '1-8'],
+    datas: [
+        [1, 2, 0.5, 2.1],
+        [3, 4, 2, 4],
+        [3, 5.5, 3, 6],
+        [4.4, 3.5, 3, 5],
+        [5, 6, 4, 7],
+        [7, 3, 3, 7],
+        [3, 5.5, 3, 6],
+        [4.4, 3.5, 3, 5]
+    ],
+    upHollow: true,
+    grid: {
+        showGrid: true
+    },
+    Canvas: Canvas,
+    handleOut: canvas => {
+		let out = fs.createWriteStream(path.join(__dirname, './kline3.jpg')), 
+			stream = canvas.createJPEGStream();
+
+		stream.on('data', function(chunk) {
+			out.write(chunk);
+		});
+	}
+});
+
+chart3.init();

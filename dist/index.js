@@ -1,10 +1,10 @@
 /**
  * FundCharts
  * @description: 移动端轻量级canvas数据可视化组件。折线图、饼图(环形图)、柱状图、雷达图（蜘蛛图）、散点图、k线图。
- * @version: 0.9.2
+ * @version: 0.9.3
  * @author: Micheal Wayne(michealwayne@163.com)
  * @build time: 2018-11-22
- * @update time: 2019-08-23
+ * @update time: 2019-09-20
  */
 
 module.exports = {

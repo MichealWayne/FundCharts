@@ -2,15 +2,15 @@
 
 ## 安装canvas
 ``` sh
-	npm i --save canvas
+npm i --save canvas
 ```
 
 ## 测试
 ``` sh
-    node line.js
-    node pie.js
-    node bar.js
-    node radar.js
-    node scatter.js
-	node kline.js
+node line.js
+node pie.js
+node bar.js
+node radar.js
+node scatter.js
+node kline.js
 ```

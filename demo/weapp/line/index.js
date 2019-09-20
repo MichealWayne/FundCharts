@@ -99,16 +99,20 @@ Page({
       width: 375,
       height: 212,
       noGradient: true,
+      grid: {
+        yTickLength: 7, // y轴刻度数量
+        xTickLength: 5  // x轴刻度数量
+      },
       chartLeft: 30,        // 图形区域距离左边距离(px)
       lineWidths: [4, 2, 1],     // 折线粗细
       colors: ['#03c', '#0cc', '#fa0'],   // 折线颜色
       pointStyle: '#f00',			// 点边框颜色
       hoverLineColor: 'orange',		// 触控线的颜色
-      xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
+      xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11', '01-11', '02-11', '03-11', '04-11', '05-11', '06-11', '07-11'],
       datas: [
-        [1, 2, 3, 4, 3.5, 3, 4, 3],
-        [4, 3, 4, 2, 3, 5, 6, 5],
-        [8, 4, 6, 3, 1, 2, 1, 3.3]
+        [2, 2, 3, 4, 3.5, 3, 4, 3],
+        [2, 3, 4, 2, 3, 5, 6, 5],
+        [2, 4, 6, 3, 1, 2, 1, 3.3]
       ]
     });
     line2.init();
@@ -116,9 +120,9 @@ Page({
     setTimeout(() => {
       line2.update({
         datas: [
-          [5, 5, 6, 2, 1, 2, 3, 2],
-          [4, 4, 6, 5, 7, 7, 3, 4],
-          [2, 8, 7, 5, 7, 3, 5, 7]
+          [2, 5, 6, 2, 1, 2, 3, 2, 5, 5, 7, 8, 9, 10],
+          [2, 4, 6, 5, 7, 7, 3, 4, 5, 3, 2, 1, 0, 1],
+          [2, 8, 7, 5, 7, 3, 5, 7, 4, 4, 6, 9, 10, 11]
         ]
       })
     }, 5000);
@@ -165,6 +169,62 @@ Page({
 
     });
     line4.init();
+
+    // line chart 5
+    let line5 = new LineChart({
+      id: 'chartline5',
+      width: 375,
+      height: 212,
+      chartTop: 1,
+      xaxis: ['03-11', '04-11', '05-11', '06-11', '07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
+      data: [4, 3, 4, 2, 1, 2, 3, 4, 3.5, 3, 4],
+
+      grid: {
+        showGrid: true,
+        color: '#aaa',
+        xTickLength: 11
+      },
+      handleTextX: (ctx, xArr) => {      // 处理x轴文字
+        // 增加x轴刻度
+        let _chartWidth = line5._chart.width - line5.opts.chartLeft - line5.opts.chartRight;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '10px Arial';
+        ctx.fillStyle = '#333';
+
+        for (let i in xArr) {
+          ctx.fillText(xArr[i], (_chartWidth / (xArr.length - 1) * i) + line5.opts.chartLeft, line5._chart.height - 10);
+        }
+      },
+
+      onAnimation(process) {
+        let ctx = line5.ctx,
+          chartLeft = line5.opts.chartLeft,
+          datasets = line5.datasets[0];
+
+        ctx.save()
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#fff';
+        ctx.fillStyle = '#ffa61b';
+
+        datasets.map(data => {
+          ctx.beginPath();
+          ctx.arc(data.x, data.y, 4 * process, 0, Math.PI * 2, true);
+          ctx.closePath();
+
+          ctx.fill();
+
+          ctx.stroke();
+          ctx.font = 13 * process + 'px Arial';
+          ctx.textAlign = 'center';
+          let x = data.x - 10 < chartLeft ? chartLeft + 10 : data.x;
+          ctx.fillText(data.value.toFixed(2), x, data.y - 10);
+        });
+
+        ctx.restore();
+      }
+    });
+    line5.init();
   },
 
   // line 1 chart demo touch start

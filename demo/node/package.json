@@ -1,0 +1,14 @@
+{
+  "name": "fundcharts-node",
+  "version": "1.0.0",
+  "description": "fundcharts nodejs demos.",
+  "main": "bar.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "canvas": "^2.6.0"
+  }
+}

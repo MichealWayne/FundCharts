@@ -107,6 +107,45 @@ Page({
     });
 
     pie4.init();
+
+    // chart 5
+    const pie5 = new PieChart({
+      id: 'chartpie5',
+      annularRate: 0.9,
+      colors: ['#f63'],
+      backgroundColor: '#000',	// 背景色
+      datas: [1],
+      duration: 4000,
+      width: 375,
+      height: 200,
+      datas: [1],
+      startAngle: -Math.PI,
+      onAnimation: rate => {
+        let ctx = pie5.ctx,
+          _origin = pie5.drawer.origin,
+          _radius = pie5.drawer.radiusWhite;
+
+        // draw circle
+        ctx.strokeStyle = '#525356';
+        ctx.strokeWidth = 1;
+
+        ctx.moveTo(_origin.x, _origin.y);
+        ctx.beginPath();
+        ctx.arc(_origin.x, _origin.y, _radius - 1, 0, Math.PI * 2, false);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // draw texts
+        ctx.fillStyle = '#f63';
+        ctx.font = 'bold 22px consolas';
+        ctx.textAlign = 'center';
+        ctx.fillText('FundChart', _origin.x, 90);
+        ctx.fillText((rate * 100).toFixed(2) + '%', _origin.x, 120);
+      }
+    });
+
+    setTimeout(() => pie5.init(), 5000)
   },
   // pie 1 chart demo touch start
   chart1Touchstart: function (e) {

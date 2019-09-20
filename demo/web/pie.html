@@ -12,19 +12,19 @@
 </head>
 <body>
     <div id="app">
-        <h3 class="f-tc u-tit">1.示例1</h3>
+        <h3 class="f-tc u-tit">demo 1: simgle annular chart</h3>
         <section id="pie1" class="u-part"></section>
 
-        <h3 class="f-tc u-tit g-mt20">2.示例2</h3>
+        <h3 class="f-tc u-tit g-mt20">demo 2: simgle pie chart</h3>
         <section id="pie2" class="u-part"></section>
 
-        <h3 class="f-tc u-tit g-mt20">3.示例3</h3>
+        <h3 class="f-tc u-tit g-mt20">demo 3: different color chart</h3>
         <section id="pie3" class="u-part"></section>
 
-        <h3 class="f-tc u-tit g-mt20">4.示例4</h3>
+        <h3 class="f-tc u-tit g-mt20">demo 4: sector chart</h3>
         <section id="pie4" class="u-part"></section>
 		
-		<h3 class="f-tc u-tit g-mt20">5.示例5</h3>
+		<h3 class="f-tc u-tit g-mt20">demo 5: progress chart</h3>
         <section class="u-part">
             <canvas id="pie5Chart" width="375" height="220"></canvas>
         </section>
@@ -118,6 +118,7 @@ var chart3 = new PieChart({
     annularRate: 0.8,   // 环形空心比例
     lineWidth: 2,       // 区域间空隙
 	backgroundColor: '#000',	// 背景色
+	colors: ['#00f', '#0f0', '#f00', '#ff0'],
     origin: {       // 中心点坐标
         x: 100,
         y: 100
@@ -148,8 +149,10 @@ var chart5 = new PieChart({
 	annularRate: 0.9,
 	colors: ['#f63'],
 	backgroundColor: '#000',	// 背景色
-    datas: [0.4],
+    datas: [1],
+    duration: 4000,
     events: [],     // 取消事件
+    startAngle: -Math.PI,
 	onAnimation: rate => {
 		var ctx = chart5.ctx,
 			_origin = chart5.drawer.origin,
@@ -171,7 +174,7 @@ var chart5 = new PieChart({
         ctx.font = 'bold 22px consolas';
         ctx.textAlign = 'center';
         ctx.fillText('FundChart', _origin.x, 90);
-        ctx.fillText((rate * 40).toFixed(2) + '%', _origin.x, 120);
+        ctx.fillText((rate * 100).toFixed(2) + '%', _origin.x, 120);
 	}
 });
 chart5.init();   

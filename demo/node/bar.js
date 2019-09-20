@@ -1,6 +1,6 @@
-/*
+/**
+ * FundCharts-node
  * node test
- * if `/dist/FundCharts-node.js` is not existed, run `npm run build:node`
  * @type bar
  */
 
@@ -57,3 +57,29 @@ const chart2 = new BarChart({
 });
 
 chart2.init();
+
+// chart 3
+const chart3 = new BarChart({
+    id: 'bar3',
+    xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11', '12-12'],
+    datas: [
+        [5, 4, 3, 2, -1, -2, 3]
+    ],
+    singleColorful: true,
+    grid: {
+    	showGrid: true
+    },
+    width: 750,
+    height: 375,
+    Canvas: Canvas,
+    handleOut: canvas => {
+		let out = fs.createWriteStream(path.join(__dirname, './bar3.jpg')), 
+			stream = canvas.createJPEGStream();
+
+		stream.on('data', function(chunk) {
+			out.write(chunk);
+		});
+	}
+});
+
+chart3.init();

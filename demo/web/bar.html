@@ -12,16 +12,16 @@
 </head>
 <body>
     <div id="app">
-        <h3 class="f-tc u-tit">1.示例1</h3>
+        <h3 class="f-tc u-tit">demo 1: simple bar chart</h3>
         <section id="bar1" class="u-part"></section>
 
-        <h3 class="f-tc u-tit g-mt20">2.示例2</h3>
+        <h3 class="f-tc u-tit g-mt20">demo 2: multi-line bar chart</h3>
         <section id="bar2" class="u-part"></section>
 		
-		<h3 class="f-tc u-tit g-mt20">3.示例3</h3>
+		<h3 class="f-tc u-tit g-mt20">demo 3: negative value show different color</h3>
         <section id="bar3" class="u-part"></section>
 
-        <h3 class="f-tc u-tit g-mt20">4.示例4</h3>
+        <h3 class="f-tc u-tit g-mt20">demo 4: single data bar with different color</h3>
         <section class="u-part">
             <canvas id="bar4Chart" width="375" height="220"></canvas>
         </section>
@@ -119,6 +119,10 @@ var chart3 = new BarChart({
             y: '8px'
         }
     },
+	range: {
+		max: 10,
+		min: -10
+	},
     hoverHighlight: 0.2,   // 高亮比例(默认0.6)
     negativeColor: '#88dd4c',   // 负值指定颜色
     noAnimation: true, 		// 没有动画过渡
@@ -153,7 +157,7 @@ var timeArr = ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11', '1
  * @param {Number} process 动画进度
  * @param {Number} hoverIndex 当前选中项
  */
-function addChart4Words (process, hoverIndex) {
+function addChart4Words (process = 1, hoverIndex) {
     var ctx = chart4.ctx;
     var datasets = chart4.datasets[0];
     var _zero = chart4.drawer.zeroY;
@@ -164,7 +168,8 @@ function addChart4Words (process, hoverIndex) {
     ctx.font = '12px Arial';
     ctx.fillStyle = '#000';
     datasets.map((item, index) => {
-        ctx.fillStyle = typeof hoverIndex === 'number' && index === hoverIndex ? '#f00' : '#000';
+        var colors = chart4.opts.colors;
+        ctx.fillStyle = typeof hoverIndex === 'number' && index === hoverIndex ? colors[index] || '#f00' : '#000';
         ctx.fillText(
             valArr[index].toFixed(2), 
             item.x + 10,
@@ -181,6 +186,13 @@ var chart4 = new BarChart({
     },
     data: valArr,
     onAnimation: addChart4Words,
+	grid: {
+        showGrid: true,      // 展示gird
+        color: '#bbb'        // grid线颜色
+    },
+    barWidth: 25,
+    singleColorful: true,      // 单列数据时使用颜色区分
+    colors: ['#09f', '#0fc'],   // 默认颜色组只有6个，补充2个
     hover: function (index) {
         addChart4Words(1, index);
     }

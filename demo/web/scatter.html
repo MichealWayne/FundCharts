@@ -12,13 +12,13 @@
 </head>
 <body>
     <div id="app">
-        <h3 class="f-tc u-tit">1.示例1</h3>
+        <h3 class="f-tc u-tit">demo 1: simple chart</h3>
         <section id="scatter1" class="u-part"></section>
 
-        <h3 class="f-tc u-tit g-mt20">2.示例2</h3>
+        <h3 class="f-tc u-tit g-mt20">demo2: multi-data chart</h3>
         <section id="scatter2" class="u-part"></section>
 		
-		<h3 class="f-tc u-tit g-mt20">3.示例3</h3>
+		<h3 class="f-tc u-tit g-mt20">demo 3: different color chart</h3>
         <section id="scatter3" class="u-part">
             <canvas id="scatter3Chart" width="375" height="220"></canvas>
         </section>
@@ -86,13 +86,25 @@ var chart3 = new ScatterChart({
         x: [0, 120],
         y: [0, 200]
     },
+	grid: {
+        showGrid: true,         // 刻度线
+        color: '#999',     // 刻度线颜色
+        yTickLength: 8,
+        xTickLength: 8
+    },
+    dash: {
+        length: 1
+    },
+	font: {
+        color: '#eee'
+    },
     noPointSide: true,  // 无描边
     chartLeft: 25,
     chartRight: 1,
     backgroundColor: '#000',    // 背景色
     colors: ['#00f', '#0f0', '#f00'],   // 散点颜色
     pointWidths: [2, 2, 2],     // 各数据项散点大小
-	noDash: true,           // 没有背景网格
+	// noDash: true,           // 没有背景网格
 	handleTextY: (ctx, yaxis) => {
 		console.log(yaxis);
 		ctx.textAlign = 'center';
