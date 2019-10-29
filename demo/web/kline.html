@@ -13,7 +13,7 @@
 <body>
     <div id="app">
         <h3 class="f-tc u-tit">demo 1: simple chart</h3>
-        <section id="kline1" class="u-part"></section>
+        <section id="kline1" class="u-part" s-bg_linear></section>
 		
 		<h3 class="f-tc u-tit">demo 2: up show hollow</h3>
         <section id="kline2" class="u-part"></section>
@@ -41,6 +41,10 @@ var chart1 = new KlineChart({
         [5, 6, 4, 7],
         [7, 3, 3, 7]
     ],
+	font: {
+        color: '#eee'
+    },
+    hoverLineColor: '#ddd',
     hover: function (index, values, xaxis, x, y) {   // 索引，datas当前数据集合，xaxis[index], 触控事件x坐标，触控事件y坐标
         var ctx = chart1.ctx,
             _drawer = chart1.drawer,

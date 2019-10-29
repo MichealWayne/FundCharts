@@ -9,10 +9,10 @@
     ></canvas>
 
     <view class="u-h3">2.多数据柱状图</view>
-    <canvas
+    <view class="s-bg_linear"><canvas
       style="width: 375px; height: 212px;"
       canvas-id="chartbar2"
-    ></canvas>
+    ></canvas></view>
 
     <view class="u-h3">3.特殊颜色的柱状图（正/负值不同）</view>
     <canvas

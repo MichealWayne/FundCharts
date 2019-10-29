@@ -2,7 +2,7 @@
   <View>
     <!-- chart 1 -->
     <view class="u-h3">1.单条折线图（带交互）</view>
-    <view class="u-label">
+    <view class='s-bg_linear2'><view class="u-label">
         time: <text>{{line1Time}}</text> 
         sy: <text>{{line1Sy}}</text>
     </view>
@@ -11,7 +11,7 @@
       canvas-id="chartline1"
       bindtouchstart="chart1Touchstart"
 	    bindtouchmove="chart1Touchmove"
-    ></canvas>
+    ></canvas></view>
 
     <!-- chart 2 -->
     <view class="u-h3">2.多条折线图（带交互）</view>
@@ -43,10 +43,10 @@
 
     <!-- chart 4 -->
     <view class="u-h3">4.曲线图</view>
-    <canvas
+    <view class='s-bg_linear'><canvas
       class="u-canvas"
       canvas-id="chartline4"
-    ></canvas>
+    ></canvas></view>
 
     <!-- chart 5 -->
     <view class="u-h3">5.带数据点</view>

@@ -13,10 +13,10 @@
 <body>
     <div id="app">
         <h3 class="f-tc u-tit">demo 1: simple chart</h3>
-        <section id="radar1" class="u-part"></section>
+        <section id="radar1" class="u-part" s-bg_linear2></section>
 
         <h3 class="f-tc u-tit">demo 2: multi-data chart</h3>
-        <section id="radar2" class="u-part"></section>
+        <section id="radar2" class="u-part" s-bg_linear></section>
 
         <h3 class="f-tc u-tit">demo 3: different color chart</h3>
         <section id="radar3" class="u-part"></section>
@@ -61,7 +61,7 @@ var chart2 = new RadarChart({
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.font = '12px Arial';
-        ctx.fillStyle = '#000';
+        ctx.fillStyle = '#fff';
         ctx.fillText(
             'data1: ' + values[0].toFixed(2), 
             320, 

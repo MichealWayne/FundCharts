@@ -2,10 +2,10 @@
   <View>
     <!-- chart 1 -->
     <view class="u-h3">1.单数据列散点图</view>
-    <canvas
+    <view class="s-bg_earth"><canvas
       style="width: 375px; height: 200px;"
       canvas-id="chartscatter1"
-    ></canvas>
+    ></canvas></view>
 
     <!-- chart 2 -->
     <view class="u-h3">2.多数据列散点图</view>

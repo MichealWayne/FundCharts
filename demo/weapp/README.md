@@ -21,7 +21,7 @@
   "pages":[
     "pages/line/index"
   ]
-  ...
+  // ...
 }
 ```
 

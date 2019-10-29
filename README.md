@@ -49,7 +49,7 @@ FundCharts
 ### 特性
 
 - **重图形**：只注重图形的可视化实现，画布以及换算提供全面接口供二次绘制。
-- **轻量级**：体积小无依赖，全量直接引用仅30k，开启gzip仅10k；按需引用打包更小。
+- **轻量级**：体积小无依赖，全量直接引用仅30k，开启gzip仅10.8k；按需引用打包体积更小。
 - **兼容好**：小程序端；web Android4及以上，ios8及以上；nodejs8.0及以上。
 
 兼容：
@@ -72,12 +72,12 @@ FundCharts
 
 ## 最新版本
 
-- [v0.9.3](https://www.npmjs.com/package/fundcharts)
+- [v0.9.4](https://www.npmjs.com/package/fundcharts)
 
 （历史版本访问[FundCharts-versions](https://github.com/MichealWayne/FundCharts/tree/master/versions)）
 
 ## 更新信息
-
+- 2019.10.28(`v0.9.4`)：背景默认透明('#fff' -> `rgba(0,0,0,0)`)；折线图line初始动画方式替换，交互超出边界处理调整（执行onFinish，展示边界值）；散点图增加圆点边框半径控制borderRate。
 - 2019.09.20(`v0.9.3`)：增加图形合并：line和kline、bar和line可以组合。grid(line/bar/scatter/kline)：增加x/y坐标轴线显示控制(grid.showGrid)、增加x/y轴网格数量控制(xTickLength/yTickLength)、hover回调参数增加touchEvent的y坐标值。所有图形增加动画时长控制(duration)。饼/环形pie：增加起始角度控制(startAngle)。饼/环形/雷达图pie/radar：触控交互区域进行范围限制。折线line：修复update()特殊调用情景的bug。柱状图bar：修复barWidth失效bug。
 - 2019.08.23(`v0.9.2`)：优化line/pie/radar/bar的update切换过渡动画；折线图line增加曲线展示(curveLine)；k线图增加空心展示控制(upHollow)。
 - 2019.07.18(`v0.9.1`)：增加柱状图/k线图/饼图/环形图/雷达图交互反馈；web端可直接在canvas元素上绘制；修复雷达图坐标及小程序网格bug，修复小程序hover抖动bug；

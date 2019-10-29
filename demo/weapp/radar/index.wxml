@@ -1,30 +1,30 @@
 <view class="fundCharts-demo">
   <View>
     <!-- chart 1 -->
-    <view class="u-h3">1.环形图（添加了交互事件）</view>
-    <canvas
+    <view class="u-h3">1.单数据图（添加了交互事件）</view>
+    <view class="s-bg_linear2"><canvas
       style="width: 375px; height: 200px;"
       canvas-id="chartradar1"
       bindtouchstart="chart1Touchstart"
       bindtouchmove="chart1Touchmove"
-    ></canvas>
+    ></canvas></view>
 
     <!-- chart 2 -->
-    <view class="u-h3">2.饼图</view>
+    <view class="u-h3">2.多数据图</view>
     <canvas
       style="width: 375px; height: 200px;"
       canvas-id="chartradar2"
     ></canvas>
 
     <!-- chart 3 -->
-    <view class="u-h3">3.自定义环形图</view>
+    <view class="u-h3">3.自定义颜色图</view>
     <canvas
       style="width: 375px; height: 200px;"
       canvas-id="chartradar3"
     ></canvas>
 
     <!-- chart 4 -->
-    <view class="u-h3">4.伞形图</view>
+    <view class="u-h3">4.背景颜色填充图</view>
     <canvas
       style="width: 375px; height: 200px;"
       canvas-id="chartradar4"

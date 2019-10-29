@@ -13,10 +13,10 @@
 <body>
     <div id="app">
         <h3 class="f-tc u-tit">demo 1: simgle annular chart</h3>
-        <section id="pie1" class="u-part"></section>
+        <section id="pie1" class="u-part" s-bg_linear2></section>
 
         <h3 class="f-tc u-tit g-mt20">demo 2: simgle pie chart</h3>
-        <section id="pie2" class="u-part"></section>
+        <section id="pie2" class="u-part" s-bg_linear></section>
 
         <h3 class="f-tc u-tit g-mt20">demo 3: different color chart</h3>
         <section id="pie3" class="u-part"></section>
@@ -55,7 +55,7 @@ var chart1 = new PieChart({
         ctx.textAlign = 'center';
         ctx.fillText(chart1Labels[index], _origin.x, 90);
         
-        ctx.fillStyle = '#666';
+        ctx.fillStyle = '#eee';
         ctx.fillText((values[0] * 100).toFixed(1) + '%', _origin.x, 120);
     }
 });
@@ -86,6 +86,7 @@ var chart2 = new PieChart({
         
         ctx.save();
         // draw line
+		ctx.beginPath();
         ctx.moveTo(origin.x + _cosx, origin.y + _sinx);
         ctx.lineTo(origin.x + _cosx * 1.2, origin.y + _sinx * 1.2)
         ctx.lineTo(_cosx > 0 ? 300 : 70, origin.y + _sinx * 1.2);
@@ -98,7 +99,7 @@ var chart2 = new PieChart({
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         
-        ctx.fillStyle = '#666';
+        ctx.fillStyle = '#eee';
         ctx.fillText((values[0] * 100).toFixed(1) + '%', _cosx > 0 ? 320 : 50, origin.y + _sinx * 1.2);
         ctx.restore();
     }

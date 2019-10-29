@@ -12,11 +12,11 @@
 </head>
 <body>
     <div id="app">
-        <h3 class="f-tc u-tit">demo 1: simple chart</h3>
-        <section id="scatter1" class="u-part"></section>
+        <h3 class="f-tc u-tit">demo 1: earth-data chart</h3>
+        <section id="scatter1" class="u-part" style="background: #000 url(https://blog.michealwayne.cn/images/fundchartspics/scatter/earth.jpg); background-size: 100% auto;"></section>
 
         <h3 class="f-tc u-tit g-mt20">demo2: multi-data chart</h3>
-        <section id="scatter2" class="u-part"></section>
+        <section id="scatter2" class="u-part" s-bg_linear></section>
 		
 		<h3 class="f-tc u-tit g-mt20">demo 3: different color chart</h3>
         <section id="scatter3" class="u-part">
@@ -33,13 +33,29 @@ var ScatterChart = FundCharts.scatter;
 // chart 1
 var chart1 = new ScatterChart({
     id: 'scatter1',
-    data: [
-        [1, 2],
-        [3, 4],
-        [3, 5.5],
-        [3.5, 4.4],
-        [5, 6],
-        [7, 3]
+	xaxisfunc () { return '' },
+    yaxisfunc () { return '' },
+    noDash: true,
+    pointWidths: [5, 3],
+    borderRate: 1.5,     // 圆点边框
+    colors: ['#fe5d4e', '#fe5d4e'],
+    datas: [
+        [
+            [3, 4],
+            [3, 6],
+            [6, 4],
+            [3, 5]
+        ],
+        [
+            [1, 2],
+            [2, 5.5],
+            [2.5, 5],
+            [2, 4],
+            [3, 5.5],
+            [3.5, 4.4],
+            [5, 6],
+            [7, 3]
+        ]
     ]
 });
 chart1.init();
@@ -56,6 +72,9 @@ for (var i = 0; i < 60; i++) {
 
 var chart2 = new ScatterChart({
     id: 'scatter2',
+	font: {
+        color: '#eee'
+    },
     yaxisfunc: function (data) {        // 处理y轴展示
         return data.toFixed(0) + '%'
     },

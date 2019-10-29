@@ -16,7 +16,7 @@
         <section id="kline1" class="u-part"></section>
 		
 		<h3 class="f-tc u-tit">demo 2: bar & line</h3>
-        <section id="bar1" class="u-part"></section>
+        <section id="bar1" class="u-part" s-bg_linear></section>
     </div>
 
     <script src="../../FundCharts.min.js"></script>	<!-- 引用库 -->
@@ -138,14 +138,14 @@ var chart1 = new KlineChart({
     yaxisfunc: function (val) {
         return val.toFixed(0)
     },
-
-    // events: ['touchstart'],
     
     hover: function (index, values, xaxis, _x, y) {
+		if (y > chart1._chart.height - 30) y = chart1._chart.height - 30;
         var ctx = chart1.ctx;
+		var _rectX = _x - 32;
 
         ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-        var _rectX = _x - 32;
+        
         _rectX = _rectX < 50 ? 50 : _rectX > 300 ? 300 : _rectX;
         ctx.fillRect(_rectX, chart1._chart.height - 40, 64, 15);
 
@@ -210,6 +210,9 @@ var chart2 = new BarChart({
     ...CHART2_COMMON,
     grid: {
         showGrid: true
+    },
+	font: {
+        color: '#ddd'
     },
     xaxis: _xaxis2,
     data: bardata,

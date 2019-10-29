@@ -11,9 +11,9 @@
 
     <!-- chart 2 -->
     <view class="u-h3">2.柱状图与折线图组合</view>
-    <canvas
+    <view class="s-bg_linear"><canvas
       style="width: 414px; height: 200px;"
       canvas-id="chartcombo2"
-    ></canvas>
+    ></canvas></view>
   </View>
 </view>

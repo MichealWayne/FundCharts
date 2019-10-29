@@ -67,6 +67,9 @@ Page({
       yaxisfunc(data) {     // 处理y轴刻度数值
         return (data).toFixed(0) + '%'
       },
+      font: {
+        color: '#eee'
+      },
       width: 375,
       height: 212,
       noGradient: true,     // 无渐变面积
@@ -136,6 +139,7 @@ Page({
       height: 212,
       allGradient: true,    // 设置面积渐变
       xaxis: xArr,
+      
       handleTextX: (ctx, xaxis) => {      // 处理x轴文字
         // 增加x轴刻度
         let _chartWidth = line3.canvas.width - line3.opts.chartLeft - line3.opts.chartRight;
@@ -161,6 +165,10 @@ Page({
       yaxisfunc(data) {     // 处理y轴刻度数值
         return (data).toFixed(2)
       },
+      font: {
+        color: '#eee'
+      },
+      colors: ['#eff'],
       width: 375,
       height: 212,
       curveLine: true,     // 曲线

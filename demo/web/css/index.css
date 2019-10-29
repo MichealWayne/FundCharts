@@ -1,4 +1,4 @@
-/*
+/**
  * FundCharts test page
  */
 
@@ -31,4 +31,12 @@ body {
     padding: 2.6667vw 0; 
     height: 50vw;
     background-color: #fff;
+}
+.u-part[s-bg_linear] {
+    background-color: #9198e5;
+    background-image: linear-gradient(#e66465, #9198e5);
+}
+.u-part[s-bg_linear2] {
+    background-color: #000;
+    background-image: linear-gradient(#666, #000);
 }

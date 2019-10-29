@@ -16,7 +16,7 @@ function drawLabel(chart, index, values) {
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.font = '12px Arial';
-  ctx.fillStyle = '#000';
+  ctx.fillStyle = '#eee';
   
   ctx.fillText(
     'data: ' + values.toFixed(2),

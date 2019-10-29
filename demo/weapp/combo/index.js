@@ -207,6 +207,9 @@ Page({
       xaxis: _xaxis2,
       data: bardata,
       events: [],
+      font: {
+        color: '#eee'
+      },
       onFinish() {
         let drawer = combo2.drawer,
           yaxis = drawer.yaxis;

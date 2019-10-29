@@ -19,7 +19,7 @@ function drawLabel (chart, index, values) {
   ctx.textAlign = 'center';
   ctx.fillText('第' + (index + 1) + '项', _origin.x, 90);
 
-  ctx.fillStyle = '#666';
+  ctx.fillStyle = '#aaa';
   ctx.fillText((values * 100).toFixed(1) + '%', _origin.x, 120);
   ctx.draw(true);
 }

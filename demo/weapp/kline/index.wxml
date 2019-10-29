@@ -2,12 +2,12 @@
   <View>
     <!-- chart 1 -->
     <view class="u-h3">1.普通k线图（添加了交互事件）</view>
-    <canvas
+    <view class='s-bg_linear2'><canvas
       style="width: 375px; height: 200px;"
       canvas-id="chartkline1"
       bindtouchstart="chart1Touchstart"
       bindtouchmove="chart1Touchmove"
-    ></canvas>
+    ></canvas></view>
 
     <!-- chart 2 -->
     <view class="u-h3">2.特殊颜色k线图</view>

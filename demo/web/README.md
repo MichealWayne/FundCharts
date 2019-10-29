@@ -16,7 +16,7 @@
 ``` js
 import {line} from 'fundcharts'
 // or
-import line from 'fundcharts/LineChart'
+// import line from 'fundcharts/LineChart'
 
 // chart 1
 var chart1 = new line({

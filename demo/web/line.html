@@ -18,7 +18,7 @@
 
         <!-- demo 2 -->
         <h3 class="f-tc u-tit g-mt20">demo2: grid, tooltip and trigger change</h3>
-        <section id="line2" class="u-part"></section>
+        <section id="line2" class="u-part" s-bg_linear></section>
         <p id="line2btns">
             <button data-type="0">change type1</button>
             <button data-type="1">change type2</button>
@@ -27,7 +27,7 @@
         
         <!-- demo 3 -->
 		<h3 class="f-tc u-tit g-mt20">demo 3: axis line and set colors</h3>
-        <section id="line3" class="u-part"></section>
+        <section id="line3" class="u-part" s-bg_linear2></section>
         
         <!-- demo 4 -->
 		<h3 class="f-tc u-tit g-mt20">demo 4: trigger hover and self-defined xaxis</h3>
@@ -37,7 +37,7 @@
         </section>
 
         <!-- demo 5 -->
-        <h3 class="f-tc u-tit g-mt20">demo 5: curve line</h3>
+        <h3 class="f-tc u-tit g-mt20">demo 5: curve line and set background</h3>
         <section id="line5" class="u-part"></section>
 
         <!-- demo 6 -->
@@ -113,8 +113,12 @@ var chart2 = new LineChart({
         xTickLength: 10,	// x轴网格线数量
         yTickLength: 7      // y轴网格线数量
     },
+	font: {
+        color: '#eee'
+    },
+	hoverLineColor: '#fff',		// 触控线的颜色
 	dash: {
-        color: '#999',	// 虚线颜色
+        color: '#ccc',	// 虚线颜色
         isSolid: true   // 实线网格
     },
     yaxisfunc: function (data) {    // 控制y轴坐标展示格式
@@ -168,7 +172,9 @@ var chart3 = new LineChart({
 	lineWidths: [4, 2, 1],		// 折线粗细
 	colors: ['#13C2C2', '#FADB14', '#FA541C', '#2F54EB', '#F5222D'],    // 自定义颜色
 	pointStyle: '#666',			// 点
-    backgroundColor: '#222',	// 背景色
+    yaxisfunc (data) {
+        return data.toFixed(3) + '%'
+    },
     font: {             // x/y轴颜色
         fontFamily: 'serif',    // 字体
         color: '#eee',
@@ -179,7 +185,7 @@ var chart3 = new LineChart({
     },
 	grid: {  
         showGrid: true,         // 刻度线
-        color: '#fff'     // 刻度线颜色
+        color: '#aaa'     // 刻度线颜色
     },
 	noDash: true,			// 没有网格虚线
 	noAnimation: true,		// 没有动画过渡
@@ -252,6 +258,7 @@ var chart5 = new LineChart({
     id: 'line5',
     xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
     data: _data5,
+	backgroundColor: '#333',	// 背景色
     curveLine: true
 });
 

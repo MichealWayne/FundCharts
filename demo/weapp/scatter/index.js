@@ -18,13 +18,29 @@ Page({
     // chart 1
     let scatter1 = new ScatterChart({
       id: 'chartscatter1',
-      data: [
-        [1, 2],
-        [3, 4],
-        [3, 5.5],
-        [3.5, 4.4],
-        [5, 6],
-        [7, 3]
+      xaxisfunc() { return '' },
+      yaxisfunc() { return '' },
+      noDash: true,
+      pointWidths: [5, 3],
+      borderRate: 1.5,     // 圆点边框
+      colors: ['#fe5d4e', '#fe5d4e'],
+      datas: [
+        [
+          [3, 4],
+          [3, 6],
+          [6, 4],
+          [3, 5]
+        ],
+        [
+          [1, 2],
+          [2, 5.5],
+          [2.5, 5],
+          [2, 4],
+          [3, 5.5],
+          [3.5, 4.4],
+          [5, 6],
+          [7, 3]
+        ]
       ],
       width: 375,
       height: 200,
