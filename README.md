@@ -60,7 +60,7 @@ FundCharts
 - android 4及以上
 - PC IE9+/Firefox/Opera/Chrome/Safari12+
 
-> 注：与Vue、React、Angular等框架无冲突。
+> 注：与框架无冲突，配有[React/Vue组件](https://blog.michealwayne.cn/FundCharts/docs/guide/#react-vue使用)。
 
 ### weapp
 
@@ -77,6 +77,7 @@ FundCharts
 （历史版本访问[FundCharts-versions](https://github.com/MichealWayne/FundCharts/tree/master/versions)）
 
 ## 更新信息
+- 2019.12.20(`v0.9.5`)：增加React/Vue组件；Pie/Radar设置origin时不需要x,y必填。
 - 2019.10.28(`v0.9.4`)：背景默认透明('#fff' -> `rgba(0,0,0,0)`)；折线图line初始动画方式替换，交互超出边界处理调整（执行onFinish，展示边界值）；散点图增加圆点边框半径控制borderRate。
 - 2019.09.20(`v0.9.3`)：增加图形合并：line和kline、bar和line可以组合。grid(line/bar/scatter/kline)：增加x/y坐标轴线显示控制(grid.showGrid)、增加x/y轴网格数量控制(xTickLength/yTickLength)、hover回调参数增加touchEvent的y坐标值。所有图形增加动画时长控制(duration)。饼/环形pie：增加起始角度控制(startAngle)。饼/环形/雷达图pie/radar：触控交互区域进行范围限制。折线line：修复update()特殊调用情景的bug。柱状图bar：修复barWidth失效bug。
 - 2019.08.23(`v0.9.2`)：优化line/pie/radar/bar的update切换过渡动画；折线图line增加曲线展示(curveLine)；k线图增加空心展示控制(upHollow)。
