@@ -4,7 +4,7 @@
 	<img style="width: 100%" src="https://blog.michealwayne.cn/images/fundchartspics/bg.png"/>
 </a>
 
-**[文档>>](http://blog.michealwayne.cn/FundCharts/docs/)**
+**[文档>>](http://blog.michealwayne.cn/FundCharts/docs/)**，[English/npm](https://www.npmjs.com/package/fundcharts)
 
 轻量级canvas数据可视化组件库，可在web端/小程序端/服务端nodjes运行。核心原则：**轻量**，**只注重图形**。
 目前包含折线图、面积图、饼图、柱状图、雷达图（蜘蛛图）、雷达图、散点图、K线图，开放图形组合接口。（codepen demo：[https://codepen.io/michealwayne/](https://codepen.io/michealwayne/)）
@@ -32,6 +32,8 @@
 ```
 FundCharts
 ├─dist       FundCharts单例
+│   ├─react.js        ReactJs组件
+│   ├─vue.js          VueJs组件
 │   ├─BarChart.js     柱状图
 │   ├─KlineChart.js   K线图
 │   ├─LineChart.js    折线图/面积图		  
@@ -77,6 +79,7 @@ FundCharts
 （历史版本访问[FundCharts-versions](https://github.com/MichealWayne/FundCharts/tree/master/versions)）
 
 ## 更新信息
+- 2020.02.28(`v0.9.6`)：修复特殊情况下饼图Pie的间距bug；柱状图增加堆叠效果（多数据项）。
 - 2019.12.20(`v0.9.5`)：增加React/Vue组件；Pie/Radar设置origin时不需要x,y必填。
 - 2019.10.28(`v0.9.4`)：背景默认透明('#fff' -> `rgba(0,0,0,0)`)；折线图line初始动画方式替换，交互超出边界处理调整（执行onFinish，展示边界值）；散点图增加圆点边框半径控制borderRate。
 - 2019.09.20(`v0.9.3`)：增加图形合并：line和kline、bar和line可以组合。grid(line/bar/scatter/kline)：增加x/y坐标轴线显示控制(grid.showGrid)、增加x/y轴网格数量控制(xTickLength/yTickLength)、hover回调参数增加touchEvent的y坐标值。所有图形增加动画时长控制(duration)。饼/环形pie：增加起始角度控制(startAngle)。饼/环形/雷达图pie/radar：触控交互区域进行范围限制。折线line：修复update()特殊调用情景的bug。柱状图bar：修复barWidth失效bug。
