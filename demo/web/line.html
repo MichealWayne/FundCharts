@@ -56,8 +56,12 @@
         <section id="line8" class="u-part"></section>
     </div>
     <script src="../../FundCharts.min.js"></script>	<!-- 引用库 -->
+	<script src="../../FundCharts-tooltips.js"></script>	<!-- 引用ToolTips -->
     <script>
 var LineChart = FundCharts.line;
+
+var ArrowToolTip = FundChartsToolTips.ArrowToolTip,
+	BasicToolTip = FundChartsToolTips.BasicToolTip;
 
 // chart 1
 var _data1 = [1, 2, 3, 4, 3.5, 3, 4],
@@ -68,6 +72,8 @@ var chart1 = new LineChart({
     data: _data1,
     hover: function (index, values, xaxis) { // 索引，datas集合，xaxis[index]，触控点横坐标x
         console.log(values[0], xaxis);
+		
+		ArrowToolTip.apply(this, arguments);
     }
 });
 
@@ -125,26 +131,15 @@ var chart2 = new LineChart({
         return data.toFixed(1)
     },
     datas: CHART2_DATAS['0'],
-    hover: function(index, values, xaxis, x) {
-        console.log(values[0], xaxis);
-		
-		/** 自定义添加label */
-        var _x = x;
-
-        // rect
-        var ctx = chart2.ctx;
-        ctx.fillStyle = '#9d9d9d';
-        var _rectX = _x - 32;
-        _rectX = _rectX < 50 ? 50 : _rectX > 300 ? 300 : _rectX;
-        ctx.fillRect(_rectX, 26, 64, 15);
-
-        // text
-        ctx.fillStyle = '#fff';
-        ctx.font = '10px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText(values[0].toFixed(2) + '-' + values[1].toFixed(2), _rectX + 32, 35);
-		ctx.closePath();
-		ctx.stroke();
+    hover: BasicToolTip,    // use ToolTip
+    toolTip: {
+        color: '#999',
+        backgroundColor: '#fff',
+        font: '13px Arial',
+        width: 80,
+        showTip (xData, yDatas) {
+            return yDatas[0].toFixed(3) + ' - ' + yDatas[1].toFixed(3)
+        }
     }
 });
 
@@ -226,22 +221,11 @@ var chart4 = new LineChart({
           ctx.fillText(xArr[i], (_chartWidth / (xArr.length - 1) * i) + chart4.opts.chartLeft, chart4._chart.height - 13);
         }
     },
-    hover: function(index, values, xaxis) {
-        var _datasets = chart4.datasets[0];
-        var ctx = chart4.ctx;
-        ctx.save();
-        ctx.lineWidth = 1;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '12px Arial';
-        ctx.fillStyle = '#333';
-        
-        ctx.fillText(
-            values[0].toFixed(2), 
-            _datasets[index].x < 65 ? 65 : _datasets[index].x,
-            _datasets[index].y - 15
-        );
-        ctx.restore();
+    hover: ArrowToolTip,
+    toolTip: {
+        font: '12px Arial',
+        backgroundColor: 'rgba(0,0,0,0)',
+        color: 'orange'
     }
 });
 
@@ -401,7 +385,33 @@ $line7btn.onclick = function () {
 
 
 // chart 8
-const chart8 = new LineChart({
+function drawChart8Words (process = 1) {
+    var ctx = chart8.ctx,
+        chartLeft = chart8.opts.chartLeft,
+        datasets = chart8.datasets[0];
+
+    ctx.save()
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#fff';
+    ctx.fillStyle = '#ffa61b';
+
+    datasets.map(data => {
+        ctx.beginPath();
+        ctx.arc(data.x, data.y, 4 * process, 0, Math.PI * 2, true);
+        ctx.closePath();
+        
+        ctx.fill();
+
+        ctx.stroke();
+        ctx.font = 13 * process + 'px Arial';
+        ctx.textAlign = 'center';
+        var x = data.x - 10 < chartLeft ? chartLeft + 10 : data.x;
+        ctx.fillText(data.value.toFixed(2), x, data.y - 10);
+    });
+
+    ctx.restore();
+}
+var chart8 = new LineChart({
     id: 'line8',
     xaxis: ['03-11', '04-11', '05-11', '06-11', '07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
     data: [4, 3, 4, 2, 1, 2, 3, 4, 3.5, 3, 4],
@@ -411,8 +421,6 @@ const chart8 = new LineChart({
         color: '#aaa',
         xTickLength: 11
     },
-
-    events: [],
 
     handleTextX: (ctx, xArr) => {      // 处理x轴文字
         // 增加x轴刻度
@@ -426,33 +434,24 @@ const chart8 = new LineChart({
           ctx.fillText(xArr[i], (_chartWidth / (xArr.length - 1) * i) + chart4.opts.chartLeft, chart4._chart.height - 23);
         }
     },
+	
+    noHoverLine: true,
+    hover () {
+        drawChart8Words();
+        ArrowToolTip.apply(this, arguments);
+    },
 
-    onAnimation (process) {
-        var ctx = chart8.ctx,
-            chartLeft = chart8.opts.chartLeft,
-            datasets = chart8.datasets[0];
+    toolTip: {
+        width: 50,
+        top: 25,
+        font: '16px Arial',
+        backgroundColor: '#ffa61b',
+        showTip (xData) {
+            return xData;
+        }
+    },
 
-        ctx.save()
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = '#fff';
-        ctx.fillStyle = '#ffa61b';
-
-        datasets.map(data => {
-            ctx.beginPath();
-            ctx.arc(data.x, data.y, 4 * process, 0, Math.PI * 2, true);
-            ctx.closePath();
-            
-            ctx.fill();
-
-            ctx.stroke();
-            ctx.font = 13 * process + 'px Arial';
-            ctx.textAlign = 'center';
-            var x = data.x - 10 < chartLeft ? chartLeft + 10 : data.x;
-            ctx.fillText(data.value.toFixed(2), x, data.y - 10);
-        });
-
-        ctx.restore();
-    }
+    onAnimation: drawChart8Words
 });
 
 chart8.init();

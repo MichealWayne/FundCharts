@@ -9,7 +9,6 @@
 轻量级canvas数据可视化组件库，可在web端/小程序端/服务端nodjes运行。核心原则：**轻量**，**只注重图形**。
 目前包含折线图、面积图、饼图、柱状图、雷达图（蜘蛛图）、雷达图、散点图、K线图，开放图形组合接口。（codepen demo：[https://codepen.io/michealwayne/](https://codepen.io/michealwayne/)）
 
-
 > 注：对于有canvas开发基础经验的人员来说，通过[实例的再次绘制](https://blog.michealwayne.cn/FundCharts/docs/twiceDraw/#%E4%BA%8C%E6%AC%A1%E7%BB%98%E5%88%B6)可以完全实现特殊的可视化定制效果。
 
 ### 向导
@@ -23,6 +22,7 @@
 	- [K线图](http://blog.michealwayne.cn/FundCharts/docs/graphs/#k线图：kline)
 	- [图形合并](http://blog.michealwayne.cn/FundCharts/docs/graphs/#图形合并)
 - [二次绘制](http://blog.michealwayne.cn/FundCharts/docs/twiceDraw/)
+- [ToolTips](http://blog.michealwayne.cn/FundCharts/docs/tooltips/)
 - [小程序](http://blog.michealwayne.cn/FundCharts/docs/weapp/)
 - [nodejs服务端](http://blog.michealwayne.cn/FundCharts/docs/nodejs/)
 
@@ -40,6 +40,7 @@ FundCharts
 │   ├─PieChart.js     饼图/环形图
 │   ├─RadarChart.js   雷达图（蜘蛛图）
 │   └─ScatterChart.js 散点图
+├─toolTips   图表提示辅助组件
 ├─demo       使用案例
 ├─docs       文档
 ├─versions   历史版本
@@ -74,11 +75,12 @@ FundCharts
 
 ## 最新版本
 
-- [v0.9.4](https://www.npmjs.com/package/fundcharts)
+- [v0.9.7](https://www.npmjs.com/package/fundcharts)
 
 （历史版本访问[FundCharts-versions](https://github.com/MichealWayne/FundCharts/tree/master/versions)）
 
 ## 更新信息
+- 2020.09.08(`v0.9.7`)：增加图表提示辅助组件ToolTips；FundCharts适配ToolTips。
 - 2020.02.28(`v0.9.6`)：修复特殊情况下饼图Pie的间距bug；柱状图增加堆叠效果（多数据项）。
 - 2019.12.20(`v0.9.5`)：增加React/Vue组件；Pie/Radar设置origin时不需要x,y必填。
 - 2019.10.28(`v0.9.4`)：背景默认透明('#fff' -> `rgba(0,0,0,0)`)；折线图line初始动画方式替换，交互超出边界处理调整（执行onFinish，展示边界值）；散点图增加圆点边框半径控制borderRate。

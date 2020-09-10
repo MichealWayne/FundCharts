@@ -39,6 +39,8 @@
     <canvas
       class="u-canvas"
       canvas-id="chartline3"
+      bindtouchstart="chart3Touchstart"
+	    bindtouchmove="chart3Touchmove"
     ></canvas>
 
     <!-- chart 4 -->

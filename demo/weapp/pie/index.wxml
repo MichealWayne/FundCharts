@@ -12,8 +12,10 @@
     <!-- chart 2 -->
     <view class="u-h3">2.饼图</view>
     <view class="s-bg_linear"><canvas
-      style="width: 200px; height: 200px;"
+      style="width: 350px; height: 200px;"
       canvas-id="chartpie2"
+      bindtouchstart="chart2Touchstart"
+      bindtouchmove="chart2Touchmove"
     ></canvas></view>
 
     <!-- chart 3 -->
@@ -28,6 +30,8 @@
     <canvas
       style="width: 375px; height: 200px;"
       canvas-id="chartpie4"
+      bindtouchstart="chart4Touchstart"
+      bindtouchmove="chart4Touchmove"
     ></canvas>
 
     <!-- chart 5 -->

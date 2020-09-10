@@ -22,12 +22,17 @@
         <section class="u-part">
             <canvas id="kline3Chart" width="375" height="200"></canvas>
         </section>
+		
+		<h3 class="f-tc u-tit">demo 4: difficult touch chart</h3>
+        <section id="kline4" class="u-part"></section>
     </div>
 
     <script src="../../FundCharts.min.js"></script>	<!-- 引用库 -->
+	<script src="../../FundCharts-tooltips.js"></script>	<!-- 引用ToolTips -->
     <script>
 var KlineChart = FundCharts.kline;
 
+var KlineToolTip = FundChartsToolTips.KlineToolTip;
 
 // chart 1
 var chart1 = new KlineChart({
@@ -45,29 +50,10 @@ var chart1 = new KlineChart({
         color: '#eee'
     },
     hoverLineColor: '#ddd',
-    hover: function (index, values, xaxis, x, y) {   // 索引，datas当前数据集合，xaxis[index], 触控事件x坐标，触控事件y坐标
-        var ctx = chart1.ctx,
-            _drawer = chart1.drawer,
-			_width = chart1._chart.width,
-            _height = chart1._chart.height;
-
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-        var _rectX = x - 32;
-        _rectX = _rectX < 50 ? 50 : _rectX > _width ? _width : _rectX;
-        ctx.fillRect(_rectX, _height - 40, 64, 15);
-        ctx.fillRect(chart1.opts.chartLeft, y - 7, 30, 15);
-
-        // text
-        ctx.fillStyle = '#fff';
-        ctx.font = '12px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText(xaxis, _rectX + 32, _height - 32);
-        ctx.fillText(
-            ((y - _drawer.yBasic) / _drawer.yRate).toFixed(2), 
-            chart1.opts.chartLeft + 15, 
-            y);
-		ctx.closePath();
-		ctx.stroke();
+    hover: KlineToolTip,
+    toolTip: {
+        backgroundColor: 'rgba(0,0,0,0.3)',
+        color: '#fff'
     }
 });
 chart1.init();
@@ -99,27 +85,14 @@ const chart2 = new KlineChart({
         [4.4, 3.5, 3, 5],
         [5, 6, 4, 7],
         [7, 3, 3, 7]
-    ]
+    ],
+	hover: KlineToolTip
 });
 chart2.init();
 
 
 // chart 3
-var chart3 = new KlineChart({
-    id: 'kline3Chart',
-    xaxis: [
-        '1-1', '1-2', '1-3', '1-4', '1-5', '1-6', '1-7', '1-8',
-        '2-1', '2-2', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8',
-        '3-1', '3-2', '3-3', '3-4', '3-5', '3-6', '3-7', '3-8',
-        '4-1', '4-2', '4-3', '4-4', '4-5', '4-6', '4-7', '4-8'
-    ],
-    backgroundColor: '#000',        // 背景色
-    hoverLineColor: '#fff',         // 触控线颜色
-    font: {
-        color: '#eee'           // 文字颜色
-    },
-    colors: ['#ce0f0f', '', '', '', '#6ca584'],     // 涨/跌颜色
-    datas: [
+var dataArr3 = [
         [2320.26, 2320.26, 2287.3, 2362.94],
         [2300, 2291.3, 2288.26, 2308.38],
         [2295.35, 2346.5, 2295.35, 2346.92],
@@ -191,9 +164,93 @@ var chart3 = new KlineChart({
         [2238.9, 2217.01, 2205.87, 2239.93],
         [2217.09, 2224.8, 2213.58, 2225.19],
         [2221.34, 2251.81, 2210.77, 2252.87]
-    ]
+];
+var xaxisData3 = [
+        '1-1', '1-2', '1-3', '1-4', '1-5', '1-6', '1-7', '1-8',
+        '2-1', '2-2', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8',
+        '3-1', '3-2', '3-3', '3-4', '3-5', '3-6', '3-7', '3-8',
+        '4-1', '4-2', '4-3', '4-4', '4-5', '4-6', '4-7', '4-8',
+		'5-1', '5-2', '5-3', '5-4', '5-5', '5-6', '5-7', '5-8',
+		'6-1', '6-2', '6-3', '6-4', '6-5', '6-6', '6-7', '6-8',
+		'7-1', '7-2', '7-3', '7-4', '7-5', '7-6', '7-7', '7-8',
+		'8-1', '8-2', '8-3', '8-4', '8-5', '8-6', '8-7', '8-8',
+		'9-1', '9-2', '9-3', '9-4', '9-5', '9-6', '9-7', '9-8'
+]
+var chart3 = new KlineChart({
+    id: 'kline3Chart',
+    xaxis: xaxisData3,
+    backgroundColor: '#000',        // 背景色
+    font: {
+        color: '#eee'           // 文字颜色
+    },
+    colors: ['#ce0f0f', '', '', '', '#6ca584'],     // 涨/跌颜色
+    datas: dataArr3,
+	hover: KlineToolTip,
+    toolTip: {
+        color: '#fff',
+        backgroundColor: 'rgba(255,255,255,0.3)'
+    }
 });
 chart3.init();
+
+var chart4Limit = 20;
+var chart4Start = xaxisData3.length - chart4Limit - 1;
+var chartMaxX = chart4Start
+var chart4 = new KlineChart({
+    id: 'kline4',
+    xaxis: xaxisData3.slice(chart4Start, chart4Start + chart4Limit),
+    backgroundColor: '#000',        // 背景色
+    font: {
+        color: '#eee'           // 文字颜色
+    },
+	noAnimation: true,
+	events: [],
+    colors: ['#ce0f0f', '', '', '', '#6ca584'],     // 涨/跌颜色
+    datas: dataArr3.slice(chart4Start, chart4Start + chart4Limit)
+});
+var $chart4Ctn = document.querySelector('#kline4');
+var touchInfo = {
+	x: 0,
+	y: 0,
+	mx: 0,
+	my: 0
+};
+$chart4Ctn.addEventListener('touchstart', function (events) {
+	var touch = events.touches[0]
+	touchInfo.x = touch.clientX;
+	touchInfo.y = touch.clientY;
+}, false);
+$chart4Ctn.addEventListener('touchmove', function (events) {
+	var touch = events.touches[0]
+	touchInfo.mx = touch.clientX;
+	touchInfo.my = touch.clientY;
+	
+	let x = -(touchInfo.mx - touchInfo.x),
+		y = touchInfo.my - touchInfo.y;
+	if (Math.abs(x) > Math.abs(y)) {
+		chart4Start = ~~(chart4Start + x / 100);
+		if (chart4Start < 0) chart4Start = 0;
+		else if (chart4Start > chartMaxX) chart4Start = chartMaxX;
+		chart4.update({
+			xaxis: xaxisData3.slice(chart4Start, chart4Start + chart4Limit),
+			datas: dataArr3.slice(chart4Start, chart4Start + chart4Limit)
+		})
+	}
+}, false);
+chart4.init();
+
+
     </script>
 </body>
 </html> 
+
+
+
+
+
+
+
+
+
+
+

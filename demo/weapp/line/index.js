@@ -4,37 +4,18 @@
  */
 
 const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
+const FundChartsToolTips = require('../../FundCharts-tooltips.js');  // 注意拷FundCharts-tooltips.js
+
+const {
+  BasicToolTip,
+  ArrowToolTip
+} = FundChartsToolTips;
 
 const LineChart = FundCharts.line;
 
 let line1 = null,
-    line2 = null;
-
-/**
- * @function drawLabel
- * @description 绘制canvas提示框（实例的再次绘制） 
- * @param {Object} chart LineChart实例
- * @param {Number} eventx 触控x轴距离
- * @param {String} text 绘制文案
- */
-function drawLabel (chart, eventx, text) {
-  let _x = Number(eventx);
-  // rect
-  let ctx = chart.ctx;
-  ctx.fillStyle = '#9d9d9d';
-  let _rectX = _x - 32;
-  _rectX = _rectX < 50 ? 50 : _rectX > 300 ? 300 : _rectX;
-  ctx.fillRect(_rectX, 0, 68, 15);
-
-  // text
-  ctx.fillStyle = '#fff';
-  ctx.font = '10px Arial';
-  ctx.textAlign = 'center';
-  ctx.fillText(text, _rectX + 32, 9);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.draw(true);
-}
+    line2 = null,
+    line3 = null;
 
 Page({
   data: {
@@ -132,13 +113,22 @@ Page({
 
 
     // line chart 3
-    let xArr = ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'];
-    let line3 = new LineChart({
+    let xArr = ['05-11', '06-11', '07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'];
+    line3 = new LineChart({
       id: 'chartline3',
       width: 375,
       height: 212,
       allGradient: true,    // 设置面积渐变
       xaxis: xArr,
+
+      toolTip: {
+        backgroundColor: '#000',
+        color: '#fff',
+        font: '14px Arial',
+        showTip (xdata, ydatas) {
+          return ydatas.map(item => item.toFixed(2)).join(':')
+        }
+      },
       
       handleTextX: (ctx, xaxis) => {      // 处理x轴文字
         // 增加x轴刻度
@@ -249,8 +239,7 @@ Page({
         line1Time: _x,
         line1Sy: _y
       });
-
-      drawLabel(line1, event.x, _x + ': ' + _y);    // 绘制label
+      ArrowToolTip.call(line1, index, [parseFloat(_y)], _x, event.x, event.y);
     }
   },
   // line 1 chart demo touch move
@@ -266,8 +255,7 @@ Page({
         line1Time: _x,
         line1Sy: _y
       });
-
-      drawLabel(line1, event.x, _x + ': ' + _y);    // 绘制label
+      ArrowToolTip.call(line1, index, [parseFloat(_y)], _x, event.x, event.y);
     }
   },
 
@@ -310,5 +298,28 @@ Page({
         line2Sy3: _yArr[2][index].toFixed(0) + 'w'
       })
     }
-  }
+  },
+  // line 3 chart demo touch start
+  chart3Touchstart: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = line3.drawer.drawHover(event.x);
+      if (index === false) return false;
+
+      let _x = line3.opts.xaxis[index];
+
+      BasicToolTip.call(line3, index, line3.opts.datas.map(item => item[index]), _x, event.x, event.y);
+    }
+  },
+  // line 3 chart demo touch move
+  chart3Touchmove: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = line3.drawer.drawHover(event.x);
+      if (index === false) return false;
+      let _x = line3.opts.xaxis[index];
+
+      BasicToolTip.call(line3, index, line3.opts.datas.map(item => item[index]), _x, event.x, event.y);
+    }
+  },
 });

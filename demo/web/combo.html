@@ -20,12 +20,14 @@
     </div>
 
     <script src="../../FundCharts.min.js"></script>	<!-- 引用库 -->
+	<script src="../../FundCharts-tooltips.js"></script>	<!-- 引用ToolTips -->
     <script>
 var KlineChart = FundCharts.kline,
 	LineChart = FundCharts.line,
 	BarChart = FundCharts.bar;
 
-
+var ArrowToolTip = FundChartsToolTips.ArrowToolTip,
+	KlineToolTip = FundChartsToolTips.KlineToolTip;
 
 // chart 1
 var _xaxis1 = [
@@ -138,30 +140,12 @@ var chart1 = new KlineChart({
     yaxisfunc: function (val) {
         return val.toFixed(0)
     },
-    
+    toolTip: {
+        color: '#fff',
+        backgroundColor: 'rgba(255,255,255,0.3)'
+    },
     hover: function (index, values, xaxis, _x, y) {
-		if (y > chart1._chart.height - 30) y = chart1._chart.height - 30;
-        var ctx = chart1.ctx;
-		var _rectX = _x - 32;
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-        
-        _rectX = _rectX < 50 ? 50 : _rectX > 300 ? 300 : _rectX;
-        ctx.fillRect(_rectX, chart1._chart.height - 40, 64, 15);
-
-        ctx.fillRect(chart1.opts.chartLeft, y - 7, 50, 15);
-
-        // text
-        ctx.fillStyle = '#fff';
-        ctx.font = '10px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText(xaxis, _rectX + 32, chart1._chart.height - 32);
-        ctx.fillText(
-            ((y - chart1.drawer.yBasic) / chart1.drawer.yRate).toFixed(2), 
-            chart1.opts.chartLeft + 20, 
-            y);
-		ctx.closePath();
-        ctx.stroke();
+		KlineToolTip.apply(this, arguments);
         
         if (chart1._chart2) chart1._chart2.drawer.drawLine();
     },
@@ -204,20 +188,8 @@ var CHART2_COMMON = {
     chartTop: 10,
     chartLeft: 30,
     chartRight: 10
-}
-var chart2 = new BarChart({
-    id: 'bar1',
-    ...CHART2_COMMON,
-    grid: {
-        showGrid: true
-    },
-	font: {
-        color: '#ddd'
-    },
-    xaxis: _xaxis2,
-    data: bardata,
-    events: [],
-    onFinish: function () {
+};
+function drawPlusLine () {
         var drawer = chart2.drawer,
             yaxis = drawer.yaxis;
         var _chart2 = new LineChart({
@@ -268,6 +240,32 @@ var chart2 = new BarChart({
         ctx.restore();
         chart2._chart2 = _chart2;
     }
+var chart2 = new BarChart({
+    id: 'bar1',
+    ...CHART2_COMMON,
+    grid: {
+        showGrid: true
+    },
+	font: {
+        color: '#ddd'
+    },
+    xaxis: _xaxis2,
+    data: bardata,
+    hover () {
+        ArrowToolTip.apply(this, arguments);
+        drawPlusLine();
+    },
+    toolTip: {
+        top: 25,
+        backgroundColor: '#fff',
+        color: '#fe4d5e',
+        font: 'bold 14px Arial',
+        width: 50,
+        showTip (xData) {
+            return xData
+        }
+    },
+    onFinish: drawPlusLine
 });
 chart2.init();
 

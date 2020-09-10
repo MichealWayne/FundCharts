@@ -4,27 +4,17 @@
  */
 
 const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
+const FundChartsToolTips = require('../../FundCharts-tooltips.js');  // 注意拷FundCharts-tooltips.js
+
+const {
+  LabelsToolTip
+} = FundChartsToolTips;
 
 const RadarChart = FundCharts.radar;
 
 
 let radar1 = null;
-
-function drawLabel(chart, index, values) {
-  let ctx = chart.ctx;
-  ctx.lineWidth = 1;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.font = '12px Arial';
-  ctx.fillStyle = '#eee';
-  
-  ctx.fillText(
-    'data: ' + values.toFixed(2),
-    320,
-    90
-  );
-  ctx.draw(true);
-}
+let radar2 = null;
 
 Page({
 
@@ -39,6 +29,11 @@ Page({
       data: [1, 2, 3, 4, 3.5, 3],
       width: 375,
       height: 200,
+      toolTip: {
+        showTip (index) {
+          return 'data' + (index + 1)
+        }
+      }
     });
 
     radar1.init();
@@ -50,7 +45,7 @@ Page({
     }, 2000);
 
     // chart 2
-    let radar2 = new RadarChart({
+    radar2 = new RadarChart({
       id: 'chartradar2',
       hidePoints: true,   // 无点
       datas: [
@@ -59,6 +54,15 @@ Page({
       ],
       width: 375,
       height: 200,
+      toolTip: {
+        valColor: '#000',
+        showTip (index) {
+          return 'data' + (index + 1);
+        },
+        showValTip (data) {
+          return ~~data + '个'
+        }
+      }
     });
 
     radar2.init();
@@ -131,7 +135,7 @@ Page({
       let index = radar1.drawer.drawHover(event.x, event.y);
 
       if (index === false) return false;
-      drawLabel(radar1, index, radar1.opts.datas[0][index]);    // 绘制label
+      LabelsToolTip.call(radar1, index, [radar1.opts.datas[0][index]]);
     }
   },
   // radar 1 chart demo touch move
@@ -141,7 +145,27 @@ Page({
       let index = radar1.drawer.drawHover(event.x, event.y);
 
       if (index === false) return false;
-      drawLabel(radar1, index, radar1.opts.datas[0][index]);    // 绘制label
+      LabelsToolTip.call(radar1, index, [radar1.opts.datas[0][index]]);
+    }
+  },
+  // radar 2 chart demo touch start
+  chart2Touchstart: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = radar2.drawer.drawHover(event.x, event.y);
+
+      if (index === false) return false;
+      LabelsToolTip.call(radar2, index, radar2.opts.datas.map(item => item[index]));
+    }
+  },
+  // radar 2 chart demo touch move
+  chart2Touchmove: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = radar2.drawer.drawHover(event.x, event.y);
+
+      if (index === false) return false;
+      LabelsToolTip.call(radar2, index, radar2.opts.datas.map(item => item[index]));
     }
   },
 });

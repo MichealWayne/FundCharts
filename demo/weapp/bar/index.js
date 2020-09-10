@@ -4,27 +4,15 @@
  */
 
 const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
+const FundChartsToolTips = require('../../FundCharts-tooltips.js');  // 注意拷fundchart-tooltips.js
+
+const {
+  ArrowToolTip
+} = FundChartsToolTips;
 
 const BarChart = FundCharts.bar;
 let bar1 = null;
-
-function drawLabel (chart, index, yValue) {
-  let ctx = chart.ctx;
-  let datasets = chart.datasets[0];
-
-  ctx.lineWidth = 1;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.font = '12px Arial';
-  ctx.fillStyle = '#333';
-  
-  ctx.fillText(
-    yValue.toFixed(2),
-    datasets[index].x + 10,
-    datasets[index].y - 10
-  );
-  ctx.draw(true);
-}
+let bar5 = null;
 
 Page({
 
@@ -141,7 +129,7 @@ Page({
     setTimeout(() => bar4.init(), 1000);
 
     // chart 5
-    let bar5 = new BarChart({
+    bar5 = new BarChart({
       id: 'chartbar5',
       width: 375,
       height: 212,
@@ -153,6 +141,12 @@ Page({
       singleColorful: true, // 单项多色
       grid: {
         showGrid: true,   // 展示轴线
+      },
+      toolTip: {
+        backgroundColor: 'rgba(0,0,0,0.6)',
+        showTip (xdata) {
+          return xdata;
+        }
       }
     });
 
@@ -165,9 +159,8 @@ Page({
       let event = e.touches[0];
       let index = bar1.drawer.drawHover(event.x);
       
-      if (index === undefined) return false;
-
-      drawLabel(bar1, index, bar1.opts.datas[0][index]);    // 绘制label
+      if (index === false) return false;
+      ArrowToolTip.call(bar1, index, [bar1.opts.datas[0][index]], bar1.opts.xaxis[index], event.x, event.y);
     }
   },
   // bar 1 chart demo touch move
@@ -175,9 +168,28 @@ Page({
     if (e) {
       let event = e.touches[0];
       let index = bar1.drawer.drawHover(event.x);
-      if (!index === undefined) return false;
-      
-      drawLabel(bar1, index, bar1.opts.datas[0][index]);    // 绘制label
+      if (index === false) return false;
+      ArrowToolTip.call(bar1, index, [bar1.opts.datas[0][index]], bar1.opts.xaxis[index], event.x, event.y);
     }
   },
+
+  // bar 5 chart demo touch start
+  chart5Touchstart: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = bar5.drawer.drawHover(event.x);
+
+      if (index === false) return false;
+      ArrowToolTip.call(bar5, index, bar5.opts.datas.map(item => item[index]), bar5.opts.xaxis[index], event.x, event.y);
+    }
+  },
+  // bar 5 chart demo touch move
+  chart5Touchmove: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = bar5.drawer.drawHover(event.x);
+      if (index === false) return false;
+      ArrowToolTip.call(bar5, index, bar5.opts.datas.map(item => item[index]), bar5.opts.xaxis[index], event.x, event.y);
+    }
+  }
 });

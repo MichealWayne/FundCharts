@@ -4,6 +4,13 @@
  */
 
 const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
+const FundChartsToolTips = require('../../FundCharts-tooltips.js');  // 注意拷FundCharts-tooltips.js
+
+const {
+  BasicToolTip,
+  ArrowToolTip,
+  KlineToolTip
+} = FundChartsToolTips;
 
 const KlineChart = FundCharts.kline,
       LineChart = FundCharts.line,
@@ -11,34 +18,6 @@ const KlineChart = FundCharts.kline,
 
 let combo1 = null;
 
-function drawLabel(chart, index, yValue, _x, y) {
-  let ctx = chart.ctx;
-  let xaxis = chart.opts.xaxis[index];
-
-  let datasets = chart.datasets;
-
-  ctx.draw(true);
-
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-  let _rectX = _x - 32;
-  _rectX = _rectX < chart.opts.chartLeft ? chart.opts.chartLeft : _rectX > 300 ? 300 : _rectX;
-  ctx.fillRect(_rectX, chart._chart.height - 40, 64, 15);
-
-  ctx.fillRect(chart.opts.chartLeft, y - 7, 50, 15);
-
-  // text
-  ctx.fillStyle = '#fff';
-  ctx.font = '10px Arial';
-  ctx.textAlign = 'center';
-  ctx.fillText(xaxis, _rectX + 32, chart._chart.height - 32);
-  ctx.fillText(
-    ((y - chart.drawer.yBasic) / chart.drawer.yRate).toFixed(2),
-    chart.opts.chartLeft + 25,
-    y);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.draw(true);
-}
 Page({
 
   onReady() {
@@ -273,7 +252,7 @@ Page({
 
       if (index === false) return false;
 
-      drawLabel(combo1, index, combo1.opts.datas[index], event.x, event.y);    // 绘制label
+      KlineToolTip.call(combo1, index, combo1.opts.datas[index], combo1.opts.xaxis[index], event.x, event.y);
       combo1._chart2.drawer.drawLine();
       combo1.ctx.draw(true);
     }
@@ -285,7 +264,7 @@ Page({
       let index = combo1.drawer.drawHover(event.x, event.y);
       if (index === false) return false;
 
-      drawLabel(combo1, index, combo1.opts.datas[index], event.x, event.y);    // 绘制label
+      KlineToolTip.call(combo1, index, combo1.opts.datas[index], combo1.opts.xaxis[index], event.x, event.y);
       combo1._chart2.drawer.drawLine();
       combo1.ctx.draw(true);
     }

@@ -4,39 +4,18 @@
  */
 
 const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
+const FundChartsToolTips = require('../../FundCharts-tooltips.js');  // 注意拷FundCharts-tooltips.js
+
+const {
+  KlineToolTip
+} = FundChartsToolTips;
+
 
 const KlineChart = FundCharts.kline;
 
 let kline1 = null;
+let kline3 = null;
 
-function drawLabel(chart, index, yValue, _x, y) {
-  let ctx = chart.ctx;
-  let xaxis = chart.opts.xaxis[index];
-
-  let datasets = chart.datasets;
-
-  ctx.draw(true);
-
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-  let _rectX = _x - 32;
-  _rectX = _rectX < chart.opts.chartLeft ? chart.opts.chartLeft : _rectX > 300 ? 300 : _rectX;
-  ctx.fillRect(_rectX, chart._chart.height - 40, 64, 15);
-
-  ctx.fillRect(chart.opts.chartLeft, y - 7, 30, 15);
-
-  // text
-  ctx.fillStyle = '#fff';
-  ctx.font = '12px Arial';
-  ctx.textAlign = 'center';
-  ctx.fillText(xaxis, _rectX + 32, chart._chart.height - 32);
-  ctx.fillText(
-    ((y - chart.drawer.yBasic) / chart.drawer.yRate).toFixed(2),
-    chart.opts.chartLeft + 15,
-    y);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.draw(true);
-}
 Page({
 
   onReady() {
@@ -160,7 +139,7 @@ Page({
     kline2.init();
 
     // chart 3
-    let kline3 = new KlineChart({
+    kline3 = new KlineChart({
       id: 'chartkline3',
       xaxis: ['1-1', '1-2', '1-3', '1-4', '1-5', '1-6'],
       datas: [
@@ -174,6 +153,9 @@ Page({
       upHollow: true,   // 上涨空心展示
       width: 375,
       height: 200,
+      toolTip: {
+        backgroundColor: 'rgba(0,0,0,0.6)'
+      }
     });
 
     kline3.init();
@@ -186,7 +168,7 @@ Page({
 
       if (index === false) return false;
 
-      drawLabel(kline1, index, kline1.opts.datas[index], event.x, event.y);    // 绘制label
+      KlineToolTip.call(kline1, index, [], kline1.opts.xaxis[index], event.x, event.y);
     }
   },
   // kline 1 chart demo touch move
@@ -196,7 +178,28 @@ Page({
       let index = kline1.drawer.drawHover(event.x, event.y);
       if (index === false) return false;
 
-      drawLabel(kline1, index, kline1.opts.datas[index], event.x, event.y);    // 绘制label
+      KlineToolTip.call(kline1, index, [], kline1.opts.xaxis[index], event.x, event.y);
+    }
+  },
+  // kline 3 chart demo touch start
+  chart3Touchstart: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = kline3.drawer.drawHover(event.x, event.y);
+
+      if (index === false) return false;
+
+      KlineToolTip.call(kline3, index, [], kline3.opts.xaxis[index], event.x, event.y);
+    }
+  },
+  // kline 3 chart demo touch move
+  chart3Touchmove: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = kline3.drawer.drawHover(event.x, event.y);
+      if (index === false) return false;
+
+      KlineToolTip.call(kline3, index, [], kline3.opts.xaxis[index], event.x, event.y);
     }
   },
 });

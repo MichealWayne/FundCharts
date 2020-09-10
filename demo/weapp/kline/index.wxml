@@ -21,6 +21,8 @@
     <canvas
       style="width: 375px; height: 200px;"
       canvas-id="chartkline3"
+      bindtouchstart="chart3Touchstart"
+      bindtouchmove="chart3Touchmove"
     ></canvas>
   </View>
 </view>

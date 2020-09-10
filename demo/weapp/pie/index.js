@@ -4,25 +4,20 @@
  */
 
 const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
+const FundChartsToolTips = require('../../FundCharts-tooltips.js');  // 注意拷FundCharts-tooltips.js
+
+const {
+  PieCenterToolTip,
+  PieLabelToolTip
+} = FundChartsToolTips;
 
 const PieChart = FundCharts.pie;
 
 
 let pie1 = null;
-function drawLabel (chart, index, values) {
-  let ctx = chart.ctx,
-    _origin = chart.drawer.origin;
+let pie2 = null;
+let pie4 = null;
 
-  // draw texts
-  ctx.fillStyle = chart.opts.colors[index];
-  ctx.font = 'bold 22px consolas';
-  ctx.textAlign = 'center';
-  ctx.fillText('第' + (index + 1) + '项', _origin.x, 90);
-
-  ctx.fillStyle = '#aaa';
-  ctx.fillText((values * 100).toFixed(1) + '%', _origin.x, 120);
-  ctx.draw(true);
-}
 Page({
 
   onReady() {
@@ -40,6 +35,11 @@ Page({
       width: 200,
       height: 200,
       hoverRate: 1.15,  // 交互高亮半径
+      toolTip: {
+        showTip (index) {
+          return ['吃饭', '睡觉', '打豆豆', '看书'][index]
+        }
+      }
     });
 
     pie1.init();
@@ -52,12 +52,17 @@ Page({
 
 
     // chart 2
-    let pie2 = new PieChart({
+    pie2 = new PieChart({
       id: 'chartpie2',
       datas: [0.1, 0.2, 0.3, 0.4],
       annularRate: 0,
-      width: 200,
-      height: 200,
+      width: 350,
+      height: 200, 
+      toolTip: {
+        showTip(index) {
+          return ['吃饭', '睡觉', '打豆豆', '看书'][index]
+        }
+      }
     });
 
     pie2.init();
@@ -95,7 +100,7 @@ Page({
     pie3.init();
 
     // chart 4
-    const pie4 = new PieChart({
+    pie4 = new PieChart({
       id: 'chartpie4',
       radius: 90,       // 半径
       lineWidth: 2,
@@ -103,7 +108,16 @@ Page({
       height: 200,
       annularRate: false,
       widthRates: [0.5, 0.6, 0.7, 0.8, 1],     // 控制宽度
-      datas: [0.05, 0.1, 0.25, 0.3, 0.3]
+      datas: [0.05, 0.1, 0.25, 0.3, 0.3],
+      toolTip: {
+        valColor: '#000',
+        showTip (index) {
+          return ['A', 'B', 'C', 'D', 'E'][index]
+        },
+        showValTip (val) {
+          return val.toFixed(2) + '%'
+        }
+      }
     });
 
     pie4.init();
@@ -155,7 +169,7 @@ Page({
 
       if (index === false) return false;
 
-      drawLabel(pie1, index, pie1.opts.datas[index]);    // 绘制label
+      PieCenterToolTip.call(pie1, index, [pie1.opts.datas[index]]);
     }
   },
   // pie 1 chart demo touch move
@@ -166,7 +180,53 @@ Page({
 
       if (index === false) return false;
 
-      drawLabel(pie1, index, pie1.opts.datas[index]);    // 绘制label
+      PieCenterToolTip.call(pie1, index, [pie1.opts.datas[index]]);
+    }
+  },
+
+  // pie 2 chart demo touch start
+  chart2Touchstart: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = pie2.drawer.drawHover(event.x, event.y);
+
+      if (index === false) return false;
+
+      PieLabelToolTip.call(pie2, index, [pie2.opts.datas[index]]);
+    }
+  },
+  // pie 2 chart demo touch move
+  chart2Touchmove: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = pie2.drawer.drawHover(event.x, event.y);
+
+      if (index === false) return false;
+
+      PieLabelToolTip.call(pie2, index, [pie2.opts.datas[index]]);    // 绘制label
+    }
+  },
+
+  // pie 4 chart demo touch start
+  chart4Touchstart: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = pie4.drawer.drawHover(event.x, event.y);
+
+      if (index === false) return false;
+
+      PieLabelToolTip.call(pie4, index, [pie4.opts.datas[index]]);
+    }
+  },
+  // pie 4 chart demo touch move
+  chart4Touchmove: function (e) {
+    if (e) {
+      let event = e.touches[0];
+      let index = pie4.drawer.drawHover(event.x, event.y);
+
+      if (index === false) return false;
+
+      PieLabelToolTip.call(pie4, index, [pie4.opts.datas[index]]);    // 绘制label
     }
   },
 });

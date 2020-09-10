@@ -28,14 +28,22 @@
     </div>
 
     <script src="../../FundCharts.min.js"></script>	<!-- 引用库 -->
+	<script src="../../FundCharts-tooltips.js"></script>	<!-- 引用ToolTips -->
 	<script>
 
 var RadarChart = FundCharts.radar;
+var LabelsToolTip = FundChartsToolTips.LabelsToolTip;
 
 // chart 1
 var chart1 = new RadarChart({
     id: 'radar1',
-    data: [1, 2, 3, 4, 3.5, 3]
+    data: [1, 2, 3, 4, 3.5, 3],
+	hover: LabelsToolTip,
+    toolTip: {
+        showTip (index) {
+            return ['吃', '喝', '玩', '乐', '代码', '书'][index]
+        }
+    }
 });
 
 chart1.init();
@@ -54,24 +62,12 @@ var chart2 = new RadarChart({
         [1, 2, 3, 4, 3.5, 3, 4],
         [4, 3, 3, 4, 3.5, 3, 4]
     ],
-    hover: function (index, values) {
-        console.log(index, values);
-        var ctx = chart2.ctx;
-        ctx.lineWidth = 1;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '12px Arial';
-        ctx.fillStyle = '#fff';
-        ctx.fillText(
-            'data1: ' + values[0].toFixed(2), 
-            320, 
-            70
-        );
-        ctx.fillText(
-            'data2: ' + values[1].toFixed(2), 
-            320, 
-            100
-        );
+    hover: LabelsToolTip,
+    toolTip: {
+        showTip (index) {
+            return ['吃', '喝', '玩', '乐', '代码', '书', '饭'][index]
+        },
+        color: '#fff'
     }
 });
 
@@ -99,7 +95,16 @@ var chart3 = new RadarChart({
     datas: [
         [1, 2, 3, 4, 3.5, 3, 4],
         [4, 3, 3, 4, 3.5, 3, 4]
-    ]
+    ],
+	hover: LabelsToolTip,
+    toolTip: {
+        showTip (index) {
+            return ['吃', '喝', '玩', '乐', '代码', '书', '饭'][index]
+        },
+        showValTip (val) {
+            return ~~val + '次'
+        }
+    }
 });
 
 chart3.init();

@@ -30,6 +30,9 @@
     <canvas
       style="width: 375px; height: 212px;"
       canvas-id="chartbar5"
+      
+      bindtouchstart="chart5Touchstart"
+      bindtouchmove="chart5Touchmove"
     ></canvas>
   </View>
 </view>

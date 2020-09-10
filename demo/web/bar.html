@@ -31,34 +31,20 @@
     </div>
 	
 	<script src="../../FundCharts.min.js"></script>	<!-- 引用库 -->
+	<script src="../../FundCharts-tooltips.js"></script>	<!-- 引用ToolTips -->
 	<script>
 var BarChart = FundCharts.bar;
 
+var ArrowToolTip = FundChartsToolTips.ArrowToolTip,
+	BasicToolTip = FundChartsToolTips.BasicToolTip;
+	
+	
 // chart 1
 var chart1 = new BarChart({
     id: 'bar1',
     xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11', '12-12'],
-    datas: [
-		[1, 3, 2, 3, 3.2, 4, 5]
-	],
-    hover: function (index, yValues, xValues, x) {	// 索引, datas值集合，xaxis[index], touch event横坐标
-        console.log(index, yValues, xValues, x);
-        
-        var ctx = chart1.ctx;
-        var datasets = chart1.datasets[0];	// 坐标集
-        var _zero = chart1.drawer.zeroY;	// 0刻度坐标
-
-        ctx.lineWidth = 1;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '12px Arial';
-        ctx.fillStyle = '#000';
-        ctx.fillText(
-            yValues[0].toFixed(1), 
-            datasets[index].x + 6,
-            datasets[index].y + 10 * (datasets[index].y > _zero && 1 || -1)
-        );
-    }
+    data: [1, 3, 2, 3, 3.2, 4, 5],
+    hover: ArrowToolTip
 });
 
 chart1.init();
@@ -89,8 +75,14 @@ var chart2 = new BarChart({
             x: '9px'
         }
     },
-    hover: function (index, yValues, xValues, x) {
-        console.log(index, yValues, xValues, x)
+    hover (index, yValues, xValues, x) {
+        console.log(index, yValues, xValues, x);
+        ArrowToolTip.apply(this, arguments);
+    },
+    toolTip: {
+        backgroundColor: '#fff',
+        color: '#999',
+        width: 100
     }
 });
 
@@ -131,21 +123,10 @@ var chart3 = new BarChart({
     negativeColor: '#88dd4c',   // 负值指定颜色
     noAnimation: true, 		// 没有动画过渡
     backgroundColor: '#333',	// 背景色
-    hover: function (index, yValues) {
-        var ctx = chart3.ctx;
-        var datasets = chart3.datasets[0];
-        var _zero = chart3.drawer.zeroY;
-
-        ctx.lineWidth = 1;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '12px Arial';
-        ctx.fillStyle = '#eee';
-        ctx.fillText(
-            yValues[0].toFixed(2), 
-            datasets[index].x + 10,
-            datasets[index].y + 10 * (datasets[index].y > _zero && 1 || -1)
-        );
+    hover: ArrowToolTip,
+    toolTip: {
+        backgroundColor: 'rgba(0,0,0,0)',
+        color: '#fff'
     }
 });
 
@@ -197,8 +178,17 @@ var chart4 = new BarChart({
     barWidth: 25,
     singleColorful: true,      // 单列数据时使用颜色区分
     colors: ['#09f', '#0fc'],   // 默认颜色组只有6个，补充2个
+	toolTip: {
+        top: 25,
+        font: 'bold 16px',
+        width: 40,
+        showTip (xData) {
+            return xData
+        }
+    },
     hover: function (index) {
         addChart4Words(1, index);
+        ArrowToolTip.apply(this, arguments);
     }
 });
 
@@ -214,7 +204,15 @@ var chart5 = new BarChart({
         [1, 3, 2, 3, 3.2, 4, 8, 6, 3, 5, 3],
         [2, 3, 5, 1, 2, 3, 6, 10, 3, 4, 2],
         [4, 2, 1, 1, 1, 4, 7, 9, 5, 3, 2]
-    ]
+    ],
+	hover: ArrowToolTip,
+    toolTip: {
+        backgroundColor: 'rgba(0,0,0,0.6)',
+        color: '#fff',
+        showTip (xData, yDatas) {
+            return yDatas.map(item => item.toFixed(0)).join(' : ')
+        }
+    }
 });
 
 chart5.init();

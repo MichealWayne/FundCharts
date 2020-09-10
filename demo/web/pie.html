@@ -31,9 +31,14 @@
     </div>
 
 	<script src="../../FundCharts.min.js"></script>	<!-- 引用库 -->
+	<script src="../../FundCharts-tooltips.js"></script>	<!-- 引用ToolTips -->
     <script>
  
 var PieChart = FundCharts.pie;
+
+var PieCenterToolTip = FundChartsToolTips.PieCenterToolTip,
+	PieLabelToolTip = FundChartsToolTips.PieLabelToolTip,
+	LabelsToolTip = FundChartsToolTips.LabelsToolTip;
 
 // chart 1
 var chart1Labels = [
@@ -45,18 +50,11 @@ var chart1Labels = [
 var chart1 = new PieChart({
     id: 'pie1',
     datas: [0.1, 0.2, 0.3, 0.4],
-    hover: function (index, values) {
-        var ctx = chart1.ctx,
-			_origin = chart1.drawer.origin;
-		
-		// draw texts
-		ctx.fillStyle = chart1.opts.colors[index];
-        ctx.font = 'bold 22px consolas';
-        ctx.textAlign = 'center';
-        ctx.fillText(chart1Labels[index], _origin.x, 90);
-        
-        ctx.fillStyle = '#eee';
-        ctx.fillText((values[0] * 100).toFixed(1) + '%', _origin.x, 120);
+    hover: PieCenterToolTip,
+    toolTip: {
+        showTip (index) {
+            return chart1Labels[index];
+        }
     }
 });
 
@@ -74,34 +72,11 @@ var chart2 = new PieChart({
     id: 'pie2',
     annularRate: false,     // 实心（饼图）
     datas: [0.1, 0.2, 0.3, 0.2, 0.2],
-    hover (index, values) {
-        var ctx = chart2.ctx,
-            opts = chart2.opts,
-            radius = chart2.drawer.radius,
-            origin = chart2.drawer.origin,
-            centerArr = chart2.drawer.centerArr;
-        
-        var _sinx = Math.sin(centerArr[index]) * radius,
-            _cosx = Math.cos(centerArr[index]) * radius
-        
-        ctx.save();
-        // draw line
-		ctx.beginPath();
-        ctx.moveTo(origin.x + _cosx, origin.y + _sinx);
-        ctx.lineTo(origin.x + _cosx * 1.2, origin.y + _sinx * 1.2)
-        ctx.lineTo(_cosx > 0 ? 300 : 70, origin.y + _sinx * 1.2);
-        ctx.strokeStyle = ctx.fillStyle = opts.colors[index];
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-		// draw texts
-        ctx.font = 'bold 12px consolas';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        
-        ctx.fillStyle = '#eee';
-        ctx.fillText((values[0] * 100).toFixed(1) + '%', _cosx > 0 ? 320 : 50, origin.y + _sinx * 1.2);
-        ctx.restore();
+    hover: PieLabelToolTip,
+    toolTip: {
+        showTip (index) {
+            return chart1Labels[index];
+        }
     }
 });
 
@@ -125,7 +100,17 @@ var chart3 = new PieChart({
         y: 100
     },
     datas: [0.5, 0.2, 0.2, 0.1],
-    hoverRate: 1.1      // 交互后高亮半径比例
+    hoverRate: 1.1,      // 交互后高亮半径比例
+	hover: LabelsToolTip,
+    toolTip: {
+        valY: 90,
+        showTip (index) {
+            return ['A', 'BB', 'CCC', 'DDDD', 'EEEEE'][index];
+        },
+        showValTip (yData) {
+            return ~~(yData * 100) + '%'
+        }
+    }
 });
 
 chart3.init();
@@ -133,13 +118,20 @@ chart3.init();
 // chart 4
 var chart4 = new PieChart({
     id: 'pie4',
-    radius: 90,       // 半径
+    radius: 80,       // 半径
     lineWidth: 1,
     
     hoverRate: 1.15,
     annularRate: false,
     widthRates: [0.5, 0.6, 0.7, 0.8, 1],     // 控制宽度
-    datas: [0.05, 0.1, 0.25, 0.3, 0.3]
+    datas: [0.05, 0.1, 0.25, 0.3, 0.3],
+	hover: PieLabelToolTip,
+    toolTip: {
+        valColor: '#333',
+        showTip (index) {
+            return ['A', 'B', 'C', 'D', 'E'][index];
+        }
+    }
 });
 
 chart4.init();
