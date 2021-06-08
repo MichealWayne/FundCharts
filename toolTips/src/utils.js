@@ -4,30 +4,43 @@
  * @time 2020.06
  */
 
+import CONFIG from './config';
+const { isWeapp } = CONFIG;
 
-export function isFunction (func) {
-    return typeof func === 'function'
+/**
+ * @function isFunction
+ * @param {any} func
+ * @return {Boolean}
+ */
+export function isFunction(func) {
+  return typeof func === 'function';
 }
+
+export const handleWeappDraw = isWeapp
+  ? function (ctx) {
+      isFunction(ctx.draw) && ctx.draw(true);
+    }
+  : function () {};
 
 /**
  * @function handleArguments
- * @param {number} index 
- * @param {number[]} values 
- * @param {string[]} xaxis 
- * @param {number} x 
- * @param {number} y 
+ * @param {number} index
+ * @param {number[]} values
+ * @param {string[]} xaxis
+ * @param {number} x
+ * @param {number} y
  * @return {Function}
  */
-export function handleArguments (fn) {
-    return function (index, values, xaxis, x, y) {
-        fn.call(this, {
-            xData: xaxis,
-            yDatas: values,
-            xPos: x,
-            yPos: y,
-            index
-        })
-    }
+export function handleArguments(fn) {
+  return function (index, values, xaxis, x, y) {
+    fn.call(this, {
+      xData: xaxis,
+      yDatas: values,
+      xPos: x,
+      yPos: y,
+      index,
+    });
+  };
 }
 
 /**
@@ -37,18 +50,18 @@ export function handleArguments (fn) {
  * @param {[{x: number, y: number} * 3]} points
  * @return {boolean}
  */
-export function drawTriangle (ctx, points) {
-    if (points && points.length === 3) {
-        ctx.beginPath()
-        ctx.moveTo(points[0].x, points[0].y);
-        ctx.lineTo(points[1].x, points[1].y);
-        ctx.lineTo(points[2].x, points[2].y);
-        ctx.closePath();
-        ctx.fill();
-        return true;
-    } else {
-        return false;
-    }
+export function drawTriangle(ctx, points) {
+  if (points && points.length === 3) {
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    ctx.lineTo(points[1].x, points[1].y);
+    ctx.lineTo(points[2].x, points[2].y);
+    ctx.closePath();
+    ctx.fill();
+    return true;
+  } else {
+    return false;
+  }
 }
 
 /**
@@ -62,15 +75,15 @@ export function drawTriangle (ctx, points) {
  * @param {number} width radius
  * @param {number} strokeWidth circle side width
  */
-export function drawPoint (ctx, x, y, color, strokeColor, width, strokeWidth) {
-    ctx.beginPath();
-    ctx.lineWidth = 0;
-    ctx.strokeStyle = '#fff';
-    ctx.lineWidth = strokeWidth !== undefined ? strokeWidth : 1;
-    ctx.arc(x, y, width, 0, Math.PI * 2, true);
-    ctx.closePath();
-    ctx.fillStyle = color;
-    ctx.fill();
+export function drawPoint(ctx, x, y, color, strokeColor, width, strokeWidth) {
+  ctx.beginPath();
+  ctx.lineWidth = 0;
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = strokeWidth !== undefined ? strokeWidth : 1;
+  ctx.arc(x, y, width, 0, Math.PI * 2, true);
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
 
-    if (strokeWidth) ctx.stroke();
+  if (strokeWidth) ctx.stroke();
 }

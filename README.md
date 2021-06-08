@@ -45,6 +45,7 @@ FundCharts
 ├─docs       文档
 ├─versions   历史版本
 ├─FundCharts.min.js   FundCharts，web/weapp端使用库
+├─FundCharts.tooltips.js   FundCharts ToolTips插件
 └─FundCharts-node.js  FundCharts，nodejs端使用库
 
 ```
@@ -75,11 +76,12 @@ FundCharts
 
 ## 最新版本
 
-- [v0.9.7](https://www.npmjs.com/package/fundcharts)
+- [v0.9.8](https://www.npmjs.com/package/fundcharts)
 
 （历史版本访问[FundCharts-versions](https://github.com/MichealWayne/FundCharts/tree/master/versions)）
 
 ## 更新信息
+- 2021.06.08(`v0.9.8`)：修复计算bug；优化代码。
 - 2020.09.08(`v0.9.7`)：增加图表提示辅助组件ToolTips；FundCharts适配ToolTips。
 - 2020.02.28(`v0.9.6`)：修复特殊情况下饼图Pie的间距bug；柱状图增加堆叠效果（多数据项）。
 - 2019.12.20(`v0.9.5`)：增加React/Vue组件；Pie/Radar设置origin时不需要x,y必填。

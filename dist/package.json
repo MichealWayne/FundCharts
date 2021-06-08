@@ -1,6 +1,6 @@
 {
   "name": "fundcharts",
-  "version": "0.9.6",
+  "version": "0.9.8",
   "description": "lightweight canvas data visualization library. 1.x: line/bar/pie/radar/scatter/kline chart.",
   "main": "index.js",
   "scripts": {

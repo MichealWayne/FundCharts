@@ -1,6 +1,6 @@
 {
   "name": "fundcharts-tooltips",
-  "version": "0.0.1",
+  "version": "0.9.8",
   "description": "FundCharts Tooltips",
   "main": "index.js",
   "scripts": {
@@ -42,6 +42,9 @@
     },
     "rules": {
       "array-callback-return": [
+        0
+      ],
+      "comma-dangle": [
         0
       ],
       "no-var": [
