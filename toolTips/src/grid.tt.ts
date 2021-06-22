@@ -4,8 +4,8 @@
  * @description Line/Bar/Scatter/Kline
  * @time 2020.06
  */
-
-import { handleArguments, drawTriangle, isFunction, handleWeappDraw } from './utils';
+import { half, handleArguments, drawTriangle, isFunction, handleWeappDraw } from './utils';
+import { PointsMap } from './types';
 import CONFIG from './config';
 
 const { colors } = CONFIG;
@@ -16,8 +16,8 @@ const { colors } = CONFIG;
  * @fit Line/Bar
  */
 export const BasicToolTip = handleArguments(function ({ xData, yDatas, xPos }) {
-  const ctx = this.ctx,
-    opts = this.opts;
+  const ctx = this.ctx;
+  const opts = this.opts;
   const {
     width = CONFIG.width,
     height = CONFIG.height,
@@ -33,7 +33,7 @@ export const BasicToolTip = handleArguments(function ({ xData, yDatas, xPos }) {
 
   // draw background
   ctx.fillStyle = backgroundColor;
-  let _rectX = xPos - ~~(width / 2);
+  let _rectX = xPos - half(width);
   const xLimit = this._chart.width - opts.chartRight - width;
   _rectX = _rectX < opts.chartLeft ? opts.chartLeft : _rectX > xLimit ? xLimit : _rectX;
   ctx.fillRect(_rectX, opts.chartTop + 5, width, height);
@@ -45,8 +45,8 @@ export const BasicToolTip = handleArguments(function ({ xData, yDatas, xPos }) {
   const txt =
     (isFunction(showTip) && showTip(xData, yDatas)) ||
     showTip ||
-    xData + ':' + yDatas.map(item => item.toFixed(2)).join(',');
-  ctx.fillText(txt, _rectX + ~~(width / 2), opts.chartTop + 15);
+    xData + ':' + yDatas.map((item: number) => item.toFixed(2)).join(',');
+  ctx.fillText(txt, _rectX + half(width), opts.chartTop + 15);
 
   ctx.closePath();
   ctx.stroke();
@@ -60,8 +60,8 @@ export const BasicToolTip = handleArguments(function ({ xData, yDatas, xPos }) {
  * @fit Line/Bar
  */
 export const ArrowToolTip = handleArguments(function ({ xData, yDatas, xPos, index }) {
-  const ctx = this.ctx,
-    opts = this.opts;
+  const ctx = this.ctx;
+  const opts = this.opts;
   const {
     width = CONFIG.width,
     height = CONFIG.height,
@@ -77,13 +77,13 @@ export const ArrowToolTip = handleArguments(function ({ xData, yDatas, xPos, ind
   ctx.beginPath();
 
   // draw background and triangle
-  const _chart = this._chart,
-    datasets = this.datasets;
+  const _chart = this._chart;
+  const datasets = this.datasets;
   const isBar = this.barWidth;
   ctx.strokeStyle = backgroundColor;
   ctx.fillStyle = backgroundColor;
 
-  let _rectX = xPos - ~~(width / 2);
+  let _rectX = xPos - half(width);
   const xLimit = _chart.width - opts.chartRight - width;
   _rectX = _rectX < opts.chartLeft ? opts.chartLeft : _rectX > xLimit ? xLimit : _rectX;
   let _x = datasets[0][index].x;
@@ -91,10 +91,10 @@ export const ArrowToolTip = handleArguments(function ({ xData, yDatas, xPos, ind
   let pointY = datasets[0][index].y;
   if (isBar) {
     // bar
-    _x += ~~(this.barWidth / 2);
+    _x += half(this.barWidth);
     pointY = Math.min.apply(
       null,
-      datasets.map(item => item[index].y)
+      datasets.map((item: PointsMap) => item[index].y)
     );
   }
   let _y = pointY + (this.drawer.zeroY && pointY > this.drawer.zeroY ? top : -(height + top));
@@ -134,8 +134,8 @@ export const ArrowToolTip = handleArguments(function ({ xData, yDatas, xPos, ind
   const txt =
     (isFunction(showTip) && showTip(xData, yDatas)) ||
     showTip ||
-    xData + ':' + yDatas.map(item => item.toFixed(2)).join(',');
-  ctx.fillText(txt, _rectX + ~~(width / 2), _y + 10);
+    xData + ':' + yDatas.map((item: number) => item.toFixed(2)).join(',');
+  ctx.fillText(txt, _rectX + half(width), _y + 10);
 
   ctx.closePath();
   ctx.stroke();
@@ -151,8 +151,8 @@ export const ArrowToolTip = handleArguments(function ({ xData, yDatas, xPos, ind
 export const KlineToolTip = handleArguments(function ({ xData, xPos, yPos }) {
   xPos = Math.abs(xPos);
   yPos = Math.abs(yPos);
-  const ctx = this.ctx,
-    opts = this.opts;
+  const ctx = this.ctx;
+  const opts = this.opts;
   const {
     xWidth = CONFIG.width,
     xHeight = 15,
@@ -172,8 +172,8 @@ export const KlineToolTip = handleArguments(function ({ xData, xPos, yPos }) {
   ctx.strokeStyle = backgroundColor;
   ctx.fillStyle = backgroundColor;
 
-  let _rectX = xPos - ~~(xWidth / 2);
-  let _rectY = yPos - ~~(yHeight / 2);
+  let _rectX = xPos - half(xWidth);
+  let _rectY = yPos - half(yHeight);
   const xLimit = _chart.width - opts.chartRight - xWidth;
   const yLimit = _chart.height - 40;
   _rectX = _rectX < opts.chartLeft ? opts.chartLeft : _rectX > xLimit ? xLimit : _rectX;
@@ -188,13 +188,13 @@ export const KlineToolTip = handleArguments(function ({ xData, xPos, yPos }) {
   ctx.textAlign = textAlign;
   ctx.fillText(
     (isFunction(showTip) && showTip(xData)) || showTip || xData,
-    _rectX + ~~(xWidth / 2),
+    _rectX + half(xWidth),
     yLimit + 8
   );
   const yDataShow = ((yPos - this.drawer.yBasic) / this.drawer.yRate).toFixed(2);
   ctx.fillText(
     (isFunction(showValTip) && showValTip(yDataShow)) || showValTip || yDataShow,
-    opts.chartLeft + ~~(yWidth / 2),
+    opts.chartLeft + half(yWidth),
     _rectY + 8
   );
 

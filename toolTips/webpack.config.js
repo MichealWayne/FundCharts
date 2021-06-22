@@ -15,11 +15,12 @@ module.exports = (options = {}) => {
 
   return {
     entry: {
-      'FundCharts-tooltips': './src/index.js',
+      'fundCharts-tooltips': './src/index.ts',
     },
 
     resolve: {
-      extensions: ['.js'],
+      extensions: ['.tsx', '.ts', '.js'],
+      mainFiles: ['index'],
       alias: {
         '@': path.resolve(__dirname, 'src'),
       },
@@ -34,10 +35,10 @@ module.exports = (options = {}) => {
 
     module: {
       rules: [
-        // js
         {
-          test: /\.js$/,
-          use: ['babel-loader', 'eslint-loader'],
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
         },
       ],
     },

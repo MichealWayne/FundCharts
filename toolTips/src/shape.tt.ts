@@ -16,8 +16,8 @@ const { colors } = CONFIG;
  * @fit Pie
  */
 export const PieCenterToolTip = handleArguments(function ({ yDatas, index }) {
-  const ctx = this.ctx,
-    opts = this.opts;
+  const ctx = this.ctx;
+  const opts = this.opts;
 
   const _origin = this.drawer.origin;
   const {
@@ -55,8 +55,8 @@ export const PieCenterToolTip = handleArguments(function ({ yDatas, index }) {
  * @fit Pie
  */
 export const PieLabelToolTip = handleArguments(function ({ yDatas, index }) {
-  const ctx = this.ctx,
-    opts = this.opts;
+  const ctx = this.ctx;
+  const opts = this.opts;
   const {
     font = CONFIG.labelFont,
     color,
@@ -68,19 +68,19 @@ export const PieLabelToolTip = handleArguments(function ({ yDatas, index }) {
 
   ctx.save();
 
-  const drawer = this.drawer,
-    _origin = drawer.origin,
-    radius = drawer.radius,
-    centerArr = drawer.centerArr;
+  const drawer = this.drawer;
+  const _origin = drawer.origin;
+  const radius = drawer.radius;
+  const centerArr = drawer.centerArr;
 
-  let _sinx = Math.sin(centerArr[index]) * radius,
-    _cosx = Math.cos(centerArr[index]) * radius;
+  let _sinx = Math.sin(centerArr[index]) * radius;
+  let _cosx = Math.cos(centerArr[index]) * radius;
   if (opts.widthRates) {
     _sinx *= opts.widthRates[index] || 1;
     _cosx *= opts.widthRates[index] || 1;
   }
-  const lineXStart = opts.chartLeft,
-    lineXEnd = this._chart.width - lineXStart;
+  const lineXStart = opts.chartLeft;
+  const lineXEnd = this._chart.width - lineXStart;
 
   // draw line
   ctx.beginPath();
@@ -117,8 +117,8 @@ export const PieLabelToolTip = handleArguments(function ({ yDatas, index }) {
  * @fit Pie
  */
 export const LabelsToolTip = handleArguments(function ({ yDatas, index }) {
-  const ctx = this.ctx,
-    opts = this.opts;
+  const ctx = this.ctx;
+  const opts = this.opts;
   const {
     font = CONFIG.labelFont,
     color,
@@ -130,9 +130,9 @@ export const LabelsToolTip = handleArguments(function ({ yDatas, index }) {
   } = opts.toolTip || {};
 
   ctx.save();
-  const isRadar = this.side,
-    _origin = this.drawer.origin,
-    dataset = this.dataset;
+  const isRadar = this.side;
+  const _origin = this.drawer.origin;
+  const dataset = this.dataset;
 
   // draw point
   let x = valX;
@@ -143,11 +143,11 @@ export const LabelsToolTip = handleArguments(function ({ yDatas, index }) {
         : this._chart.width - opts.chartRight - 70;
   }
 
-  let y = valY || _origin.y;
+  const y = valY || _origin.y;
 
   if (isRadar) {
     // radar
-    dataset.map((item, idx) => {
+    dataset.map((item: any, idx: number) => {
       drawPoint(ctx, x, y - 4 + idx * 15, opts.colors[idx], opts.colors[idx], 4, 1);
     });
   } else {
@@ -159,7 +159,7 @@ export const LabelsToolTip = handleArguments(function ({ yDatas, index }) {
   ctx.font = font;
   const txt = (isFunction(showTip) && showTip(index)) || showTip || '';
   if (isRadar) {
-    dataset.map((item, idx) => {
+    dataset.map((item: any, idx: number) => {
       ctx.fillStyle = color || opts.colors[idx];
       ctx.fillText(txt, x + 10, y + 15 * idx);
       const valTxt =

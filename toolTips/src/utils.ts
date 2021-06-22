@@ -5,22 +5,33 @@
  */
 
 import CONFIG from './config';
+import { PointsMap } from './types';
 const { isWeapp } = CONFIG;
+
+export const emptyFunc = () => '';
+
+/**
+ * @function half
+ * @param {Number} num
+ * @return {Number}
+ */
+export function half(num: number) {
+  // tslint:disable-next-line:no-bitwise
+  return ~~(num / 2);
+}
 
 /**
  * @function isFunction
  * @param {any} func
  * @return {Boolean}
  */
-export function isFunction(func) {
+export function isFunction(func: any) {
   return typeof func === 'function';
 }
 
 export const handleWeappDraw = isWeapp
-  ? function (ctx) {
-      isFunction(ctx.draw) && ctx.draw(true);
-    }
-  : function () {};
+  ? (ctx: any) => isFunction(ctx.draw) && ctx.draw(true)
+  : emptyFunc;
 
 /**
  * @function handleArguments
@@ -31,8 +42,8 @@ export const handleWeappDraw = isWeapp
  * @param {number} y
  * @return {Function}
  */
-export function handleArguments(fn) {
-  return function (index, values, xaxis, x, y) {
+export function handleArguments(fn: (opts: any) => any) {
+  return function (index: number, values: number[], xaxis: string[], x: number, y: number) {
     fn.call(this, {
       xData: xaxis,
       yDatas: values,
@@ -50,7 +61,7 @@ export function handleArguments(fn) {
  * @param {[{x: number, y: number} * 3]} points
  * @return {boolean}
  */
-export function drawTriangle(ctx, points) {
+export function drawTriangle(ctx: CanvasRenderingContext2D, points: PointsMap) {
   if (points && points.length === 3) {
     ctx.beginPath();
     ctx.moveTo(points[0].x, points[0].y);
@@ -75,7 +86,15 @@ export function drawTriangle(ctx, points) {
  * @param {number} width radius
  * @param {number} strokeWidth circle side width
  */
-export function drawPoint(ctx, x, y, color, strokeColor, width, strokeWidth) {
+export function drawPoint(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  color: string,
+  strokeColor: string,
+  width: number,
+  strokeWidth: number
+) {
   ctx.beginPath();
   ctx.lineWidth = 0;
   ctx.strokeStyle = '#fff';
