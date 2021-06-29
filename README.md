@@ -81,6 +81,7 @@ FundCharts
 （历史版本访问[FundCharts-versions](https://github.com/MichealWayne/FundCharts/tree/master/versions)）
 
 ## 更新信息
+- 2021.06.20(`v0.9.9`)：修复微信小程序注册bug。
 - 2021.06.08(`v0.9.8`)：修复计算bug；优化代码。
 - 2020.09.08(`v0.9.7`)：增加图表提示辅助组件ToolTips；FundCharts适配ToolTips。
 - 2020.02.28(`v0.9.6`)：修复特殊情况下饼图Pie的间距bug；柱状图增加堆叠效果（多数据项）。
