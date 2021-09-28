@@ -5,7 +5,13 @@
  * @time 2020.06
  */
 
-import { handleArguments, drawPoint, isFunction, handleWeappDraw } from './utils';
+import {
+  handleShowValTipsStr,
+  handleArguments,
+  drawPoint,
+  isFunction,
+  handleWeappDraw,
+} from './utils';
 import CONFIG from './config';
 
 const { colors } = CONFIG;
@@ -19,13 +25,13 @@ export const PieCenterToolTip = handleArguments(function ({ yDatas, index }) {
   const ctx = this.ctx;
   const opts = this.opts;
 
-  const _origin = this.drawer.origin;
+  const { origin } = this.drawer || {};
   const {
     font = CONFIG.pieFont,
     color,
     valColor = colors.valColor,
     textAlign = CONFIG.textAlign,
-    valY = _origin.y,
+    valY = origin.y,
     showTip,
     showValTip,
   } = opts.toolTip || {};
@@ -38,12 +44,12 @@ export const PieCenterToolTip = handleArguments(function ({ yDatas, index }) {
   ctx.font = font;
   ctx.textAlign = textAlign;
   const txt = (isFunction(showTip) && showTip(index)) || showTip || '';
-  ctx.fillText(txt, _origin.x, valY - 10);
+  ctx.fillText(txt, origin.x, valY - 10);
 
   ctx.fillStyle = valColor;
   const valTxt =
     (isFunction(showValTip) && showValTip(yDatas[0])) || showValTip || (yDatas[0] * 100).toFixed(1);
-  ctx.fillText(valTxt, _origin.x, valY + 15);
+  ctx.fillText(valTxt, origin.x, valY + 15);
 
   ctx.restore();
   handleWeappDraw(ctx);
@@ -102,8 +108,7 @@ export const PieLabelToolTip = handleArguments(function ({ yDatas, index }) {
   ctx.fillText(txt, _cosx > 0 ? lineXEnd : lineXStart, _origin.y + _sinx * 1.2 - 10);
 
   ctx.fillStyle = valColor;
-  const valTxt =
-    (isFunction(showValTip) && showValTip(yDatas[0])) || showValTip || (yDatas[0] * 100).toFixed(2);
+  const valTxt = handleShowValTipsStr(showValTip, yDatas[0], (yDatas[0] * 100).toFixed(2));
   ctx.fillText(valTxt, _cosx > 0 ? lineXEnd : lineXStart, _origin.y + _sinx * 1.2 + 5);
 
   ctx.closePath();
@@ -133,39 +138,49 @@ export const LabelsToolTip = handleArguments(function ({ yDatas, index }) {
   const isRadar = this.side;
   const _origin = this.drawer.origin;
   const dataset = this.dataset;
+  const { width } = this._chart;
 
   // draw point
   let x = valX;
   if (!x) {
-    x =
-      _origin.x > this._chart.width / 2
-        ? opts.chartLeft + 20
-        : this._chart.width - opts.chartRight - 70;
+    x = _origin.x > width / 2 ? opts.chartLeft + 20 : width - opts.chartRight - 70;
   }
 
   const y = valY || _origin.y;
 
+  const drawPointParams = {
+    ctx,
+    x,
+    y: 0,
+    color: '',
+    strokeColor: '',
+    width: 4,
+    strokeWidth: 1,
+  };
   if (isRadar) {
     // radar
-    dataset.map((item: any, idx: number) => {
-      drawPoint(ctx, x, y - 4 + idx * 15, opts.colors[idx], opts.colors[idx], 4, 1);
+    dataset.forEach((item: unknown, idx: number) => {
+      drawPointParams.y = y - 4 + idx * 15;
+      drawPointParams.color = drawPointParams.strokeColor = opts.colors[idx];
+      drawPoint(drawPointParams);
     });
   } else {
     // pie
-    drawPoint(ctx, x, y - 4, opts.colors[index], opts.colors[index], 4, 1);
+    drawPointParams.y = y - 4;
+    drawPointParams.color = drawPointParams.strokeColor = opts.colors[index];
+    drawPoint(drawPointParams);
   }
 
   // draw texts
   ctx.font = font;
   const txt = (isFunction(showTip) && showTip(index)) || showTip || '';
+
+  // radar
   if (isRadar) {
-    dataset.map((item: any, idx: number) => {
+    dataset.forEach((item: unknown, idx: number) => {
       ctx.fillStyle = color || opts.colors[idx];
       ctx.fillText(txt, x + 10, y + 15 * idx);
-      const valTxt =
-        (isFunction(showValTip) && showValTip(yDatas[0])) ||
-        showValTip ||
-        (yDatas[0] * ((this.side && 100) || 1)).toFixed(2);
+      const valTxt = handleShowValTipsStr(showValTip, yDatas[0], (yDatas[0] * 1).toFixed(2));
       ctx.fillStyle = valColor;
       ctx.fillText(valTxt, x + ctx.measureText(txt).width + 15, y + 15 * idx);
     });
@@ -173,10 +188,7 @@ export const LabelsToolTip = handleArguments(function ({ yDatas, index }) {
     // pie
     ctx.fillStyle = color || opts.colors[index];
     ctx.fillText(txt, x + 10, y);
-    const valTxt =
-      (isFunction(showValTip) && showValTip(yDatas[0])) ||
-      showValTip ||
-      (yDatas[0] * ((this.side && 100) || 1)).toFixed(2);
+    const valTxt = handleShowValTipsStr(showValTip, yDatas[0], (yDatas[0] * 100).toFixed(2));
     ctx.fillText(valTxt, x + ctx.measureText(txt).width + 15, y);
   }
 

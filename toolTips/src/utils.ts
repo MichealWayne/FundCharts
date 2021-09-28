@@ -5,8 +5,8 @@
  */
 
 import CONFIG from './config';
-import { PointsMap } from './types';
-const { isWeapp } = CONFIG;
+import { PointsMap, PointDrawParams, WeappCanvasRenderingContext2D } from './types';
+const { isWeapp, circularAngle } = CONFIG;
 
 export const emptyFunc = () => '';
 
@@ -21,16 +21,77 @@ export function half(num: number) {
 }
 
 /**
+ * @function isUndefined
+ * @param {any} value
+ * @return {Boolean}
+ */
+export function isUndefined(value: unknown) {
+  return typeof value === 'undefined';
+}
+
+/**
  * @function isFunction
  * @param {any} func
  * @return {Boolean}
  */
-export function isFunction(func: any) {
-  return typeof func === 'function';
+export function isFunction(value: unknown) {
+  return typeof value === 'function';
 }
 
+/**
+ * @function isFunction
+ * @param {any} func
+ * @return {Boolean}
+ */
+export function isString(value: unknown) {
+  return typeof value === 'string';
+}
+
+/*------------------------------------*\
+  value handle functions
+\*------------------------------------*/
+
+/**
+ * @function handleShowValTipsStr
+ * @param showValTipFunc
+ * @param defaltValue
+ * @returns {String | false}
+ */
+export function handleShowValTipsStr(
+  showValTipFunc: (...args: any[]) => string,
+  dealValue: string,
+  defaultValue?: string
+) {
+  if (isFunction(showValTipFunc)) return showValTipFunc(dealValue);
+  if (isString(showValTipFunc)) return showValTipFunc;
+  return isUndefined(defaultValue) ? dealValue : defaultValue;
+}
+
+/**
+ * @function getLimitedVal
+ * @param {Number} val
+ * @param {Number} min
+ * @param {Number} max
+ * @return {Number}
+ */
+export function getLimitedVal(val: number, min: number, max: number) {
+  if (val < min) return min;
+  if (val > max) return max;
+  return val;
+}
+
+/*------------------------------------*\
+  canvas draw handle functions
+\*------------------------------------*/
+
+/**
+ * @function handleWeappDraw
+ * @description weapp canvas and web canvas are not the same
+ * @param {Function|Undefined} ctx
+ * @return {Function}
+ */
 export const handleWeappDraw = isWeapp
-  ? (ctx: any) => isFunction(ctx.draw) && ctx.draw(true)
+  ? (ctx: WeappCanvasRenderingContext2D) => isFunction(ctx.draw) && ctx.draw(true)
   : emptyFunc;
 
 /**
@@ -44,6 +105,9 @@ export const handleWeappDraw = isWeapp
  */
 export function handleArguments(fn: (opts: any) => any) {
   return function (index: number, values: number[], xaxis: string[], x: number, y: number) {
+    if (!this.ctx) {
+      throw Error('canvas `ctx` is not find. Please check `this` point.(FundChartsToolTip)');
+    }
     fn.call(this, {
       xData: xaxis,
       yDatas: values,
@@ -62,7 +126,7 @@ export function handleArguments(fn: (opts: any) => any) {
  * @return {boolean}
  */
 export function drawTriangle(ctx: CanvasRenderingContext2D, points: PointsMap) {
-  if (points && points.length === 3) {
+  if (points?.length === 3) {
     ctx.beginPath();
     ctx.moveTo(points[0].x, points[0].y);
     ctx.lineTo(points[1].x, points[1].y);
@@ -70,9 +134,8 @@ export function drawTriangle(ctx: CanvasRenderingContext2D, points: PointsMap) {
     ctx.closePath();
     ctx.fill();
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 /**
@@ -86,20 +149,12 @@ export function drawTriangle(ctx: CanvasRenderingContext2D, points: PointsMap) {
  * @param {number} width radius
  * @param {number} strokeWidth circle side width
  */
-export function drawPoint(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  color: string,
-  strokeColor: string,
-  width: number,
-  strokeWidth: number
-) {
+export function drawPoint({ ctx, x, y, color, strokeColor, width, strokeWidth }: PointDrawParams) {
   ctx.beginPath();
   ctx.lineWidth = 0;
-  ctx.strokeStyle = '#fff';
-  ctx.lineWidth = strokeWidth !== undefined ? strokeWidth : 1;
-  ctx.arc(x, y, width, 0, Math.PI * 2, true);
+  ctx.strokeStyle = strokeColor || '#fff';
+  ctx.lineWidth = (isUndefined(strokeWidth) && 1) || strokeWidth;
+  ctx.arc(x, y, width, 0, circularAngle, true);
   ctx.closePath();
   ctx.fillStyle = color;
   ctx.fill();

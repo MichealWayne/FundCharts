@@ -8,6 +8,9 @@ export default {
   isWeapp,
   dpr: (isWeapp ? wx.getSystemInfoSync().pixelRatio : window.devicePixelRatio) || 1,
 
+  // Math
+  circularAngle: Math.PI * 2,
+
   // toolTip box
   width: 70,
   height: 20,

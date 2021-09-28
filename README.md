@@ -1,7 +1,7 @@
 # FundChartsJS 轻量数据可视化库
 
 <a href="http://blog.michealwayne.cn/FundCharts/docs/">
-	<img style="width: 100%" src="https://blog.michealwayne.cn/images/fundchartspics/bg.png"/>
+  <img style="width: 100%" src="https://blog.michealwayne.cn/images/fundchartspics/bg.png"/>
 </a>
 
 **[文档>>](http://blog.michealwayne.cn/FundCharts/docs/)**，[English/npm](https://www.npmjs.com/package/fundcharts)
@@ -32,6 +32,9 @@
 ```
 FundCharts
 ├─dist       FundCharts单例
+│   ├─react.d.ts      ts声明文件
+│   ├─vue.d.ts        ts声明文件
+│   ├─index.d.ts        ts声明文件
 │   ├─react.js        ReactJs组件
 │   ├─vue.js          VueJs组件
 │   ├─BarChart.js     柱状图
@@ -64,7 +67,7 @@ FundCharts
 - android 4及以上
 - PC IE9+/Firefox/Opera/Chrome/Safari12+
 
-> 注：与框架无冲突，配有[React/Vue组件](https://blog.michealwayne.cn/FundCharts/docs/guide/#react-vue使用)。
+> 注：与框架无冲突，配有[React/Vue组件](https://blog.michealwayne.cn/FundCharts/docs/guide/#react-vue使用)。`v0.9.10`起支持 TypeScript 直接使用。
 
 ### weapp
 
@@ -76,11 +79,12 @@ FundCharts
 
 ## 最新版本
 
-- [v0.9.8](https://www.npmjs.com/package/fundcharts)
+- [v0.9.10](https://www.npmjs.com/package/fundcharts)
 
 （历史版本访问[FundCharts-versions](https://github.com/MichealWayne/FundCharts/tree/master/versions)）
 
 ## 更新信息
+- 2021.09.25(`v0.9.10`)：增加声明文件以支持TypeScript；增加ToolTip的集成；
 - 2021.06.20(`v0.9.9`)：修复微信小程序注册bug。
 - 2021.06.08(`v0.9.8`)：修复计算bug；优化代码。
 - 2020.09.08(`v0.9.7`)：增加图表提示辅助组件ToolTips；FundCharts适配ToolTips。

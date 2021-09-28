@@ -2,9 +2,17 @@
  * FundCharts.ToolTips
  * @module Grid
  * @description Line/Bar/Scatter/Kline
- * @time 2020.06
+ * @buildTime 2020.06
  */
-import { half, handleArguments, drawTriangle, isFunction, handleWeappDraw } from './utils';
+import {
+  handleShowValTipsStr,
+  getLimitedVal,
+  half,
+  handleArguments,
+  drawTriangle,
+  isFunction,
+  handleWeappDraw,
+} from './utils';
 import { PointsMap } from './types';
 import CONFIG from './config';
 
@@ -17,6 +25,7 @@ const { colors } = CONFIG;
  */
 export const BasicToolTip = handleArguments(function ({ xData, yDatas, xPos }) {
   const ctx = this.ctx;
+
   const opts = this.opts;
   const {
     width = CONFIG.width,
@@ -35,7 +44,7 @@ export const BasicToolTip = handleArguments(function ({ xData, yDatas, xPos }) {
   ctx.fillStyle = backgroundColor;
   let _rectX = xPos - half(width);
   const xLimit = this._chart.width - opts.chartRight - width;
-  _rectX = _rectX < opts.chartLeft ? opts.chartLeft : _rectX > xLimit ? xLimit : _rectX;
+  _rectX = getLimitedVal(_rectX, opts.chartLeft, xLimit);
   ctx.fillRect(_rectX, opts.chartTop + 5, width, height);
 
   // draw text
@@ -85,7 +94,7 @@ export const ArrowToolTip = handleArguments(function ({ xData, yDatas, xPos, ind
 
   let _rectX = xPos - half(width);
   const xLimit = _chart.width - opts.chartRight - width;
-  _rectX = _rectX < opts.chartLeft ? opts.chartLeft : _rectX > xLimit ? xLimit : _rectX;
+  _rectX = getLimitedVal(_rectX, opts.chartLeft, xLimit);
   let _x = datasets[0][index].x;
 
   let pointY = datasets[0][index].y;
@@ -176,8 +185,8 @@ export const KlineToolTip = handleArguments(function ({ xData, xPos, yPos }) {
   let _rectY = yPos - half(yHeight);
   const xLimit = _chart.width - opts.chartRight - xWidth;
   const yLimit = _chart.height - 40;
-  _rectX = _rectX < opts.chartLeft ? opts.chartLeft : _rectX > xLimit ? xLimit : _rectX;
-  _rectY = _rectY < opts.chartTop ? opts.chartTop : _rectY > yLimit ? yLimit : _rectY;
+  _rectX = getLimitedVal(_rectX, opts.chartLeft, xLimit);
+  _rectY = getLimitedVal(_rectX, opts.chartTop, yLimit);
 
   ctx.fillRect(_rectX, yLimit, xWidth, xHeight);
   ctx.fillRect(opts.chartLeft, _rectY, yWidth, yHeight);
@@ -193,7 +202,7 @@ export const KlineToolTip = handleArguments(function ({ xData, xPos, yPos }) {
   );
   const yDataShow = ((yPos - this.drawer.yBasic) / this.drawer.yRate).toFixed(2);
   ctx.fillText(
-    (isFunction(showValTip) && showValTip(yDataShow)) || showValTip || yDataShow,
+    handleShowValTipsStr(showValTip, yDataShow),
     opts.chartLeft + half(yWidth),
     _rectY + 8
   );

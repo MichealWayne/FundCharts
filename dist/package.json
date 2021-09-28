@@ -1,6 +1,6 @@
 {
   "name": "fundcharts",
-  "version": "0.9.8",
+  "version": "0.9.10",
   "description": "lightweight canvas data visualization library. 1.x: line/bar/pie/radar/scatter/kline chart.",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,9 @@
 	"fundcharts",
     "canvas",
     "charts",
-    "weapp"
+    "web",
+    "weapp",
+    "nodejs"
   ],
   "author": "MichealWayne",
   "license": "ISC",
