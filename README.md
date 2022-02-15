@@ -118,18 +118,18 @@ FundCharts
 
 <p>
 <a href="https://github.com/MichealWayne/FundCharts/tree/master/demo">
-	<img style="width: 375px" src="https://blog.michealwayne.cn/images/fundchartspics/guide/p-1.jpg" alt="combo1.jpg"/>
+  <img style="width: 375px" src="https://blog.michealwayne.cn/images/fundchartspics/guide/p-1.jpg" alt="combo1.jpg"/>
 </a>
 <a href="https://github.com/MichealWayne/FundCharts/tree/master/demo">
-	<img style="width: 375px" src="https://blog.michealwayne.cn/images/fundchartspics/guide/p-2.jpg" alt="combo2.jpg"/>
+  <img style="width: 375px" src="https://blog.michealwayne.cn/images/fundchartspics/guide/p-2.jpg" alt="combo2.jpg"/>
 </a>
 </p>
 <p>
 <a href="https://github.com/MichealWayne/FundCharts/tree/master/demo">
-	<img style="width: 375px" src="https://blog.michealwayne.cn/images/fundchartspics/gifs/line.gif" alt="line.gif"/>
+  <img style="width: 375px" src="https://blog.michealwayne.cn/images/fundchartspics/gifs/line.gif" alt="line.gif"/>
 </a>
 <a href="https://github.com/MichealWayne/FundCharts/tree/master/demo">
-	<img style="width: 375px" src="https://blog.michealwayne.cn/images/fundchartspics/gifs/pie.gif" alt="pie.gif"/>
+  <img style="width: 375px" src="https://blog.michealwayne.cn/images/fundchartspics/gifs/pie.gif" alt="pie.gif"/>
 </a>
 </p>
 
