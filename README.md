@@ -79,11 +79,12 @@ FundCharts
 
 ## 最新版本
 
-- [v0.9.10](https://www.npmjs.com/package/fundcharts)
+- [v0.9.11](https://www.npmjs.com/package/fundcharts)
 
 （历史版本访问[FundCharts-versions](https://github.com/MichealWayne/FundCharts/tree/master/versions)）
 
 ## 更新信息
+- 2022.02.05(`v0.9.11`): 修复line面积渐变bug，options边界bug；增加实例内存销毁方法destory()；
 - 2021.09.25(`v0.9.10`)：增加声明文件以支持TypeScript；增加ToolTip的集成；
 - 2021.06.20(`v0.9.9`)：修复微信小程序注册bug。
 - 2021.06.08(`v0.9.8`)：修复计算bug；优化代码。
