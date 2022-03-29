@@ -4,6 +4,10 @@
   <img style="width: 100%" src="https://blog.michealwayne.cn/images/fundchartspics/bg.png"/>
 </a>
 
+<p>
+  <a href="https://www.npmjs.com/package/fundcharts" rel="nofollow"><img src="https://blog.michealwayne.cn/FundCharts/docs/assets/img/npm.91127fd2.svg" alt="npm package" data-canonical-src="./images/npm.svg" style="max-width:100%;"></a>
+</p>
+
 **[文档>>](http://blog.michealwayne.cn/FundCharts/docs/)**，[English/npm](https://www.npmjs.com/package/fundcharts)
 
 轻量级canvas数据可视化组件库，可在web端/小程序端/服务端nodjes运行。核心原则：**轻量**，**只注重图形**。
