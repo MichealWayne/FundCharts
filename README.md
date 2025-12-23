@@ -19,6 +19,8 @@
 - [English/npm](https://www.npmjs.com/package/fundcharts)
 - codepen demo：[https://codepen.io/michealwayne/](https://codepen.io/michealwayne/)
 
+> `1.0.0`之前版本可通过[tags](https://github.com/MichealWayne/FundCharts/tags)查看
+
 ### 工程说明
 
 - 工程启动、调试等见[工程说明>>](./PROJECT_GUIDE.md)（使用 pnpm）
