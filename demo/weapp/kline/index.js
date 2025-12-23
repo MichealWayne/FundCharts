@@ -1,15 +1,14 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 /**
  * FundCharts
  * K线图KlineChart
  */
 
-const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
-const FundChartsToolTips = require('../../FundCharts-tooltips.js');  // 注意拷FundCharts-tooltips.js
+const FundCharts = require('../../../lib/FundCharts/lib/index.cjs'); // 注意拷FundCharts.min.js
+const FundChartsToolTips = require('../../../lib/FundChartsToolTips/lib/index.cjs'); // 注意拷fundchart-tooltips.js
 
-const {
-  KlineToolTip
-} = FundChartsToolTips;
-
+const { KlineToolTip } = FundChartsToolTips;
 
 const KlineChart = FundCharts.kline;
 
@@ -17,7 +16,6 @@ let kline1 = null;
 let kline3 = null;
 
 Page({
-
   onReady() {
     this.drawKline();
   },
@@ -33,11 +31,11 @@ Page({
         [3, 5.5, 3, 6],
         [4.4, 3.5, 3, 5],
         [5, 6, 4, 7],
-        [7, 3, 3, 7]
+        [7, 3, 3, 7],
       ],
       hoverLineColor: '#fff',
       font: {
-        color: '#eee'
+        color: '#eee',
       },
       width: 375,
       height: 200,
@@ -49,16 +47,44 @@ Page({
     let kline2 = new KlineChart({
       id: 'chartkline2',
       xaxis: [
-        '1-1', '1-2', '1-3', '1-4', '1-5', '1-6', '1-7', '1-8',
-        '2-1', '2-2', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8',
-        '3-1', '3-2', '3-3', '3-4', '3-5', '3-6', '3-7', '3-8',
-        '4-1', '4-2', '4-3', '4-4', '4-5', '4-6', '4-7', '4-8'
+        '1-1',
+        '1-2',
+        '1-3',
+        '1-4',
+        '1-5',
+        '1-6',
+        '1-7',
+        '1-8',
+        '2-1',
+        '2-2',
+        '2-3',
+        '2-4',
+        '2-5',
+        '2-6',
+        '2-7',
+        '2-8',
+        '3-1',
+        '3-2',
+        '3-3',
+        '3-4',
+        '3-5',
+        '3-6',
+        '3-7',
+        '3-8',
+        '4-1',
+        '4-2',
+        '4-3',
+        '4-4',
+        '4-5',
+        '4-6',
+        '4-7',
+        '4-8',
       ],
-      backgroundColor: '#000',        // 背景色
+      backgroundColor: '#000', // 背景色
       font: {
-        color: '#eee'           // 文字颜色
+        color: '#eee', // 文字颜色
       },
-      colors: ['#ce0f0f', '', '', '', '#6ca584'],     // 涨/跌颜色
+      colors: ['#ce0f0f', '', '', '', '#6ca584'], // 涨/跌颜色
       datas: [
         [2320.26, 2320.26, 2287.3, 2362.94],
         [2300, 2291.3, 2288.26, 2308.38],
@@ -130,7 +156,7 @@ Page({
         [2247.68, 2241.92, 2231.36, 2250.85],
         [2238.9, 2217.01, 2205.87, 2239.93],
         [2217.09, 2224.8, 2213.58, 2225.19],
-        [2221.34, 2251.81, 2210.77, 2252.87]
+        [2221.34, 2251.81, 2210.77, 2252.87],
       ],
       width: 375,
       height: 200,
@@ -148,14 +174,14 @@ Page({
         [3, 5.5, 3, 6],
         [4.4, 3.5, 3, 5],
         [5, 6, 4, 7],
-        [7, 3, 3, 7]
+        [7, 3, 3, 7],
       ],
-      upHollow: true,   // 上涨空心展示
+      upHollow: true, // 上涨空心展示
       width: 375,
       height: 200,
       toolTip: {
-        backgroundColor: 'rgba(0,0,0,0.6)'
-      }
+        backgroundColor: 'rgba(0,0,0,0.6)',
+      },
     });
 
     kline3.init();

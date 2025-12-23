@@ -1,0 +1,7 @@
+# Browsers that we support 
+# @document https://github.com/browserslist/browserslist
+
+> 1%
+last 2 versions
+iOS 9
+Android 4.4

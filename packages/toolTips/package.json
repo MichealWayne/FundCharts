@@ -1,0 +1,46 @@
+{
+  "name": "fundcharts-tooltips",
+  "version": "1.0.0",
+  "description": "FundCharts Tooltips",
+  "main": "index.js",
+  "scripts": {
+    "dev": "rollup --config ../../scripts/build/rollup.dev.config.js --watch",
+    "build": "rollup --config ../../scripts/build/rollup.config.js",
+    "build:prod": "cross-env NODE_ENV=production rollup --config ../../scripts/build/rollup.config.js",
+    "test": "jest --config ../../scripts/jest/jest.config.js --testPathPattern=packages/toolTips",
+    "test:watch": "jest --config ../../scripts/jest/jest.config.js --testPathPattern=packages/toolTips --watch",
+    "test:coverage": "jest --config ../../scripts/jest/jest.config.js --testPathPattern=packages/toolTips --coverage",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"__tests__/**/*.ts\"",
+    "type-check": "tsc --noEmit"
+  },
+  "author": "Wayne",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "files": [
+    "CHANGELOGS.md",
+    "README.md",
+    "index.js",
+    "dist/"
+  ],
+  "keywords": [
+    "fundcharts",
+    "charts",
+    "javascript",
+    "tooltips"
+  ]
+}

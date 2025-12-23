@@ -1,25 +1,22 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 /**
  * FundCharts
  * 组合图形
  */
 
-const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
-const FundChartsToolTips = require('../../FundCharts-tooltips.js');  // 注意拷FundCharts-tooltips.js
+const FundCharts = require('../../../lib/FundCharts/lib/index.cjs'); // 注意拷FundCharts.min.js
+const FundChartsToolTips = require('../../../lib/FundChartsToolTips/lib/index.cjs'); // 注意拷fundchart-tooltips.js
 
-const {
-  BasicToolTip,
-  ArrowToolTip,
-  KlineToolTip
-} = FundChartsToolTips;
+const { KlineToolTip } = FundChartsToolTips;
 
 const KlineChart = FundCharts.kline,
-      LineChart = FundCharts.line,
-      BarChart = FundCharts.bar;
+  LineChart = FundCharts.line,
+  BarChart = FundCharts.bar;
 
 let combo1 = null;
 
 Page({
-
   onReady() {
     this.drawKline();
   },
@@ -27,14 +24,77 @@ Page({
   drawKline() {
     // chart 1
     let _xaxis1 = [
-      '1-1', '1-2', '1-3', '1-4', '1-5', '1-6', '1-7', '1-8', '1-9', '1-10',
-      '2-1', '2-2', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8', '2-9', '2-10',
-      '3-1', '3-2', '3-3', '3-4', '3-5', '3-6', '3-7', '3-8', '3-9', '3-10',
-      '4-1', '4-2', '4-3', '4-4', '4-5', '4-6', '4-7', '4-8', '4-9', '4-10',
-      '5-1', '5-2', '5-3', '5-4', '5-5', '5-6', '5-7', '5-8', '5-9', '5-10',
-      '6-1', '6-2', '6-3', '6-4', '6-5', '6-6', '6-7', '6-8', '6-9', '6-10',
-      '7-1', '7-2', '7-3', '7-4', '7-5', '7-6', '7-7', '7-8', '7-9', '7-10',
-      '7-11'
+      '1-1',
+      '1-2',
+      '1-3',
+      '1-4',
+      '1-5',
+      '1-6',
+      '1-7',
+      '1-8',
+      '1-9',
+      '1-10',
+      '2-1',
+      '2-2',
+      '2-3',
+      '2-4',
+      '2-5',
+      '2-6',
+      '2-7',
+      '2-8',
+      '2-9',
+      '2-10',
+      '3-1',
+      '3-2',
+      '3-3',
+      '3-4',
+      '3-5',
+      '3-6',
+      '3-7',
+      '3-8',
+      '3-9',
+      '3-10',
+      '4-1',
+      '4-2',
+      '4-3',
+      '4-4',
+      '4-5',
+      '4-6',
+      '4-7',
+      '4-8',
+      '4-9',
+      '4-10',
+      '5-1',
+      '5-2',
+      '5-3',
+      '5-4',
+      '5-5',
+      '5-6',
+      '5-7',
+      '5-8',
+      '5-9',
+      '5-10',
+      '6-1',
+      '6-2',
+      '6-3',
+      '6-4',
+      '6-5',
+      '6-6',
+      '6-7',
+      '6-8',
+      '6-9',
+      '6-10',
+      '7-1',
+      '7-2',
+      '7-3',
+      '7-4',
+      '7-5',
+      '7-6',
+      '7-7',
+      '7-8',
+      '7-9',
+      '7-10',
+      '7-11',
     ];
     let klineData = [
       [2320.26, 2320.26, 2287.3, 2362.94],
@@ -107,21 +167,21 @@ Page({
       [2247.68, 2241.92, 2231.36, 2250.85],
       [2238.9, 2217.01, 2205.87, 2239.93],
       [2217.09, 2224.8, 2213.58, 2225.19],
-      [2221.34, 2251.81, 2210.77, 2252.87]
+      [2221.34, 2251.81, 2210.77, 2252.87],
     ];
 
     // 制造假的折线数据
     let line1Data = [],
       _val = 2300;
     for (let i = 0, len = klineData.length; i < len; i++) {
-      line1Data.push(_val += ~~((Math.random() - 0.55) * 20))
+      line1Data.push((_val += ~~((Math.random() - 0.55) * 20)));
     }
 
     const CHART1_COMMON = {
       chartTop: 10,
       chartLeft: 50,
-      chartRight: 10
-    }
+      chartRight: 10,
+    };
     combo1 = new KlineChart({
       id: 'chartcombo1',
       xaxis: _xaxis1,
@@ -129,13 +189,14 @@ Page({
 
       ...CHART1_COMMON,
       upHollow: true,
-      backgroundColor: '#000',        // 背景色
+      backgroundColor: '#000', // 背景色
       font: {
-        color: '#eee'           // 文字颜色
+        color: '#eee', // 文字颜色
       },
       width: 414,
       height: 200,
-      onFinish() {       // add chart2(line)
+      onFinish() {
+        // add chart2(line)
         let drawer = combo1.drawer,
           yaxis = drawer.yaxis;
         let _chart2 = new LineChart({
@@ -146,13 +207,13 @@ Page({
           noAnimation: true,
           range: {
             min: yaxis.min,
-            max: yaxis.max
+            max: yaxis.max,
           },
-          data: line1Data,
-          colors: ['#71b7f9']
+          datas: line1Data,
+          colors: ['#71b7f9'],
         });
 
-        _chart2.init(true)
+        _chart2.init(true);
         _chart2._chart = combo1._chart;
         _chart2.$el = combo1.$el;
         _chart2.canvas = combo1.canvas;
@@ -161,7 +222,7 @@ Page({
         _chart2.drawer.drawLine();
         _chart2.ctx.draw(true);
         combo1._chart2 = _chart2;
-      }
+      },
     });
 
     combo1.init();
@@ -173,21 +234,21 @@ Page({
     const CHART2_COMMON = {
       chartTop: 10,
       chartLeft: 30,
-      chartRight: 10
-    }
+      chartRight: 10,
+    };
     const combo2 = new BarChart({
       id: 'chartcombo2',
       ...CHART2_COMMON,
       grid: {
-        showGrid: true
+        showGrid: true,
       },
       width: 414,
       height: 200,
       xaxis: _xaxis2,
-      data: bardata,
+      datas: bardata,
       events: [],
       font: {
-        color: '#eee'
+        color: '#eee',
       },
       onFinish() {
         let drawer = combo2.drawer,
@@ -202,13 +263,13 @@ Page({
           noAnimation: true,
           range: {
             min: yaxis.min,
-            max: yaxis.max
+            max: yaxis.max,
           },
-          data: bardata,
-          colors: ['#71b7f9']
+          datas: bardata,
+          colors: ['#71b7f9'],
         });
 
-        _chart2.init(true)
+        _chart2.init(true);
         _chart2._chart = combo2._chart;
         _chart2.$el = combo2.$el;
         _chart2.canvas = combo2.canvas;
@@ -219,7 +280,7 @@ Page({
         let datasets = _chart2.datasets[0];
         let ctx = _chart2.ctx,
           chartLeft = CHART2_COMMON.chartLeft;
-        ctx.save()
+        ctx.save();
         ctx.lineWidth = 2;
         ctx.strokeStyle = '#fff';
         ctx.fillStyle = '#ffa61b';
@@ -240,7 +301,7 @@ Page({
         ctx.restore();
         ctx.draw(true);
         combo2._chart2 = _chart2;
-      }
+      },
     });
     combo2.init();
   },
@@ -252,7 +313,14 @@ Page({
 
       if (index === false) return false;
 
-      KlineToolTip.call(combo1, index, combo1.opts.datas[index], combo1.opts.xaxis[index], event.x, event.y);
+      KlineToolTip.call(
+        combo1,
+        index,
+        combo1.opts.datas[index],
+        combo1.opts.xaxis[index],
+        event.x,
+        event.y
+      );
       combo1._chart2.drawer.drawLine();
       combo1.ctx.draw(true);
     }
@@ -264,7 +332,14 @@ Page({
       let index = combo1.drawer.drawHover(event.x, event.y);
       if (index === false) return false;
 
-      KlineToolTip.call(combo1, index, combo1.opts.datas[index], combo1.opts.xaxis[index], event.x, event.y);
+      KlineToolTip.call(
+        combo1,
+        index,
+        combo1.opts.datas[index],
+        combo1.opts.xaxis[index],
+        event.x,
+        event.y
+      );
       combo1._chart2.drawer.drawLine();
       combo1.ctx.draw(true);
     }

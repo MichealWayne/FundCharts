@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-touch-fullscreen" content="YES" />
+
+    <link rel="stylesheet" href="css/index.css" />
+    <title>FundCharts-桑基图</title>
+    <style>
+      /* 自定义样式，覆盖默认样式 */
+      .u-part {
+        height: 400px !important; /* 适中的高度 */
+        padding: 0 !important; /* 移除内边距 */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <h3 class="f-tc u-tit">demo 1: 能源流向分析</h3>
+      <section id="sankey1" class="u-part"></section>
+
+      <h3 class="f-tc u-tit g-mt20">demo 2: 网站用户行为分析</h3>
+      <section id="sankey2" class="u-part" s-bg_linear></section>
+
+      <h3 class="f-tc u-tit g-mt20">demo 3: 个人财务流向</h3>
+      <section id="sankey3" class="u-part" style="background-color: #333"></section>
+
+      <h3 class="f-tc u-tit g-mt20">demo 4: 供应链物流分析</h3>
+      <section id="sankey4" class="u-part"></section>
+
+      <h3 class="f-tc u-tit g-mt20">demo 5: 人才流动分析</h3>
+      <section id="sankey5" class="u-part" s-bg_linear></section>
+
+      <h3 class="f-tc u-tit g-mt20">demo 6: 多层级数据流转</h3>
+      <section id="sankey6" class="u-part" style="background-color: #2c3e50"></section>
+    </div>
+
+    <script src="../../lib/FundCharts/lib/index.umd.js"></script>
+    <script>
+      const SankeyChart = FundCharts.sankey;
+
+      // 能源流向数据 - 简化节点名称
+      const energyData = {
+        nodes: [
+          // 第一层：能源来源（左侧）
+          { id: 'coal', name: '煤炭', value: 400 },
+          { id: 'oil', name: '石油', value: 300 },
+          { id: 'gas', name: '天然气', value: 200 },
+          { id: 'renewable', name: '可再生', value: 100 },
+
+          // 第二层：能源汇总（中间）
+          { id: 'total_energy', name: '总能源', value: 1000 },
+
+          // 第三层：最终用途（右侧）
+          { id: 'industry', name: '工业', value: 450 },
+          { id: 'transport', name: '交通', value: 300 },
+          { id: 'residential', name: '居民', value: 200 },
+          { id: 'losses', name: '损失', value: 50 },
+        ],
+        links: [
+          // 第一步：所有能源汇入总能源
+          { source: 'coal', target: 'total_energy', value: 400, color: '#e74c3c' },
+          { source: 'oil', target: 'total_energy', value: 300, color: '#f39c12' },
+          { source: 'gas', target: 'total_energy', value: 200, color: '#3498db' },
+          { source: 'renewable', target: 'total_energy', value: 100, color: '#27ae60' },
+
+          // 第二步：总能源分配到各个用途
+          { source: 'total_energy', target: 'industry', value: 450, color: '#9b59b6' },
+          { source: 'total_energy', target: 'transport', value: 300, color: '#e67e22' },
+          { source: 'total_energy', target: 'residential', value: 200, color: '#1abc9c' },
+          { source: 'total_energy', target: 'losses', value: 50, color: '#95a5a6' },
+        ],
+      };
+
+      // 网站流量数据 - 简化节点名称
+      const websiteData = {
+        nodes: [
+          { id: 'homepage', name: '首页', value: 1000 },
+          { id: 'product', name: '产品', value: 600 },
+          { id: 'blog', name: '博客', value: 300 },
+          { id: 'contact', name: '联系', value: 100 },
+          { id: 'signup', name: '注册', value: 400 },
+          { id: 'purchase', name: '购买', value: 250 },
+          { id: 'bounce', name: '跳出', value: 300 },
+          { id: 'exit', name: '退出', value: 50 },
+        ],
+        links: [
+          { source: 'homepage', target: 'product', value: 500, color: '#ff6b6b' },
+          { source: 'homepage', target: 'blog', value: 300, color: '#4ecdc4' },
+          { source: 'homepage', target: 'contact', value: 100, color: '#45b7d1' },
+          { source: 'homepage', target: 'bounce', value: 100, color: '#ff9ff3' },
+          { source: 'product', target: 'signup', value: 350, color: '#96ceb4' },
+          { source: 'product', target: 'purchase', value: 100, color: '#feca57' },
+          { source: 'product', target: 'exit', value: 50, color: '#ff9ff3' },
+          { source: 'blog', target: 'product', value: 200, color: '#ff6b6b' },
+          { source: 'blog', target: 'signup', value: 50, color: '#96ceb4' },
+          { source: 'blog', target: 'exit', value: 50, color: '#ff9ff3' },
+          { source: 'contact', target: 'signup', value: 80, color: '#96ceb4' },
+          { source: 'contact', target: 'exit', value: 20, color: '#ff9ff3' },
+        ],
+      };
+
+      // 财务流向数据 - 简化节点名称
+      const financeData = {
+        nodes: [
+          { id: 'income', name: '总收入', value: 10000 },
+          { id: 'salary', name: '工资', value: 8000 },
+          { id: 'bonus', name: '奖金', value: 2000 },
+          { id: 'expenses', name: '总支出', value: 10000 },
+          { id: 'rent', name: '房租', value: 3000 },
+          { id: 'food', name: '餐饮', value: 2000 },
+          { id: 'transport', name: '交通', value: 1000 },
+          { id: 'entertainment', name: '娱乐', value: 1500 },
+          { id: 'savings', name: '储蓄', value: 2000 },
+          { id: 'investment', name: '投资', value: 500 },
+        ],
+        links: [
+          { source: 'income', target: 'salary', value: 8000, color: '#ff6b6b' },
+          { source: 'income', target: 'bonus', value: 2000, color: '#4ecdc4' },
+          { source: 'salary', target: 'rent', value: 3000, color: '#45b7d1' },
+          { source: 'salary', target: 'food', value: 2000, color: '#96ceb4' },
+          { source: 'salary', target: 'transport', value: 1000, color: '#feca57' },
+          { source: 'salary', target: 'entertainment', value: 1500, color: '#ff9ff3' },
+          { source: 'salary', target: 'savings', value: 500, color: '#54a0ff' },
+          { source: 'bonus', target: 'savings', value: 1500, color: '#54a0ff' },
+          { source: 'bonus', target: 'investment', value: 500, color: '#5f27cd' },
+        ],
+      };
+
+      // 供应链物流分析数据
+      const supplyChainData = {
+        nodes: [
+          // 供应商
+          { id: 'supplier_a', name: '供应商A', value: 500 },
+          { id: 'supplier_b', name: '供应商B', value: 350 },
+          { id: 'supplier_c', name: '供应商C', value: 250 },
+
+          // 原材料
+          { id: 'material_a', name: '原材料A', value: 400 },
+          { id: 'material_b', name: '原材料B', value: 300 },
+          { id: 'material_c', name: '原材料C', value: 200 },
+          { id: 'material_d', name: '原材料D', value: 200 },
+
+          // 生产工厂
+          { id: 'factory_a', name: '工厂A', value: 600 },
+          { id: 'factory_b', name: '工厂B', value: 500 },
+
+          // 产品
+          { id: 'product_a', name: '产品A', value: 400 },
+          { id: 'product_b', name: '产品B', value: 350 },
+          { id: 'product_c', name: '产品C', value: 350 },
+
+          // 销售渠道
+          { id: 'retail', name: '零售', value: 500 },
+          { id: 'wholesale', name: '批发', value: 300 },
+          { id: 'online', name: '线上', value: 300 },
+        ],
+        links: [
+          // 供应商到原材料
+          { source: 'supplier_a', target: 'material_a', value: 300, color: '#3498db' },
+          { source: 'supplier_a', target: 'material_b', value: 200, color: '#3498db' },
+          { source: 'supplier_b', target: 'material_b', value: 100, color: '#2ecc71' },
+          { source: 'supplier_b', target: 'material_c', value: 150, color: '#2ecc71' },
+          { source: 'supplier_b', target: 'material_d', value: 100, color: '#2ecc71' },
+          { source: 'supplier_c', target: 'material_c', value: 50, color: '#e74c3c' },
+          { source: 'supplier_c', target: 'material_d', value: 100, color: '#e74c3c' },
+
+          // 原材料到工厂
+          { source: 'material_a', target: 'factory_a', value: 250, color: '#9b59b6' },
+          { source: 'material_a', target: 'factory_b', value: 150, color: '#9b59b6' },
+          { source: 'material_b', target: 'factory_a', value: 200, color: '#f1c40f' },
+          { source: 'material_b', target: 'factory_b', value: 100, color: '#f1c40f' },
+          { source: 'material_c', target: 'factory_a', value: 100, color: '#e67e22' },
+          { source: 'material_c', target: 'factory_b', value: 100, color: '#e67e22' },
+          { source: 'material_d', target: 'factory_b', value: 150, color: '#1abc9c' },
+
+          // 工厂到产品
+          { source: 'factory_a', target: 'product_a', value: 300, color: '#34495e' },
+          { source: 'factory_a', target: 'product_b', value: 250, color: '#34495e' },
+          { source: 'factory_b', target: 'product_b', value: 100, color: '#7f8c8d' },
+          { source: 'factory_b', target: 'product_c', value: 350, color: '#7f8c8d' },
+
+          // 产品到销售渠道
+          { source: 'product_a', target: 'retail', value: 200, color: '#16a085' },
+          { source: 'product_a', target: 'online', value: 200, color: '#16a085' },
+          { source: 'product_b', target: 'retail', value: 150, color: '#27ae60' },
+          { source: 'product_b', target: 'wholesale', value: 200, color: '#27ae60' },
+          { source: 'product_c', target: 'wholesale', value: 100, color: '#d35400' },
+          { source: 'product_c', target: 'online', value: 100, color: '#d35400' },
+        ],
+      };
+
+      // 人才流动分析数据
+      const talentFlowData = {
+        nodes: [
+          // 教育机构
+          { id: 'university_a', name: '大学A', value: 500 },
+          { id: 'university_b', name: '大学B', value: 400 },
+          { id: 'training', name: '培训机构', value: 300 },
+
+          // 行业
+          { id: 'tech', name: '科技行业', value: 600 },
+          { id: 'finance', name: '金融行业', value: 500 },
+          { id: 'healthcare', name: '医疗行业', value: 400 },
+          { id: 'education', name: '教育行业', value: 300 },
+
+          // 公司规模
+          { id: 'large', name: '大型企业', value: 700 },
+          { id: 'medium', name: '中型企业', value: 500 },
+          { id: 'small', name: '小型企业', value: 300 },
+          { id: 'startup', name: '创业公司', value: 200 },
+        ],
+        links: [
+          // 教育机构到行业
+          { source: 'university_a', target: 'tech', value: 200, color: '#3498db' },
+          { source: 'university_a', target: 'finance', value: 150, color: '#3498db' },
+          { source: 'university_a', target: 'healthcare', value: 100, color: '#3498db' },
+          { source: 'university_a', target: 'education', value: 50, color: '#3498db' },
+
+          { source: 'university_b', target: 'tech', value: 150, color: '#2ecc71' },
+          { source: 'university_b', target: 'finance', value: 100, color: '#2ecc71' },
+          { source: 'university_b', target: 'healthcare', value: 100, color: '#2ecc71' },
+          { source: 'university_b', target: 'education', value: 50, color: '#2ecc71' },
+
+          { source: 'training', target: 'tech', value: 150, color: '#e74c3c' },
+          { source: 'training', target: 'finance', value: 100, color: '#e74c3c' },
+          { source: 'training', target: 'healthcare', value: 30, color: '#e74c3c' },
+          { source: 'training', target: 'education', value: 20, color: '#e74c3c' },
+
+          // 行业到公司规模
+          { source: 'tech', target: 'large', value: 200, color: '#9b59b6' },
+          { source: 'tech', target: 'medium', value: 150, color: '#9b59b6' },
+          { source: 'tech', target: 'small', value: 100, color: '#9b59b6' },
+          { source: 'tech', target: 'startup', value: 150, color: '#9b59b6' },
+
+          { source: 'finance', target: 'large', value: 250, color: '#f1c40f' },
+          { source: 'finance', target: 'medium', value: 150, color: '#f1c40f' },
+          { source: 'finance', target: 'small', value: 50, color: '#f1c40f' },
+          { source: 'finance', target: 'startup', value: 50, color: '#f1c40f' },
+
+          { source: 'healthcare', target: 'large', value: 150, color: '#e67e22' },
+          { source: 'healthcare', target: 'medium', value: 100, color: '#e67e22' },
+          { source: 'healthcare', target: 'small', value: 100, color: '#e67e22' },
+          { source: 'healthcare', target: 'startup', value: 50, color: '#e67e22' },
+
+          { source: 'education', target: 'large', value: 100, color: '#1abc9c' },
+          { source: 'education', target: 'medium', value: 100, color: '#1abc9c' },
+          { source: 'education', target: 'small', value: 50, color: '#1abc9c' },
+          { source: 'education', target: 'startup', value: 50, color: '#1abc9c' },
+        ],
+      };
+
+      // 多层级数据流转
+      const multiLevelData = {
+        nodes: [
+          // 第一层：数据源
+          { id: 'web', name: '网站', value: 500 },
+          { id: 'app', name: '应用', value: 400 },
+          { id: 'iot', name: '物联网', value: 300 },
+          { id: 'social', name: '社交媒体', value: 350 },
+
+          // 第二层：数据处理
+          { id: 'collection', name: '数据采集', value: 800 },
+          { id: 'cleaning', name: '数据清洗', value: 700 },
+          { id: 'transform', name: '数据转换', value: 600 },
+
+          // 第三层：数据存储
+          { id: 'database', name: '数据库', value: 500 },
+          { id: 'warehouse', name: '数据仓库', value: 450 },
+          { id: 'lake', name: '数据湖', value: 400 },
+
+          // 第四层：数据分析
+          { id: 'bi', name: '商业智能', value: 350 },
+          { id: 'ml', name: '机器学习', value: 300 },
+          { id: 'stats', name: '统计分析', value: 250 },
+
+          // 第五层：数据应用
+          { id: 'dashboard', name: '仪表盘', value: 200 },
+          { id: 'report', name: '报表', value: 180 },
+          { id: 'alert', name: '告警系统', value: 150 },
+          { id: 'recommendation', name: '推荐系统', value: 170 },
+        ],
+        links: [
+          // 第一层到第二层
+          { source: 'web', target: 'collection', value: 300, color: '#3498db' },
+          { source: 'web', target: 'cleaning', value: 200, color: '#3498db' },
+          { source: 'app', target: 'collection', value: 250, color: '#2ecc71' },
+          { source: 'app', target: 'cleaning', value: 150, color: '#2ecc71' },
+          { source: 'iot', target: 'collection', value: 200, color: '#e74c3c' },
+          { source: 'iot', target: 'transform', value: 100, color: '#e74c3c' },
+          { source: 'social', target: 'collection', value: 150, color: '#9b59b6' },
+          { source: 'social', target: 'cleaning', value: 200, color: '#9b59b6' },
+
+          // 第二层到第三层
+          { source: 'collection', target: 'database', value: 300, color: '#f1c40f' },
+          { source: 'collection', target: 'lake', value: 200, color: '#f1c40f' },
+          { source: 'cleaning', target: 'database', value: 200, color: '#e67e22' },
+          { source: 'cleaning', target: 'warehouse', value: 300, color: '#e67e22' },
+          { source: 'transform', target: 'warehouse', value: 150, color: '#1abc9c' },
+          { source: 'transform', target: 'lake', value: 200, color: '#1abc9c' },
+
+          // 第三层到第四层
+          { source: 'database', target: 'bi', value: 250, color: '#34495e' },
+          { source: 'database', target: 'stats', value: 150, color: '#34495e' },
+          { source: 'warehouse', target: 'bi', value: 200, color: '#7f8c8d' },
+          { source: 'warehouse', target: 'ml', value: 150, color: '#7f8c8d' },
+          { source: 'lake', target: 'ml', value: 200, color: '#16a085' },
+          { source: 'lake', target: 'stats', value: 100, color: '#16a085' },
+
+          // 第四层到第五层
+          { source: 'bi', target: 'dashboard', value: 150, color: '#27ae60' },
+          { source: 'bi', target: 'report', value: 150, color: '#27ae60' },
+          { source: 'ml', target: 'recommendation', value: 170, color: '#d35400' },
+          { source: 'ml', target: 'alert', value: 50, color: '#d35400' },
+          { source: 'stats', target: 'report', value: 100, color: '#8e44ad' },
+          { source: 'stats', target: 'alert', value: 100, color: '#8e44ad' },
+        ],
+      };
+
+      // 字体配置
+      const fontConfigs = {
+        light: {
+          color: '#333',
+          fontSize: { x: '11px' },
+          fontFamily: 'Arial, sans-serif',
+          fontWeight: 'bold',
+        },
+        dark: {
+          color: '#fff',
+          fontSize: { x: '11px' },
+          fontFamily: 'Arial, sans-serif',
+          fontWeight: 'bold',
+        },
+      };
+
+      // 节点标签配置
+      const nodeLabelConfig = {
+        position: 'right',
+        align: 'left',
+        fontSize: 11,
+        offset: 5,
+      };
+
+      // 连接线标签配置
+      const linkLabelConfig = {
+        show: true,
+        position: 'middle',
+        align: 'center',
+        fontSize: 10,
+        offset: 0,
+      };
+
+      // 获取窗口尺寸
+      function getWindowSize() {
+        return {
+          width: window.innerWidth - 20,
+          height: 380, // 略小于容器高度
+        };
+      }
+
+      // 创建图表配置
+      function createChartConfig(id, data, options = {}) {
+        const defaultConfig = {
+          id,
+          datas: data,
+          chartLeft: 80,
+          chartRight: 10,
+          chartTop: 10,
+          chartBottom: 10,
+          width: getWindowSize().width,
+          height: getWindowSize().height,
+        };
+
+        return { ...defaultConfig, ...options };
+      }
+
+      // 随机更新数据
+      function updateRandomData(originalData, minValue, randomRange) {
+        const newData = JSON.parse(JSON.stringify(originalData));
+        for (let i = 0; i < newData.links.length; i++) {
+          newData.links[i].value = Math.max(
+            minValue,
+            newData.links[i].value + Math.floor(Math.random() * randomRange) - randomRange / 2
+          );
+        }
+        return newData;
+      }
+
+      // 创建图表实例
+      const charts = [];
+
+      // chart 1: 能源流向分析
+      const energyFlowChart = new SankeyChart(
+        createChartConfig('sankey1', energyData, {
+          font: fontConfigs.light,
+          nodeWidth: 45,
+          nodePadding: 20,
+          range: { min: 0, max: 600 },
+        })
+      );
+
+      energyFlowChart.init();
+      charts.push(energyFlowChart);
+
+      // chart 2: 网站用户行为分析
+      const websiteFlowChart = new SankeyChart(
+        createChartConfig('sankey2', websiteData, {
+          font: fontConfigs.dark,
+          nodeWidth: 20,
+          nodePadding: 35,
+          range: { min: 0, max: 600 },
+          nodeAlign: 'justify',
+          nodeLabel: nodeLabelConfig,
+          linkLabel: linkLabelConfig,
+        })
+      );
+
+      websiteFlowChart.init();
+      charts.push(websiteFlowChart);
+
+      // chart 3: 个人财务流向
+      const financeFlowChart = new SankeyChart(
+        createChartConfig('sankey3', financeData, {
+          font: fontConfigs.dark,
+          nodeWidth: 20,
+          nodePadding: 35,
+          range: { min: 0, max: 8000 },
+          nodeAlign: 'justify',
+          nodeLabel: nodeLabelConfig,
+          linkLabel: linkLabelConfig,
+        })
+      );
+
+      financeFlowChart.init();
+      charts.push(financeFlowChart);
+
+      // chart 4: 供应链物流分析
+      const supplyChainChart = new SankeyChart(
+        createChartConfig('sankey4', supplyChainData, {
+          font: fontConfigs.light,
+          nodeWidth: 20,
+          nodePadding: 30,
+          range: { min: 0, max: 600 },
+          nodeAlign: 'justify',
+          nodeLabel: nodeLabelConfig,
+          linkLabel: linkLabelConfig,
+        })
+      );
+
+      supplyChainChart.init();
+      charts.push(supplyChainChart);
+
+      // chart 5: 人才流动分析
+      const talentFlowChart = new SankeyChart(
+        createChartConfig('sankey5', talentFlowData, {
+          font: fontConfigs.dark,
+          nodeWidth: 20,
+          nodePadding: 30,
+          range: { min: 0, max: 700 },
+          nodeAlign: 'justify',
+          nodeLabel: nodeLabelConfig,
+          linkLabel: linkLabelConfig,
+        })
+      );
+
+      talentFlowChart.init();
+      charts.push(talentFlowChart);
+
+      // chart 6: 多层级数据流转
+      const multiLevelChart = new SankeyChart(
+        createChartConfig('sankey6', multiLevelData, {
+          font: fontConfigs.dark,
+          nodeWidth: 15,
+          nodePadding: 25,
+          range: { min: 0, max: 800 },
+          nodeAlign: 'justify',
+          nodeLabel: {
+            ...nodeLabelConfig,
+            fontSize: 10, // 更小的字体，适应多层级
+          },
+          linkLabel: linkLabelConfig,
+        })
+      );
+
+      multiLevelChart.init();
+      charts.push(multiLevelChart);
+
+      // 设置数据更新定时器
+      setTimeout(() => {
+        energyFlowChart.update({
+          datas: updateRandomData(energyData, 10, 100),
+        });
+      }, 3000);
+
+      setTimeout(() => {
+        websiteFlowChart.update({
+          datas: updateRandomData(websiteData, 5, 50),
+        });
+      }, 5000);
+
+      setTimeout(() => {
+        supplyChainChart.update({
+          datas: updateRandomData(supplyChainData, 20, 80),
+        });
+      }, 4000);
+
+      setTimeout(() => {
+        talentFlowChart.update({
+          datas: updateRandomData(talentFlowData, 10, 60),
+        });
+      }, 6000);
+
+      // 防抖函数
+      function debounce(func, wait) {
+        let timeout;
+        return function () {
+          const context = this;
+          const args = arguments;
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(context, args), wait);
+        };
+      }
+
+      // 响应式处理
+      function handleResize() {
+        const size = getWindowSize();
+        const commonUpdateConfig = {
+          width: size.width,
+          height: size.height,
+          chartLeft: 80,
+          chartRight: 10,
+          chartTop: 10,
+          chartBottom: 10,
+        };
+
+        // 更新第一个图表
+        energyFlowChart.update({
+          ...commonUpdateConfig,
+          nodeWidth: 45,
+          nodePadding: 20,
+        });
+
+        // 更新第二个和第三个图表
+        websiteFlowChart.update({
+          ...commonUpdateConfig,
+          nodeWidth: 20,
+          nodePadding: 35,
+        });
+
+        financeFlowChart.update({
+          ...commonUpdateConfig,
+          nodeWidth: 20,
+          nodePadding: 35,
+        });
+
+        // 更新第四个图表
+        supplyChainChart.update({
+          ...commonUpdateConfig,
+          nodeWidth: 20,
+          nodePadding: 30,
+        });
+
+        // 更新第五个图表
+        talentFlowChart.update({
+          ...commonUpdateConfig,
+          nodeWidth: 20,
+          nodePadding: 30,
+        });
+
+        // 更新第六个图表
+        multiLevelChart.update({
+          ...commonUpdateConfig,
+          nodeWidth: 15,
+          nodePadding: 25,
+        });
+      }
+
+      // 监听窗口大小变化，使用防抖优化
+      window.addEventListener('resize', debounce(handleResize, 200));
+
+      // 初始调用一次以适应当前窗口大小
+      setTimeout(handleResize, 100);
+    </script>
+  </body>
+</html>

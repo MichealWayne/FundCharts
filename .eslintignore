@@ -1,0 +1,8 @@
+baks/*
+/node_modules/*
+/temp/*
+/examples/web/*
+lib/*.js
+*.sh
+node_modules
+*.md

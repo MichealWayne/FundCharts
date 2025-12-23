@@ -12,14 +12,14 @@
 }
 
 .u-canvas {
-  width: 375px; 
+  width: 375px;
   height: 212px;
 }
 .s-bg_linear {
-    background-color: #9198e5;
-    background-image: linear-gradient(#e66465, #9198e5);
+  background-color: #9198e5;
+  background-image: linear-gradient(#e66465, #9198e5);
 }
 .s-bg_linear2 {
-    background-color: #000;
-    background-image: linear-gradient(#666, #000);
+  background-color: #000;
+  background-image: linear-gradient(#666, #000);
 }

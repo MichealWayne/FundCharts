@@ -8,70 +8,74 @@
   <a href="https://www.npmjs.com/package/fundcharts" rel="nofollow"><img src="https://blog.michealwayne.cn/FundCharts/docs/assets/img/npm.91127fd2.svg" alt="npm package" data-canonical-src="./images/npm.svg" style="max-width:100%;"></a>
 </p>
 
-**[文档>>](http://blog.michealwayne.cn/FundCharts/docs/)**，[English/npm](https://www.npmjs.com/package/fundcharts)
+轻量级 canvas 数据可视化组件库，可在 web 端/小程序端/服务端 nodjes 运行。核心原则：**轻量**，**只注重图形**。
+目前包含折线图、面积图、饼图、柱状图、雷达图（蜘蛛图）、雷达图、桑基图、散点图、K 线图，开放图形组合接口。
 
-轻量级canvas数据可视化组件库，可在web端/小程序端/服务端nodjes运行。核心原则：**轻量**，**只注重图形**。
-目前包含折线图、面积图、饼图、柱状图、雷达图（蜘蛛图）、雷达图、散点图、K线图，开放图形组合接口。（codepen demo：[https://codepen.io/michealwayne/](https://codepen.io/michealwayne/)）
+> 注：对于有 canvas 开发基础经验的人员来说，通过[实例的再次绘制](https://blog.michealwayne.cn/FundCharts/docs/twiceDraw/#%E4%BA%8C%E6%AC%A1%E7%BB%98%E5%88%B6)可以完全实现特殊的可视化定制效果。
 
-> 注：对于有canvas开发基础经验的人员来说，通过[实例的再次绘制](https://blog.michealwayne.cn/FundCharts/docs/twiceDraw/#%E4%BA%8C%E6%AC%A1%E7%BB%98%E5%88%B6)可以完全实现特殊的可视化定制效果。
+## 文档
 
-### 向导
+- **[使用文档>>](http://blog.michealwayne.cn/FundCharts/docs/)**；
+- [English/npm](https://www.npmjs.com/package/fundcharts)
+- codepen demo：[https://codepen.io/michealwayne/](https://codepen.io/michealwayne/)
+
+### 工程说明
+
+- 工程启动、调试等见[工程说明>>](./PROJECT_GUIDE.md)（使用 pnpm）
+
+### 使用
+
 - [开始](http://blog.michealwayne.cn/FundCharts/docs/guide/)
-- [图形](http://blog.michealwayne.cn/FundCharts/docs/graphs/)
-    - [折线图/面积图](http://blog.michealwayne.cn/FundCharts/docs/graphs/#折线图-面积图：line)
-    - [饼图/环形图](http://blog.michealwayne.cn/FundCharts/docs/graphs/#饼图-环形图：pie)
-    - [柱状图](http://blog.michealwayne.cn/FundCharts/docs/graphs/#柱状图：bar)
-    - [雷达图/蜘蛛图](http://blog.michealwayne.cn/FundCharts/docs/graphs/#雷达图（蜘蛛图）：radar)
-    - [散点图](http://blog.michealwayne.cn/FundCharts/docs/graphs/#散点图：scatter)
-	- [K线图](http://blog.michealwayne.cn/FundCharts/docs/graphs/#k线图：kline)
-	- [图形合并](http://blog.michealwayne.cn/FundCharts/docs/graphs/#图形合并)
-- [二次绘制](http://blog.michealwayne.cn/FundCharts/docs/twiceDraw/)
+- [图形绘制](http://blog.michealwayne.cn/FundCharts/docs/graphs/)
+  - [折线图/面积图](http://blog.michealwayne.cn/FundCharts/docs/graphs/#折线图-面积图：line)
+  - [饼图/环形图](http://blog.michealwayne.cn/FundCharts/docs/graphs/#饼图-环形图：pie)
+  - [柱状图](http://blog.michealwayne.cn/FundCharts/docs/graphs/#柱状图：bar)
+  - [雷达图/蜘蛛图](http://blog.michealwayne.cn/FundCharts/docs/graphs/#雷达图（蜘蛛图）：radar)
+  - [散点图](http://blog.michealwayne.cn/FundCharts/docs/graphs/#散点图：scatter)
+  - [K 线图](http://blog.michealwayne.cn/FundCharts/docs/graphs/#k线图：kline)
+  - [图形合并](http://blog.michealwayne.cn/FundCharts/docs/graphs/#图形合并)
+- [加工绘制](http://blog.michealwayne.cn/FundCharts/docs/twiceDraw/)
 - [ToolTips](http://blog.michealwayne.cn/FundCharts/docs/tooltips/)
-- [小程序](http://blog.michealwayne.cn/FundCharts/docs/weapp/)
-- [nodejs服务端](http://blog.michealwayne.cn/FundCharts/docs/nodejs/)
-
+- [小程序使用说明](http://blog.michealwayne.cn/FundCharts/docs/weapp/)
+- [nodejs 服务端说明](http://blog.michealwayne.cn/FundCharts/docs/nodejs/)
 
 ### 目录结构
 
 ```
 FundCharts
-├─dist       FundCharts单例
-│   ├─react.d.ts      ts声明文件
-│   ├─vue.d.ts        ts声明文件
-│   ├─index.d.ts        ts声明文件
-│   ├─react.js        ReactJs组件
-│   ├─vue.js          VueJs组件
-│   ├─BarChart.js     柱状图
-│   ├─KlineChart.js   K线图
-│   ├─LineChart.js    折线图/面积图		  
-│   ├─PieChart.js     饼图/环形图
-│   ├─RadarChart.js   雷达图（蜘蛛图）
-│   └─ScatterChart.js 散点图
-├─toolTips   图表提示辅助组件
-├─demo       使用案例
-├─docs       文档
-├─versions   历史版本
-├─FundCharts.min.js   FundCharts，web/weapp端使用库
-├─FundCharts.tooltips.js   FundCharts ToolTips插件
-└─FundCharts-node.js  FundCharts，nodejs端使用库
+├─packages
+│   ├─core        核心模块
+│   ├─charts      图表工厂/图形实现
+│   ├─toolTips    交互提示工具
+│   └─components  组件封装
+├─scripts
+│   ├─build       构建脚本
+│   └─jest        单测脚本
+├─types          全局类型声明
+├─lib            构建产物
+├─docs           文档
+├─demo           示例
+├─coverage       单测报告
+├─openspec       规范与变更说明
+└─PROJECT_GUIDE.md 工程说明
 
 ```
 
 ### 特性
 
 - **重图形**：只注重图形的可视化实现，画布以及换算提供全面接口供二次绘制。
-- **轻量级**：体积小无依赖，全量直接引用仅30k，开启gzip仅10.8k；按需引用打包体积更小。
-- **兼容好**：小程序端；web Android4及以上，ios8及以上；nodejs8.0及以上。
+- **轻量级**：体积小无依赖，全量直接引用仅 `30k`，开启 gzip 仅 `10.8k`；按需引用打包体积更小。
+- **兼容好**：小程序端；web `Android4.4` 及以上，`iOS9` 及以上；`nodejs10.0` 及以上。
 
 兼容：
 
 ### browser
 
-- ios8及以上
-- android 4及以上
+- ios9 及以上
+- android 4.4 及以上
 - PC IE9+/Firefox/Opera/Chrome/Safari12+
 
-> 注：与框架无冲突，配有[React/Vue组件](https://blog.michealwayne.cn/FundCharts/docs/guide/#react-vue使用)。`v0.9.10`起支持 TypeScript 直接使用。
+> 注：与框架无冲突，配有[React/Vue 组件](https://blog.michealwayne.cn/FundCharts/docs/guide/#react-vue使用)。`v0.9.10`起支持 TypeScript 直接使用。
 
 ### weapp
 
@@ -79,7 +83,7 @@ FundCharts
 
 ### server
 
-- nodejs v8.0+
+- nodejs v10+
 
 ## 最新版本
 
@@ -88,37 +92,20 @@ FundCharts
 （历史版本访问[FundCharts-versions](https://github.com/MichealWayne/FundCharts/tree/master/versions)）
 
 ## 更新信息
-- 2022.02.05(`v0.9.11`): 修复line面积渐变bug，options边界bug；增加实例内存销毁方法destory()；
-- 2021.09.25(`v0.9.10`)：增加声明文件以支持TypeScript；增加ToolTip的集成；
-- 2021.06.20(`v0.9.9`)：修复微信小程序注册bug。
-- 2021.06.08(`v0.9.8`)：修复计算bug；优化代码。
-- 2020.09.08(`v0.9.7`)：增加图表提示辅助组件ToolTips；FundCharts适配ToolTips。
-- 2020.02.28(`v0.9.6`)：修复特殊情况下饼图Pie的间距bug；柱状图增加堆叠效果（多数据项）。
-- 2019.12.20(`v0.9.5`)：增加React/Vue组件；Pie/Radar设置origin时不需要x,y必填。
-- 2019.10.28(`v0.9.4`)：背景默认透明('#fff' -> `rgba(0,0,0,0)`)；折线图line初始动画方式替换，交互超出边界处理调整（执行onFinish，展示边界值）；散点图增加圆点边框半径控制borderRate。
-- 2019.09.20(`v0.9.3`)：增加图形合并：line和kline、bar和line可以组合。grid(line/bar/scatter/kline)：增加x/y坐标轴线显示控制(grid.showGrid)、增加x/y轴网格数量控制(xTickLength/yTickLength)、hover回调参数增加touchEvent的y坐标值。所有图形增加动画时长控制(duration)。饼/环形pie：增加起始角度控制(startAngle)。饼/环形/雷达图pie/radar：触控交互区域进行范围限制。折线line：修复update()特殊调用情景的bug。柱状图bar：修复barWidth失效bug。
-- 2019.08.23(`v0.9.2`)：优化line/pie/radar/bar的update切换过渡动画；折线图line增加曲线展示(curveLine)；k线图增加空心展示控制(upHollow)。
-- 2019.07.18(`v0.9.1`)：增加柱状图/k线图/饼图/环形图/雷达图交互反馈；web端可直接在canvas元素上绘制；修复雷达图坐标及小程序网格bug，修复小程序hover抖动bug；
-- 2019.06.20(`v0.9.0`)：增加k线图；增加小程序动画；修复柱状图xaxis bug；开放x/y轴文案处理函数（handleTextX/handleTextY）；
-- 2019.06.10(`beta`)：修复部分bug(折线图/柱状图单点数据)；
-- 2019.05.05(`beta`)：增加散点图；新增图形区域控制、动画执行回调等参数控制；
-- 2019.04.16(`beta`)：增加雷达图（蜘蛛图）；柱状图修复负值控制；取消线性动画函数选择；
-- 2019.04.08(`beta`)：折线图增加粗细控制、虚线可选等参数设置；画布背景色可设置；
-- 2019.03.15(`beta`)：新增小程序端/nodejs服务端支持；
 
+[change log](./CHANGELOG.md)
 
 ## 使用
 
-[文档-FundCharts的安装和使用](https://blog.michealwayne.cn/FundCharts/docs/guide/#安装和使用)
+[文档-FundCharts 的安装和使用](https://blog.michealwayne.cn/FundCharts/docs/guide/#安装和使用)
 
 ## 图形配置
 
-[文档-FundCharts图形及配置](https://blog.michealwayne.cn/FundCharts/docs/graphs/#折线图-面积图：line)
+[文档-FundCharts 图形及配置](https://blog.michealwayne.cn/FundCharts/docs/graphs/#折线图-面积图：line)
 
-## 启动查看测试demo
+## 启动查看测试 demo
 
-[github-demos](./demo/)
-
+- [github-demos](./demo/)
 
 <p>
 <a href="https://github.com/MichealWayne/FundCharts/tree/master/demo">
@@ -137,7 +124,6 @@ FundCharts
 </a>
 </p>
 
-
 ## 其他
 
 ### 默认颜色组
@@ -148,11 +134,9 @@ FundCharts
 '#707ad9',   // 深蓝
 '#ffa61b',   // 橙
 '#64d290',   // 青
-'#cf27bd'    // 紫  
+'#cf27bd'    // 紫
 ```
 
 ![colorArray](https://blog.michealwayne.cn/images/fundchartspics/colors.png)
-
-
 
 - 反馈：[michealwayne@163.com](mailto:michealwayne@163.com)

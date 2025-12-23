@@ -1,0 +1,46 @@
+<view class="fundCharts-demo">
+  <view class="chart-section">
+    <view class="u-h3">1. 能源流向分析图</view>
+    <view class="chart-container">
+      <canvas
+        canvas-id="sankey1"
+        style="width: 375px; height: 280px;"
+        data-chart="sankey1"
+        bindtouchstart="sankeyTouchstart"
+        bindtouchmove="sankeyTouchmove"
+      ></canvas>
+    </view>
+    <view class="chart-info">展示不同能源类型的流向和使用情况</view>
+
+  </view>
+
+  <view class="chart-section">
+    <view class="u-h3">2. 网站用户行为分析</view>
+    <view class="chart-container">
+      <canvas
+        canvas-id="sankey2"
+        style="width: 375px; height: 280px;"
+        data-chart="sankey2"
+        bindtouchstart="sankeyTouchstart"
+        bindtouchmove="sankeyTouchmove"
+      ></canvas>
+    </view>
+    <view class="chart-info">分析用户在不同页面间的流转路径</view>
+
+  </view>
+
+  <view class="chart-section">
+    <view class="u-h3">3. 个人财务流向分析</view>
+    <view class="chart-container">
+      <canvas
+        canvas-id="sankey3"
+        style="width: 375px; height: 280px;"
+        data-chart="sankey3"
+        bindtouchstart="sankeyTouchstart"
+        bindtouchmove="sankeyTouchmove"
+      ></canvas>
+    </view>
+    <view class="chart-info">展示收入在不同支出类别的分配情况</view>
+
+  </view>
+</view>

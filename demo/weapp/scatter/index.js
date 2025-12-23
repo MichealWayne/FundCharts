@@ -1,15 +1,15 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 /**
  * FundCharts
  * 散点图ScatterChart
  */
 
-const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
+const FundCharts = require('../../../lib/FundCharts/lib/index.cjs'); // 注意拷FundCharts.min.js
 
 const ScatterChart = FundCharts.scatter;
 
-
 Page({
-
   onReady() {
     this.drawScatter();
   },
@@ -18,18 +18,22 @@ Page({
     // chart 1
     let scatter1 = new ScatterChart({
       id: 'chartscatter1',
-      xaxisfunc() { return '' },
-      yaxisfunc() { return '' },
+      xaxisfunc() {
+        return '';
+      },
+      yaxisfunc() {
+        return '';
+      },
       noDash: true,
       pointWidths: [5, 3],
-      borderRate: 1.5,     // 圆点边框
+      borderRate: 1.5, // 圆点边框
       colors: ['#fe5d4e', '#fe5d4e'],
       datas: [
         [
           [3, 4],
           [3, 6],
           [6, 4],
-          [3, 5]
+          [3, 5],
         ],
         [
           [1, 2],
@@ -39,8 +43,8 @@ Page({
           [3, 5.5],
           [3.5, 4.4],
           [5, 6],
-          [7, 3]
-        ]
+          [7, 3],
+        ],
       ],
       width: 375,
       height: 200,
@@ -60,51 +64,42 @@ Page({
     let scatter2 = new ScatterChart({
       id: 'chartscatter2',
       yaxisfunc(data) {
-        return data.toFixed(0) + '%'
+        return data.toFixed(0) + '%';
       },
       xaxisfunc(data) {
-        return data.toFixed(0) + '天'
+        return data.toFixed(0) + '天';
       },
       chartTop: 20,
       chartLeft: 30,
       chartRight: 0,
-      datas: [
-        _arr1,
-        _arr2,
-        _arr3
-      ],
+      datas: [_arr1, _arr2, _arr3],
       width: 375,
       height: 200,
     });
 
     scatter2.init();
 
-
     // chart 3
     const scatter3 = new ScatterChart({
       id: 'chartscatter3',
-      datas: [
-        _arr1,
-        _arr2,
-        _arr3
-      ],
+      datas: [_arr1, _arr2, _arr3],
       range: {
         x: [0, 120],
-        y: [0, 200]
+        y: [0, 200],
       },
       grid: {
-        showGrid: true,         // 刻度线
-        color: '#999',     // 刻度线颜色
+        showGrid: true, // 刻度线
+        color: '#999', // 刻度线颜色
         yTickLength: 8,
-        xTickLength: 8
+        xTickLength: 8,
       },
       dash: {
-        length: 1
+        length: 1,
       },
       font: {
-        color: '#eee'
+        color: '#eee',
       },
-      noPointSide: true,  // 无描边
+      noPointSide: true, // 无描边
       chartLeft: 25,
       chartRight: 1,
       backgroundColor: '#000',
@@ -115,6 +110,5 @@ Page({
     });
 
     scatter3.init();
-
-  }
+  },
 });
