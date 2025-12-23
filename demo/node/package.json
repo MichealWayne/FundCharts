@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "canvas": "^2.6.0"
+    "@napi-rs/canvas": "^0.1.74"
   }
 }

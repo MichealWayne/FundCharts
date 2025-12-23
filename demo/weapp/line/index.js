@@ -1,21 +1,20 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 /**
  * FundCharts
  * 折线图LineCharts
  */
 
-const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
-const FundChartsToolTips = require('../../FundCharts-tooltips.js');  // 注意拷FundCharts-tooltips.js
+const FundCharts = require('../../../lib/FundCharts/lib/index.cjs'); // 注意拷FundCharts.min.js
+const FundChartsToolTips = require('../../../lib/FundChartsToolTips/lib/index.cjs'); // 注意拷fundchart-tooltips.js
 
-const {
-  BasicToolTip,
-  ArrowToolTip
-} = FundChartsToolTips;
+const { BasicToolTip, ArrowToolTip } = FundChartsToolTips;
 
 const LineChart = FundCharts.line;
 
 let line1 = null,
-    line2 = null,
-    line3 = null;
+  line2 = null,
+  line3 = null;
 
 Page({
   data: {
@@ -29,7 +28,7 @@ Page({
     line2Time2: '--',
     line2Sy2: '--',
     line2Time3: '--',
-    line2Sy3: '--'
+    line2Sy3: '--',
   },
 
   onReady() {
@@ -42,21 +41,21 @@ Page({
   drawLine() {
     // line chart 1
     let line1data = [1, 2, 3, 4, 3.5, 3, 4];
-    let line1xaxis = ['1-11', '2-11', '3-11', '4-22', '5-11', '6-11', '7-11']
+    let line1xaxis = ['1-11', '2-11', '3-11', '4-22', '5-11', '6-11', '7-11'];
     line1 = new LineChart({
       id: 'chartline1',
-      yaxisfunc(data) {     // 处理y轴刻度数值
-        return (data).toFixed(0) + '%'
+      yaxisfunc(data) {
+        // 处理y轴刻度数值
+        return data.toFixed(0) + '%';
       },
       font: {
-        color: '#eee'
+        color: '#eee',
       },
       width: 375,
       height: 212,
-      noGradient: true,     // 无渐变面积
+      noGradient: true, // 无渐变面积
       xaxis: line1xaxis,
-      data: line1data
-      
+      datas: line1data,
     });
     line1.init();
 
@@ -66,38 +65,53 @@ Page({
 
       line1.update({
         xaxis: line1xaxis,
-        data: line1data
-      })
+        datas: line1data,
+      });
     }, 2000);
 
     setTimeout(() => {
       clearInterval(line1timer);
-    }, 8000)
+    }, 8000);
 
     // line chart 2
     line2 = new LineChart({
       id: 'chartline2',
       yaxisfunc(data) {
-        return data.toFixed(0) + 'w'
+        return data.toFixed(0) + 'w';
       },
       width: 375,
       height: 212,
       noGradient: true,
       grid: {
         yTickLength: 7, // y轴刻度数量
-        xTickLength: 5  // x轴刻度数量
+        xTickLength: 5, // x轴刻度数量
       },
-      chartLeft: 30,        // 图形区域距离左边距离(px)
-      lineWidths: [4, 2, 1],     // 折线粗细
-      colors: ['#03c', '#0cc', '#fa0'],   // 折线颜色
-      pointStyle: '#f00',			// 点边框颜色
-      hoverLineColor: 'orange',		// 触控线的颜色
-      xaxis: ['07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11', '01-11', '02-11', '03-11', '04-11', '05-11', '06-11', '07-11'],
+      chartLeft: 30, // 图形区域距离左边距离(px)
+      lineWidths: [4, 2, 1], // 折线粗细
+      colors: ['#03c', '#0cc', '#fa0'], // 折线颜色
+      pointStyle: '#f00', // 点边框颜色
+      hoverLineColor: 'orange', // 触控线的颜色
+      xaxis: [
+        '07-11',
+        '08-11',
+        '09-11',
+        '09-22',
+        '10-11',
+        '11-11',
+        '12-11',
+        '01-11',
+        '02-11',
+        '03-11',
+        '04-11',
+        '05-11',
+        '06-11',
+        '07-11',
+      ],
       datas: [
         [2, 2, 3, 4, 3.5, 3, 4, 3],
         [2, 3, 4, 2, 3, 5, 6, 5],
-        [2, 4, 6, 3, 1, 2, 1, 3.3]
-      ]
+        [2, 4, 6, 3, 1, 2, 1, 3.3],
+      ],
     });
     line2.init();
 
@@ -106,11 +120,10 @@ Page({
         datas: [
           [2, 5, 6, 2, 1, 2, 3, 2, 5, 5, 7, 8, 9, 10],
           [2, 4, 6, 5, 7, 7, 3, 4, 5, 3, 2, 1, 0, 1],
-          [2, 8, 7, 5, 7, 3, 5, 7, 4, 4, 6, 9, 10, 11]
-        ]
-      })
+          [2, 8, 7, 5, 7, 3, 5, 7, 4, 4, 6, 9, 10, 11],
+        ],
+      });
     }, 5000);
-
 
     // line chart 3
     let xArr = ['05-11', '06-11', '07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'];
@@ -118,19 +131,20 @@ Page({
       id: 'chartline3',
       width: 375,
       height: 212,
-      allGradient: true,    // 设置面积渐变
+      allGradient: true, // 设置面积渐变
       xaxis: xArr,
 
       toolTip: {
         backgroundColor: '#000',
         color: '#fff',
         font: '14px Arial',
-        showTip (xdata, ydatas) {
-          return ydatas.map(item => item.toFixed(2)).join(':')
-        }
+        showTip(xdata, ydatas) {
+          return ydatas.map(item => item.toFixed(2)).join(':');
+        },
       },
-      
-      handleTextX: (ctx, xaxis) => {      // 处理x轴文字
+
+      handleTextX: (ctx, xaxis) => {
+        // 处理x轴文字
         // 增加x轴刻度
         let _chartWidth = line3.canvas.width - line3.opts.chartLeft - line3.opts.chartRight;
         ctx.textAlign = 'center';
@@ -138,33 +152,37 @@ Page({
         ctx.font = '10px Arial';
         ctx.fillStyle = '#333';
         for (let i in xArr) {
-          ctx.fillText(xArr[i], (_chartWidth / (xArr.length - 1) * i) + line3.opts.chartLeft, line3.canvas.height - 13);
+          ctx.fillText(
+            xArr[i],
+            (_chartWidth / (xArr.length - 1)) * i + line3.opts.chartLeft,
+            line3.canvas.height - 13
+          );
         }
       },
       datas: [
         [1, 2, 3, 4, 3.5, 3, 4, 8, 4],
-        [4, 3, 4, 2, 3, 5, 6, 3, 5]
-      ]
+        [4, 3, 4, 2, 3, 5, 6, 3, 5],
+      ],
     });
-    
+
     line3.init();
 
     // line chart 4
     let line4 = new LineChart({
       id: 'chartline4',
-      yaxisfunc(data) {     // 处理y轴刻度数值
-        return (data).toFixed(2)
+      yaxisfunc(data) {
+        // 处理y轴刻度数值
+        return data.toFixed(2);
       },
       font: {
-        color: '#eee'
+        color: '#eee',
       },
       colors: ['#eff'],
       width: 375,
       height: 212,
-      curveLine: true,     // 曲线
+      curveLine: true, // 曲线
       xaxis: ['1-11', '2-11', '3-11', '4-22', '5-11', '6-11', '7-11'],
-      data: [4, 2, 3, 4, 3.5, 3, 4]
-
+      datas: [4, 2, 3, 4, 3.5, 3, 4],
     });
     line4.init();
 
@@ -174,15 +192,28 @@ Page({
       width: 375,
       height: 212,
       chartTop: 1,
-      xaxis: ['03-11', '04-11', '05-11', '06-11', '07-11', '08-11', '09-11', '09-22', '10-11', '11-11', '12-11'],
-      data: [4, 3, 4, 2, 1, 2, 3, 4, 3.5, 3, 4],
+      xaxis: [
+        '03-11',
+        '04-11',
+        '05-11',
+        '06-11',
+        '07-11',
+        '08-11',
+        '09-11',
+        '09-22',
+        '10-11',
+        '11-11',
+        '12-11',
+      ],
+      datas: [4, 3, 4, 2, 1, 2, 3, 4, 3.5, 3, 4],
 
       grid: {
         showGrid: true,
         color: '#aaa',
-        xTickLength: 11
+        xTickLength: 11,
       },
-      handleTextX: (ctx, xArr) => {      // 处理x轴文字
+      handleTextX: (ctx, xArr) => {
+        // 处理x轴文字
         // 增加x轴刻度
         let _chartWidth = line5._chart.width - line5.opts.chartLeft - line5.opts.chartRight;
         ctx.textAlign = 'center';
@@ -191,7 +222,11 @@ Page({
         ctx.fillStyle = '#333';
 
         for (let i in xArr) {
-          ctx.fillText(xArr[i], (_chartWidth / (xArr.length - 1) * i) + line5.opts.chartLeft, line5._chart.height - 10);
+          ctx.fillText(
+            xArr[i],
+            (_chartWidth / (xArr.length - 1)) * i + line5.opts.chartLeft,
+            line5._chart.height - 10
+          );
         }
       },
 
@@ -200,7 +235,7 @@ Page({
           chartLeft = line5.opts.chartLeft,
           datasets = line5.datasets[0];
 
-        ctx.save()
+        ctx.save();
         ctx.lineWidth = 2;
         ctx.strokeStyle = '#fff';
         ctx.fillStyle = '#ffa61b';
@@ -220,7 +255,7 @@ Page({
         });
 
         ctx.restore();
-      }
+      },
     });
     line5.init();
   },
@@ -233,11 +268,11 @@ Page({
       if (index === false) return false;
 
       let _x = line1.opts.xaxis[index],
-          _y = (line1.opts.datas[0][index]).toFixed(2) + '%';
+        _y = line1.opts.datas[0][index].toFixed(2) + '%';
 
       this.setData({
         line1Time: _x,
-        line1Sy: _y
+        line1Sy: _y,
       });
       ArrowToolTip.call(line1, index, [parseFloat(_y)], _x, event.x, event.y);
     }
@@ -249,11 +284,11 @@ Page({
       let index = line1.drawer.drawHover(event.x);
       if (index === false) return false;
       let _x = line1.opts.xaxis[index],
-          _y = (line1.opts.datas[0][index]).toFixed(2) + '%';
+        _y = line1.opts.datas[0][index].toFixed(2) + '%';
 
       this.setData({
         line1Time: _x,
-        line1Sy: _y
+        line1Sy: _y,
       });
       ArrowToolTip.call(line1, index, [parseFloat(_y)], _x, event.x, event.y);
     }
@@ -267,7 +302,7 @@ Page({
       if (index === false) return false;
 
       let _x = line2.opts.xaxis[index],
-          _yArr = line2.opts.datas;
+        _yArr = line2.opts.datas;
 
       this.setData({
         line2Time1: _x,
@@ -275,8 +310,8 @@ Page({
         line2Time2: _x,
         line2Sy2: _yArr[1][index].toFixed(0) + 'w',
         line2Time3: _x,
-        line2Sy3: _yArr[2][index].toFixed(0) + 'w'
-      })
+        line2Sy3: _yArr[2][index].toFixed(0) + 'w',
+      });
     }
   },
   // line 2 chart demo touch move
@@ -295,8 +330,8 @@ Page({
         line2Time2: _x,
         line2Sy2: _yArr[1][index].toFixed(0) + 'w',
         line2Time3: _x,
-        line2Sy3: _yArr[2][index].toFixed(0) + 'w'
-      })
+        line2Sy3: _yArr[2][index].toFixed(0) + 'w',
+      });
     }
   },
   // line 3 chart demo touch start
@@ -308,7 +343,14 @@ Page({
 
       let _x = line3.opts.xaxis[index];
 
-      BasicToolTip.call(line3, index, line3.opts.datas.map(item => item[index]), _x, event.x, event.y);
+      BasicToolTip.call(
+        line3,
+        index,
+        line3.opts.datas.map(item => item[index]),
+        _x,
+        event.x,
+        event.y
+      );
     }
   },
   // line 3 chart demo touch move
@@ -319,7 +361,14 @@ Page({
       if (index === false) return false;
       let _x = line3.opts.xaxis[index];
 
-      BasicToolTip.call(line3, index, line3.opts.datas.map(item => item[index]), _x, event.x, event.y);
+      BasicToolTip.call(
+        line3,
+        index,
+        line3.opts.datas.map(item => item[index]),
+        _x,
+        event.x,
+        event.y
+      );
     }
   },
 });

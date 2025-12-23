@@ -1,0 +1,30 @@
+{
+  "name": "fundcharts-core",
+  "version": "1.0.0",
+  "description": "web/weapp/nodejs canvas charts library.",
+  "main": "index.js",
+  "scripts": {
+    "test:unit": "jest"
+  },
+  "author": "Wayne<michealwayne@163.com>",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "files": [
+    "CHANGES.md",
+    "README.md",
+    "index.js",
+    "dist/"
+  ]
+}

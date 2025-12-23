@@ -1,0 +1,28 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "allowJs": true,
+    "baseUrl": ".",
+    "importHelpers": true,
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@/*": ["src/*"],
+      "fundcharts-core": ["../core/src/index.ts"]
+    },
+    "types": ["jest", "node"]
+  },
+  "exclude": [
+    "./baks/**/*",
+    "node_modules"
+  ]
+}

@@ -1,0 +1,21 @@
+[{
+    "name": "FundchartsCore",
+    "from": "./packages/core/src/index.ts",
+    "modules": ["es", "umd", "cjs"]
+  },
+  {
+    "name": "FundCharts",
+    "from": "./packages/charts/src/index.ts",
+    "modules": ["es", "umd", "cjs"]
+  },
+  {
+    "name": "FundChartsToolTips",
+    "from": "./packages/toolTips/src/index.ts",
+    "modules": ["es", "umd", "cjs"]
+  },
+  {
+    "name": "FundChartsComponents",
+    "from": "./packages/components/src/index.ts",
+    "modules": ["es", "umd", "cjs"]
+  }
+]

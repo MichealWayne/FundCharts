@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "module": "ESNext",
+    "jsx": "react",
+    "typeRoots": ["./types", "node_modules/@types"],
+    "paths": {
+      "fundcharts-core": ["./packages/core/src/index.ts"]
+    },
+    "types": ["jest", "node"]
+  },
+  "include": ["packages/**/src", "types/*", "types"],
+  "exclude": [
+    "__tests__",
+    "temp",
+    "node_modules",
+    "**/node_modules",
+    "scripts/*", 
+    "demo/*", 
+    "src/**/**/demo/*", 
+    "src/packages/**/demo", 
+    "**/demo/*"
+  ]
+}

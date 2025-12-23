@@ -1,0 +1,165 @@
+.fundCharts-demo {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.demo-header {
+  text-align: center;
+  margin-bottom: 40rpx;
+  padding: 30rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16rpx;
+  color: white;
+}
+
+.demo-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.demo-desc {
+  display: block;
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+.chart-section {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+}
+
+.u-h3 {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20rpx 0;
+  border: 2rpx solid #eee;
+  border-radius: 12rpx;
+  background: #fafafa;
+  padding: 20rpx;
+}
+
+.chart-info {
+  text-align: center;
+  font-size: 24rpx;
+  color: #666;
+  margin: 15rpx 0;
+  line-height: 1.4;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 20rpx;
+  margin-top: 25rpx;
+  flex-wrap: wrap;
+}
+
+.control-btn {
+  padding: 16rpx 32rpx;
+  font-size: 28rpx;
+  border: 2rpx solid #ddd;
+  background: #f8f8f8;
+  border-radius: 8rpx;
+  color: #333;
+  transition: all 0.2s;
+  min-width: 140rpx;
+}
+
+.control-btn:active {
+  background: #e0e0e0;
+  transform: scale(0.98);
+}
+
+.control-btn[disabled] {
+  opacity: 0.6;
+  background: #f0f0f0;
+}
+
+.usage-tips {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-top: 30rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+}
+
+.tips-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.tips-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.tips-content text {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+  padding-left: 10rpx;
+}
+
+/* 响应式设计 */
+@media (max-width: 400px) {
+  .chart-container canvas {
+    width: 320px !important;
+    height: 240px !important;
+  }
+}
+
+/* 深色模式支持 */
+@media (prefers-color-scheme: dark) {
+  .fundCharts-demo {
+    background-color: #1a1a1a;
+  }
+
+  .chart-section,
+  .usage-tips {
+    background: #2d2d2d;
+    color: #fff;
+  }
+
+  .u-h3,
+  .tips-title {
+    color: #fff;
+  }
+
+  .chart-info,
+  .tips-content text {
+    color: #ccc;
+  }
+
+  .control-btn {
+    background: #3a3a3a;
+    border-color: #555;
+    color: #fff;
+  }
+
+  .control-btn:active {
+    background: #4a4a4a;
+  }
+
+  .chart-container {
+    background: #333;
+    border-color: #555;
+  }
+}

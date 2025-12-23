@@ -1,0 +1,35 @@
+{
+  "name": "fundcharts",
+  "version": "1.0.0",
+  "description": "web/weapp/nodejs canvas charts library.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "rollup --config ../../scripts/build/rollup.dev.config.js --watch",
+    "test:unit": "jest --config ../../scripts/jest/jest.config.js --testPathPattern=packages/charts",
+    "build": "rollup --config ../../scripts/build/rollup.config.js",
+    "build:prod": "cross-env NODE_ENV=production rollup --config ../../scripts/build/rollup.config.js"
+  },
+  "author": "MichealWayne<michealwayne@163.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "fundcharts-core": "workspace:../core"
+  },
+  "dependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "files": [
+    "CHANGES.md",
+    "README.md",
+    "index.js",
+    "dist/"
+  ]
+}

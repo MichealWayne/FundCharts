@@ -1,25 +1,22 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 /**
  * FundCharts
  * 饼图/环形图PieCharts
  */
 
-const FundCharts = require('../../FundCharts.min.js');		// 注意拷FundCharts.min.js
-const FundChartsToolTips = require('../../FundCharts-tooltips.js');  // 注意拷FundCharts-tooltips.js
+const FundCharts = require('../../../lib/FundCharts/lib/index.cjs'); // 注意拷FundCharts.min.js
+const FundChartsToolTips = require('../../../lib/FundChartsToolTips/lib/index.cjs'); // 注意拷fundchart-tooltips.js
 
-const {
-  PieCenterToolTip,
-  PieLabelToolTip
-} = FundChartsToolTips;
+const { PieCenterToolTip, PieLabelToolTip } = FundChartsToolTips;
 
 const PieChart = FundCharts.pie;
-
 
 let pie1 = null;
 let pie2 = null;
 let pie4 = null;
 
 Page({
-
   onReady() {
     this.drawPie();
   },
@@ -34,22 +31,21 @@ Page({
       datas: [0.1, 0.2, 0.3, 0.4],
       width: 200,
       height: 200,
-      hoverRate: 1.15,  // 交互高亮半径
+      hoverRate: 1.15, // 交互高亮半径
       toolTip: {
-        showTip (index) {
-          return ['吃饭', '睡觉', '打豆豆', '看书'][index]
-        }
-      }
+        showTip(index) {
+          return ['吃饭', '睡觉', '打豆豆', '看书'][index];
+        },
+      },
     });
 
     pie1.init();
 
     setTimeout(() => {
       pie1.update({
-        datas: [0.3, 0.4, 0.2, 0.1]
-      })
+        datas: [0.3, 0.4, 0.2, 0.1],
+      });
     }, 2000);
-
 
     // chart 2
     pie2 = new PieChart({
@@ -57,20 +53,20 @@ Page({
       datas: [0.1, 0.2, 0.3, 0.4],
       annularRate: 0,
       width: 350,
-      height: 200, 
+      height: 200,
       toolTip: {
         showTip(index) {
-          return ['吃饭', '睡觉', '打豆豆', '看书'][index]
-        }
-      }
+          return ['吃饭', '睡觉', '打豆豆', '看书'][index];
+        },
+      },
     });
 
     pie2.init();
 
     setTimeout(() => {
       pie2.update({
-        datas: [0.5, 0.2, 0.1, 0.2]
-      })
+        datas: [0.5, 0.2, 0.1, 0.2],
+      });
     }, 4000);
 
     // chart 3
@@ -80,21 +76,22 @@ Page({
       lineWidth: 4,
       width: 375,
       height: 200,
-      backgroundColor: '#000',	// 背景色
+      backgroundColor: '#000', // 背景色
       origin: {
         x: 100,
-        y: 100
+        y: 100,
       },
       datas: [0.5, 0.2, 0.2, 0.1],
-      onAnimation: rate => {    // 跟随动画绘制
+      onAnimation: rate => {
+        // 跟随动画绘制
         let ctx = pie3.ctx;
         ctx.fillStyle = '#fff';
         ctx.font = 'bold 22px consolas';
         ctx.textAlign = 'center';
         ctx.fillText('FundChart', 100, 90);
         ctx.fillText((rate * 100).toFixed(2) + '%', 100, 120);
-        ctx.draw(true)
-      }
+        ctx.draw(true);
+      },
     });
 
     pie3.init();
@@ -102,22 +99,22 @@ Page({
     // chart 4
     pie4 = new PieChart({
       id: 'chartpie4',
-      radius: 90,       // 半径
+      radius: 90, // 半径
       lineWidth: 2,
       width: 375,
       height: 200,
       annularRate: false,
-      widthRates: [0.5, 0.6, 0.7, 0.8, 1],     // 控制宽度
+      widthRates: [0.5, 0.6, 0.7, 0.8, 1], // 控制宽度
       datas: [0.05, 0.1, 0.25, 0.3, 0.3],
       toolTip: {
         valColor: '#000',
-        showTip (index) {
-          return ['A', 'B', 'C', 'D', 'E'][index]
+        showTip(index) {
+          return ['A', 'B', 'C', 'D', 'E'][index];
         },
-        showValTip (val) {
-          return val.toFixed(2) + '%'
-        }
-      }
+        showValTip(val) {
+          return val.toFixed(2) + '%';
+        },
+      },
     });
 
     pie4.init();
@@ -127,12 +124,11 @@ Page({
       id: 'chartpie5',
       annularRate: 0.9,
       colors: ['#f63'],
-      backgroundColor: '#000',	// 背景色
+      backgroundColor: '#000', // 背景色
       datas: [1],
       duration: 4000,
       width: 375,
       height: 200,
-      datas: [1],
       startAngle: -Math.PI,
       onAnimation: rate => {
         let ctx = pie5.ctx,
@@ -156,10 +152,10 @@ Page({
         ctx.textAlign = 'center';
         ctx.fillText('FundChart', _origin.x, 90);
         ctx.fillText((rate * 100).toFixed(2) + '%', _origin.x, 120);
-      }
+      },
     });
 
-    setTimeout(() => pie5.init(), 5000)
+    setTimeout(() => pie5.init(), 5000);
   },
   // pie 1 chart demo touch start
   chart1Touchstart: function (e) {
@@ -203,7 +199,7 @@ Page({
 
       if (index === false) return false;
 
-      PieLabelToolTip.call(pie2, index, [pie2.opts.datas[index]]);    // 绘制label
+      PieLabelToolTip.call(pie2, index, [pie2.opts.datas[index]]); // 绘制label
     }
   },
 
@@ -226,7 +222,7 @@ Page({
 
       if (index === false) return false;
 
-      PieLabelToolTip.call(pie4, index, [pie4.opts.datas[index]]);    // 绘制label
+      PieLabelToolTip.call(pie4, index, [pie4.opts.datas[index]]); // 绘制label
     }
   },
 });
